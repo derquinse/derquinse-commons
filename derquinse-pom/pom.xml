@@ -5,7 +5,7 @@
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Derquinse Parent POM</name>
-	<version>1-SNAPSHOT</version>
+	<version>1</version>
 	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
 	<licenses>
