@@ -5,8 +5,8 @@
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Derquinse Parent POM</name>
-	<version>0.0.1-SNAPSHOT</version>
-	<description>Parent POM file for derquinse projects.</description>
+	<version>1-SNAPSHOT</version>
+	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
 	<licenses>
 		<license>
@@ -30,12 +30,55 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>2.1.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.4.3</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-9</version>
+				<configuration>
+					<goals>deploy</goals>
+					<preparationGoals>clean verify</preparationGoals>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>derquinse-m2</id>
+			<name>Derquinse Maven 2 Repository</name>
+			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2</url>
+		</repository>
+		<repository>
+			<id>derquinse-m2-snapshots</id>
+			<name>Derquinse Maven 2 Snapshots Repository</name>
+			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2-snapshots/</url>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>derquinse-m2-dav</id>
+			<name>Derquinse Maven 2 Repository</name>
+			<url>dav:https://derquinse-m2.googlecode.com/svn/trunk/m2</url>
+		</repository>
+		<snapshotRepository>
+			<id>derquinse-m2-snapshots-dav</id>
+			<name>Derquinse Maven 2 Snapshots Repository</name>
+			<url>dav:https://derquinse-m2.googlecode.com/svn/trunk/m2-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
