@@ -75,5 +75,29 @@ public interface Property<E, T> extends Function<E, T> {
 	 * @return The requested predicate.
 	 */
 	Predicate<E> equalTo(E target);
+	
+	/**
+	 * Returns the property validity predicate.
+	 * @return The requested predicate.
+	 */
+	Predicate<T> getPredicate();
+	
+	/**
+	 * Checks whether the provided value is valid according to the property's validity predicate.
+	 * Equivalent to {@code getPredicate().apply(value)}
+	 * @param value The value to check.
+	 * @return True if the value is valid.
+	 */
+	boolean isValid(T value);
+	
+	/**
+	 * Checks whether the provided value is valid according to the property's validity predicate.
+	 * Equivalent to {@code Preconditions.checkArgument(isValid(value))}
+	 * @param value The value to check.
+	 * @return The provided value, which is valid.
+	 * @throws NullPointerException if the property required and the argument is {@code null}.
+	 * @throws IllegalArgumentException if the provided value is invalid.
+	 */
+	T check(T value);
 
 }

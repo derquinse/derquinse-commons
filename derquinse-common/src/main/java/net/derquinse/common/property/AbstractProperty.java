@@ -15,6 +15,7 @@
  */
 package net.derquinse.common.property;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Objects;
@@ -22,7 +23,9 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 /**
- * Abstract implementation for properties.
+ * Abstract implementation for properties. The validity predicates may assume
+ * the object to check is not {@code null} as nullity vs optionality checking is
+ * performed before using the predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
@@ -34,11 +37,43 @@ public abstract class AbstractProperty<E, T> implements Property<E, T> {
 	private final boolean optional;
 	/** Whether the property is immutable. */
 	private final boolean immutable;
+	/** Validity predicate. */
+	private final Predicate<T> predicate;
 
-	AbstractProperty(String name, boolean optional, boolean immutable) {
+	/**
+	 * Constructor.
+	 * @param name Property name.
+	 * @param optional Whether the property is optional.
+	 * @param immutable Whether the property is immutable.
+	 * @param predicate Validity predicate.
+	 */
+	AbstractProperty(String name, boolean optional, boolean immutable, Predicate<? super T> predicate) {
 		this.name = checkNotNull(name, "The property name must be provided.");
 		this.optional = optional;
 		this.immutable = immutable;
+		if (optional) {
+			if (predicate == null) {
+				this.predicate = Predicates.alwaysTrue();
+			} else {
+				this.predicate = Predicates.or(Predicates.isNull(), predicate);
+			}
+		} else {
+			if (predicate == null) {
+				this.predicate = Predicates.notNull();
+			} else {
+				this.predicate = Predicates.and(Predicates.notNull(), predicate);
+			}
+		}
+	}
+
+	/**
+	 * Constructor.
+	 * @param name Property name.
+	 * @param optional Whether the property is optional.
+	 * @param immutable Whether the property is immutable.
+	 */
+	AbstractProperty(String name, boolean optional, boolean immutable) {
+		this(name, optional, immutable, null);
 	}
 
 	/*
@@ -101,5 +136,36 @@ public abstract class AbstractProperty<E, T> implements Property<E, T> {
 			};
 		};
 	};
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.property.Property#getPredicate()
+	 */
+	@Override
+	public Predicate<T> getPredicate() {
+		return predicate;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.property.Property#isValid(java.lang.Object)
+	 */
+	@Override
+	public boolean isValid(T value) {
+		return predicate.apply(value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.property.Property#check(java.lang.Object)
+	 */
+	@Override
+	public T check(T value) {
+		if (!optional) {
+			checkNotNull(value, "The property %s is required", name);
+		}
+		checkArgument(predicate.apply(value), "Invalid value for property %s", name);
+		return value;
+	}
 
 }
