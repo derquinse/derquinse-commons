@@ -43,7 +43,7 @@ public abstract class StringProperty<E> extends AbstractProperty<E, String> {
 	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
 	 */
-	StringProperty(String name, boolean optional, boolean immutable) {
+	protected StringProperty(String name, boolean optional, boolean immutable) {
 		super(name, optional, immutable);
 	}
 }

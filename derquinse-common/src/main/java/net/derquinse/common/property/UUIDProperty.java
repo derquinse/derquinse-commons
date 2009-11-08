@@ -45,7 +45,7 @@ public abstract class UUIDProperty<E> extends AbstractProperty<E, UUID> {
 	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
 	 */
-	UUIDProperty(String name, boolean optional, boolean immutable) {
+	protected UUIDProperty(String name, boolean optional, boolean immutable) {
 		super(name, optional, immutable);
 	}
 }

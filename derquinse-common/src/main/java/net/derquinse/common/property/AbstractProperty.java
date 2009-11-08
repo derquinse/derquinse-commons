@@ -142,7 +142,7 @@ public abstract class AbstractProperty<E, T> implements Property<E, T> {
 	 * @see net.derquinse.common.property.Property#getPredicate()
 	 */
 	@Override
-	public Predicate<T> getPredicate() {
+	public final Predicate<T> getPredicate() {
 		return predicate;
 	}
 
@@ -151,7 +151,7 @@ public abstract class AbstractProperty<E, T> implements Property<E, T> {
 	 * @see net.derquinse.common.property.Property#isValid(java.lang.Object)
 	 */
 	@Override
-	public boolean isValid(T value) {
+	public final boolean isValid(T value) {
 		return predicate.apply(value);
 	}
 
@@ -160,7 +160,7 @@ public abstract class AbstractProperty<E, T> implements Property<E, T> {
 	 * @see net.derquinse.common.property.Property#check(java.lang.Object)
 	 */
 	@Override
-	public T check(T value) {
+	public final T check(T value) {
 		if (!optional) {
 			checkNotNull(value, "The property %s is required", name);
 		}
