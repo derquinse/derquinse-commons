@@ -46,4 +46,28 @@ public abstract class BooleanProperty<E> extends AbstractProperty<E, Boolean> {
 	protected BooleanProperty(String name, boolean immutable, boolean optional) {
 		super(name, immutable, optional);
 	}
+
+	/**
+	 * Returns a predicate member view of this property.
+	 * @param nullValue Value to use instead of {@code null}.
+	 * @return The requested predicate member.
+	 */
+	public final PredicateMember<E> asPredicate(final boolean nullValue) {
+		return new PredicateMember<E>(getName(), isImmutable()) {
+			public boolean apply(E from) {
+				final Boolean value = BooleanProperty.this.apply(from);
+				return value != null ? value.booleanValue() : nullValue;
+			};
+		};
+	}
+
+	/**
+	 * Returns a predicate member view of this property. In case the property
+	 * has a value of {@code null}, {@code false} is returned.
+	 * @return The requested predicate member.
+	 */
+	public final PredicateMember<E> asPredicate() {
+		return asPredicate(false);
+	}
+
 }

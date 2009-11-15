@@ -15,44 +15,40 @@
  */
 package net.derquinse.common.property;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.common.base.Predicate;
 
 /**
- * Abstract implementation for members.
+ * Predicate member implementation.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class AbstractMember<E> implements Member<E> {
-	/** Member name. */
-	private final String name;
-	/** Whether the member is immutable. */
-	private final boolean immutable;
-
+public abstract class PredicateMember<E> extends AbstractMember<E> implements Predicate<E> {
 	/**
 	 * Constructor.
 	 * @param name Member name.
 	 * @param immutable Whether the member is immutable.
 	 */
-	AbstractMember(String name, boolean immutable) {
-		this.name = checkNotNull(name, "The member name must be provided.");
-		this.immutable = immutable;
+	protected PredicateMember(String name, boolean immutable) {
+		super(name, immutable);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Member#getName()
+	/**
+	 * Applies this predicate to the given object.
+	 * @param from Enclosing object.
+	 * @return The property value.
+	 * @throws NullPointerException if the argument is {@code null}
 	 */
-	@Override
-	public final String getName() {
-		return name;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Member#isImmutable()
+	public abstract boolean apply(E from);
+	
+	/**
+	 * Returns a property view of this member.
+	 * @return A boolean property representing this member.
 	 */
-	@Override
-	public final boolean isImmutable() {
-		return immutable;
+	public final BooleanProperty<E> asBooleanProperty() {
+		return new BooleanProperty<E>(getName(), isImmutable(), false) {
+			public Boolean apply(E from) {
+				return PredicateMember.this.apply(from);
+			};
+		};
 	}
 }
