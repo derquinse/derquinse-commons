@@ -26,21 +26,6 @@ public final class Tuples {
 	}
 
 	/**
-	 * Extractor.
-	 * @param t Tuple.
-	 * @param i Index.
-	 * @return The requested element or {@code null} if the argument is {@code
-	 *         null}.
-	 */
-	@SuppressWarnings("unchecked")
-	private static <T> T e(Tuple t, int i) {
-		if (t == null) {
-			return null;
-		}
-		return (T) t.get(i);
-	}
-
-	/**
 	 * First element extractor.
 	 * @param t Tuple.
 	 * @return The first element or {@code null} if the argument is {@code null}
@@ -69,8 +54,8 @@ public final class Tuples {
 	/**
 	 * Third element extractor.
 	 * @param t Tuple.
-	 * @return The third element or {@code null} if the argument is {@code
-	 *         null}.
+	 * @return The third element or {@code null} if the argument is {@code null}
+	 *         .
 	 */
 	public static <T0, T1, T2> T2 get2(Tuple3<T0, T1, T2> t) {
 		if (t == null) {
@@ -246,22 +231,22 @@ public final class Tuples {
 
 	/**
 	 * Builds a 3-element tuple.
-	 * @param e1 First element.
-	 * @param t2_3 Elements 2-3.
+	 * @param e0 First element.
+	 * @param t1_2 Elements 1-2.
 	 * @return The requested tuple.
 	 */
-	public static <T1, T2, T3> Tuple3<T1, T2, T3> tuple3(T1 e1, Tuple2<T2, T3> t2_3) {
-		return tuple(e1, Tuples.<T2> e(t2_3, 0), Tuples.<T3> e(t2_3, 1));
+	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple(T0 e0, Tuple2<T1, T2> t1_2) {
+		return tuple(e0, get0(t1_2), get1(t1_2));
 	}
 
 	/**
 	 * Builds a 3-element tuple.
-	 * @param t1 First element.
-	 * @param t2_3 Elements 2-3.
+	 * @param t0 First element.
+	 * @param t1_2 Elements 1-2.
 	 * @return The requested tuple.
 	 */
-	public static <T1, T2, T3> Tuple3<T1, T2, T3> tuple3(Tuple1<T1> t1, Tuple2<T2, T3> t2_3) {
-		return tuple(get0(t1), t2_3);
+	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple3(Tuple1<T0> t0, Tuple2<T1, T2> t1_2) {
+		return tuple(get0(t0), t1_2);
 	}
 
 }
