@@ -18,15 +18,13 @@ package net.derquinse.common.property;
 import com.google.common.base.Predicate;
 
 /**
- * Abstract base implementation for iterable properties. The validity predicates
- * may assume the object to check is not {@code null} as nullity vs optionality
+ * Abstract implementation for boolean properties. The validity predicates may
+ * assume the object to check is not {@code null} as nullity vs optionality
  * checking is performed before using the predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
- * @param <T> Property type.
- * @param <V> Value type.
  */
-public abstract class IterableProperty<E, V> extends AbstractIterableBaseProperty<E, Iterable<V>, V> {
+public abstract class BooleanProperty<E> extends AbstractProperty<E, Boolean> {
 
 	/**
 	 * Constructor.
@@ -35,8 +33,7 @@ public abstract class IterableProperty<E, V> extends AbstractIterableBasePropert
 	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	protected IterableProperty(String name, boolean immutable, boolean optional,
-			Predicate<? super Iterable<V>> predicate) {
+	protected BooleanProperty(String name, boolean immutable, boolean optional, Predicate<? super Boolean> predicate) {
 		super(name, immutable, optional, predicate);
 	}
 
@@ -46,7 +43,7 @@ public abstract class IterableProperty<E, V> extends AbstractIterableBasePropert
 	 * @param immutable Whether the property is immutable.
 	 * @param optional Whether the property is optional.
 	 */
-	protected IterableProperty(String name, boolean immutable, boolean optional) {
+	protected BooleanProperty(String name, boolean immutable, boolean optional) {
 		super(name, immutable, optional);
 	}
 }

@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public interface Property<E, T> extends Function<E, T> {
+public interface Property<E, T> extends Member<E>, Function<E, T> {
 	/**
 	 * Returns the property value.
 	 * @param from Enclosing object.
@@ -34,22 +34,10 @@ public interface Property<E, T> extends Function<E, T> {
 	T apply(E from);
 
 	/**
-	 * Returns the property name.
-	 * @return The property name.
-	 */
-	String getName();
-
-	/**
 	 * Returns whether the property is optional.
 	 * @return True if the property is optional.
 	 */
 	boolean isOptional();
-
-	/**
-	 * Returns whether the property is immutable.
-	 * @return True if the property is immutable.
-	 */
-	boolean isImmutable();
 
 	/**
 	 * Returns a predicate that evaluates to true if the property of the object

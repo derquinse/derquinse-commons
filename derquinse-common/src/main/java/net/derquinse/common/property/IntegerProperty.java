@@ -29,21 +29,21 @@ public abstract class IntegerProperty<E> extends AbstractProperty<E, Integer> {
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	protected IntegerProperty(String name, boolean optional, boolean immutable, Predicate<? super Integer> predicate) {
-		super(name, optional, immutable, predicate);
+	protected IntegerProperty(String name, boolean immutable, boolean optional, Predicate<? super Integer> predicate) {
+		super(name, immutable, optional, predicate);
 	}
 
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 */
-	protected IntegerProperty(String name, boolean optional, boolean immutable) {
-		super(name, optional, immutable);
+	protected IntegerProperty(String name, boolean immutable, boolean optional) {
+		super(name, immutable, optional);
 	}
 }

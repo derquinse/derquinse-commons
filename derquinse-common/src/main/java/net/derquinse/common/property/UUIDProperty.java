@@ -31,21 +31,21 @@ public abstract class UUIDProperty<E> extends AbstractProperty<E, UUID> {
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	protected UUIDProperty(String name, boolean optional, boolean immutable, Predicate<? super UUID> predicate) {
-		super(name, optional, immutable, predicate);
+	protected UUIDProperty(String name, boolean immutable, boolean optional, Predicate<? super UUID> predicate) {
+		super(name, immutable, optional, predicate);
 	}
 
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 */
-	protected UUIDProperty(String name, boolean optional, boolean immutable) {
-		super(name, optional, immutable);
+	protected UUIDProperty(String name, boolean immutable, boolean optional) {
+		super(name, immutable, optional);
 	}
 }

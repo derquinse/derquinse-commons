@@ -29,21 +29,21 @@ public abstract class StringProperty<E> extends AbstractProperty<E, String> {
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	protected StringProperty(String name, boolean optional, boolean immutable, Predicate<? super String> predicate) {
-		super(name, optional, immutable, predicate);
+	protected StringProperty(String name, boolean immutable, boolean optional, Predicate<? super String> predicate) {
+		super(name, immutable, optional, predicate);
 	}
 
 	/**
 	 * Constructor.
 	 * @param name Property name.
-	 * @param optional Whether the property is optional.
 	 * @param immutable Whether the property is immutable.
+	 * @param optional Whether the property is optional.
 	 */
-	protected StringProperty(String name, boolean optional, boolean immutable) {
-		super(name, optional, immutable);
+	protected StringProperty(String name, boolean immutable, boolean optional) {
+		super(name, immutable, optional);
 	}
 }
