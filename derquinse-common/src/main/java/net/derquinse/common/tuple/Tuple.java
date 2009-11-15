@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2009 the original author or authors.
+ * Copyright 2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,17 @@ public abstract class Tuple implements Iterable<Object> {
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 * @throws ClassCastException if the provided member is of an invalid type.
 	 */
-	public abstract Tuple set(int index);
+	public abstract Tuple set(int index, Object value);
 
+	/**
+	 * Creates a new tuple with the same members as this except the one
+	 * with the provided index, which is removed.
+	 * @param index The member to remove index.
+	 * @return The new tuple.
+	 * @throws IndexOutOfBoundsException if the index is out of range.
+	 */
+	public abstract Tuple curry(int index);
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
@@ -56,6 +65,17 @@ public abstract class Tuple implements Iterable<Object> {
 	@Override
 	public Iterator<Object> iterator() {
 		return new TupleIterator(this);
+	}
+
+	/**
+	 * Checks an index.
+	 * @param index Index to check.
+	 * @throws IndexOutOfBoundsException if index < 0 or index => arity.
+	 */
+	final void checkIndex(int index) {
+		if (index < 0 || index >= arity()) {
+			throw new IndexOutOfBoundsException(String.format("Requested element %d but arity is %d", index, arity()));
+		}
 	}
 
 }
