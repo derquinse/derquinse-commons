@@ -15,19 +15,20 @@
  */
 package net.derquinse.common.tuple;
 
+import java.util.Iterator;
+
 /**
- * Base interface for tuples. For tuples to obey {@code equals} and {@code
- * hashCode} contracts, it is strongly recommended to use only immutable objects
- * as tuple members. Moreover, implementation are free to pre-compute and cache
- * the tuple's hash code at construction time.
+ * Base class for tuples. For tuples to obey {@code equals} and {@code hashCode}
+ * contracts, it is strongly recommended to use only immutable objects as tuple
+ * members.
  * @author Andres Rodriguez
  */
-public interface Tuple extends Iterable<Object> {
+public abstract class Tuple implements Iterable<Object> {
 	/**
 	 * Returns the tuple's arity.
 	 * @return The tuple's arity (>0).
 	 */
-	int arity();
+	public abstract int arity();
 
 	/**
 	 * Returns the element at position index (0 <= index < arity).
@@ -35,16 +36,26 @@ public interface Tuple extends Iterable<Object> {
 	 * @return The requested element.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
-	Object get(int index);
+	public abstract Object get(int index);
 
 	/**
-	 * Creates a new tuple with the same members as this except the one provided.
+	 * Creates a new tuple with the same members as this except the one
+	 * provided.
 	 * @param index The member to replace index.
 	 * @param value Value of the member to replace.
 	 * @return The new tuple.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 * @throws ClassCastException if the provided member is of an invalid type.
 	 */
-	Tuple set(int index);
+	public abstract Tuple set(int index);
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
+	@Override
+	public Iterator<Object> iterator() {
+		return new TupleIterator(this);
+	}
 
 }
