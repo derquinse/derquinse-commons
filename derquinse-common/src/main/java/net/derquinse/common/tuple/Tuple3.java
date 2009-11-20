@@ -41,8 +41,7 @@ public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
 	}
 
 	/**
-	 * Creates a new tuple with the same members as this except the one
-	 * provided.
+	 * Creates a new tuple with the same members as this except the one provided.
 	 * @param index The member to replace index.
 	 * @param value Value of the member to replace.
 	 * @return The new tuple.
@@ -73,8 +72,8 @@ public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
 	public abstract Tuple3<T0, T1, T2> set2(T2 value);
 
 	/**
-	 * Creates a new tuple with the same members as this except the one with the
-	 * provided index, which is removed.
+	 * Creates a new tuple with the same members as this except the one with the provided index, which
+	 * is removed.
 	 * @param index The member to remove index.
 	 * @return The new tuple.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
@@ -82,22 +81,19 @@ public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
 	public abstract Tuple2<?, ?> curry(int index);
 
 	/**
-	 * Creates a new tuple with the same members as this except the first one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple2<T1, T2> curry0();
 
 	/**
-	 * Creates a new tuple with the same members as this except the second one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the second one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple2<T0, T2> curry1();
 
 	/**
-	 * Creates a new tuple with the same members as this except the third one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the third one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple2<T0, T1> curry2();

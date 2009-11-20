@@ -77,8 +77,7 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 	}
 
 	/**
-	 * Creates a new tuple with the same members as this except the one
-	 * provided.
+	 * Creates a new tuple with the same members as this except the one provided.
 	 * @param index The member to replace index.
 	 * @param value Value of the member to replace.
 	 * @return The new tuple.
@@ -102,8 +101,8 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 	public abstract Tuple2<T0, T1> set1(T1 value);
 
 	/**
-	 * Creates a new tuple with the same members as this except the one with the
-	 * provided index, which is removed.
+	 * Creates a new tuple with the same members as this except the one with the provided index, which
+	 * is removed.
 	 * @param index The member to remove index.
 	 * @return The new tuple.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
@@ -111,15 +110,13 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 	public abstract Tuple1<?> curry(int index);
 
 	/**
-	 * Creates a new tuple with the same members as this except the first one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple1<T1> curry0();
 
 	/**
-	 * Creates a new tuple with the same members as this except the second one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the second one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple1<T0> curry1();
@@ -140,7 +137,7 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();

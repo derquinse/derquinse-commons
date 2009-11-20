@@ -33,7 +33,8 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 		super(e0, e1);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#curry(int)
 	 */
 	@Override
@@ -42,7 +43,8 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 		return index == 0 ? curry0() : curry1();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#curry0()
 	 */
 	@Override
@@ -50,7 +52,8 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 		return tuple(get1());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#curry1()
 	 */
 	@Override
@@ -58,17 +61,19 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 		return tuple(get0());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#set(int, java.lang.Object)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Tuple2<T0, T1> set(int index, Object value) {
 		checkIndex(index);
-		return index == 0 ? set0((T0)value) : set1((T1)value);
+		return index == 0 ? set0((T0) value) : set1((T1) value);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#set0(java.lang.Object)
 	 */
 	@Override
@@ -76,13 +81,13 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 		return tuple(value, get1());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Tuple2#set1(java.lang.Object)
 	 */
 	@Override
 	public Tuple2<T0, T1> set1(T1 value) {
 		return tuple(get0(), value);
 	}
-	
-	
+
 }

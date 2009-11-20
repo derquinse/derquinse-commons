@@ -32,8 +32,7 @@ public abstract class Tuple1<T0> extends Tuple {
 	public abstract T0 get0();
 
 	/**
-	 * Creates a new tuple with the same members as this except the one
-	 * provided.
+	 * Creates a new tuple with the same members as this except the one provided.
 	 * @param index The member to replace index.
 	 * @param value Value of the member to replace.
 	 * @return The new tuple.
@@ -50,8 +49,7 @@ public abstract class Tuple1<T0> extends Tuple {
 	public abstract Tuple1<T0> set0(T0 value);
 
 	/**
-	 * Creates a new tuple with the same members as this except the first one,
-	 * which is removed.
+	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
 	public abstract Tuple curry0();

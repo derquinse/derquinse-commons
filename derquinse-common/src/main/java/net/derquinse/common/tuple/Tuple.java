@@ -18,9 +18,8 @@ package net.derquinse.common.tuple;
 import java.util.Iterator;
 
 /**
- * Base class for tuples. For tuples to obey {@code equals} and {@code hashCode}
- * contracts, it is strongly recommended to use only immutable objects as tuple
- * members.
+ * Base class for tuples. For tuples to obey {@code equals} and {@code hashCode} contracts, it is
+ * strongly recommended to use only immutable objects as tuple members.
  * @author Andres Rodriguez
  */
 public abstract class Tuple implements Iterable<Object> {
@@ -39,8 +38,7 @@ public abstract class Tuple implements Iterable<Object> {
 	public abstract Object get(int index);
 
 	/**
-	 * Creates a new tuple with the same members as this except the one
-	 * provided.
+	 * Creates a new tuple with the same members as this except the one provided.
 	 * @param index The member to replace index.
 	 * @param value Value of the member to replace.
 	 * @return The new tuple.
@@ -50,14 +48,14 @@ public abstract class Tuple implements Iterable<Object> {
 	public abstract Tuple set(int index, Object value);
 
 	/**
-	 * Creates a new tuple with the same members as this except the one
-	 * with the provided index, which is removed.
+	 * Creates a new tuple with the same members as this except the one with the provided index, which
+	 * is removed.
 	 * @param index The member to remove index.
 	 * @return The new tuple.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
 	public abstract Tuple curry(int index);
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
