@@ -65,7 +65,8 @@ public final class Tuples {
 
 	/**
 	 * First element getter.
-	 * @return A function returning the first element or {@code null} if the argument is {@code null} .
+	 * @return A function returning the first element or {@code null} if the argument is {@code null}
+	 *         .
 	 */
 	public static <T0> Function<Tuple1<T0>, T0> getter0() {
 		return new Function<Tuple1<T0>, T0>() {
@@ -83,7 +84,8 @@ public final class Tuples {
 
 	/**
 	 * Second element getter.
-	 * @return A function returning the second element or {@code null} if the argument is {@code null} .
+	 * @return A function returning the second element or {@code null} if the argument is {@code null}
+	 *         .
 	 */
 	public static <T0, T1> Function<Tuple2<T0, T1>, T1> getter1() {
 		return new Function<Tuple2<T0, T1>, T1>() {
@@ -101,7 +103,8 @@ public final class Tuples {
 
 	/**
 	 * Third element getter.
-	 * @return A function returning the third element or {@code null} if the argument is {@code null} .
+	 * @return A function returning the third element or {@code null} if the argument is {@code null}
+	 *         .
 	 */
 	public static <T0, T1, T2> Function<Tuple3<T0, T1, T2>, T2> getter2() {
 		return new Function<Tuple3<T0, T1, T2>, T2>() {
@@ -116,7 +119,7 @@ public final class Tuples {
 			}
 		};
 	}
-	
+
 	/**
 	 * Returns the empty tuple.
 	 * @return The empty tuple.
@@ -278,7 +281,7 @@ public final class Tuples {
 	 * @param t2 Third element.
 	 * @return The requested tuple.
 	 */
-	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple3(Tuple2<T0, T1> t0_1, Tuple1<T2> t2) {
+	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple(Tuple2<T0, T1> t0_1, Tuple1<T2> t2) {
 		return tuple(t0_1, get0(t2));
 	}
 
@@ -298,8 +301,146 @@ public final class Tuples {
 	 * @param t1_2 Elements 1-2.
 	 * @return The requested tuple.
 	 */
-	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple3(Tuple1<T0> t0, Tuple2<T1, T2> t1_2) {
+	public static <T0, T1, T2> Tuple3<T0, T1, T2> tuple(Tuple1<T0> t0, Tuple2<T1, T2> t1_2) {
 		return tuple(get0(t0), t1_2);
+	}
+
+	/**
+	 * Returns a function transforming the first element of a 1-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T> Function<Tuple1<T0>, Tuple1<T>> transformer1_0(final Function<T0, T> f) {
+		return new Function<Tuple1<T0>, Tuple1<T>>() {
+			@Override
+			public Tuple1<T> apply(Tuple1<T0> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(f.apply(from.get0()));
+			}
+
+			@Override
+			public String toString() {
+				return "transformer1_0";
+			}
+		};
+	}
+
+	/**
+	 * Returns a function transforming the first element of a 2-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T1, T> Function<Tuple2<T0, T1>, Tuple2<T, T1>> transformer2_0(final Function<T0, T> f) {
+		return new Function<Tuple2<T0, T1>, Tuple2<T, T1>>() {
+			@Override
+			public Tuple2<T, T1> apply(Tuple2<T0, T1> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(f.apply(from.get0()), from.get1());
+			}
+
+			@Override
+			public String toString() {
+				return "transformer2_0";
+			}
+		};
+	}
+
+	/**
+	 * Returns a function transforming the first element of a 3-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T, T1, T2>> transformer3_0(final Function<T0, T> f) {
+		return new Function<Tuple3<T0, T1, T2>, Tuple3<T, T1, T2>>() {
+			@Override
+			public Tuple3<T, T1, T2> apply(Tuple3<T0, T1, T2> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(f.apply(from.get0()), from.get1(), from.get2());
+			}
+
+			@Override
+			public String toString() {
+				return "transformer3_0";
+			}
+		};
+	}
+
+	/**
+	 * Returns a function transforming the second element of a 2-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T1, T> Function<Tuple2<T0, T1>, Tuple2<T0, T>> transformer2_1(final Function<T1, T> f) {
+		return new Function<Tuple2<T0, T1>, Tuple2<T0, T>>() {
+			@Override
+			public Tuple2<T0, T> apply(Tuple2<T0, T1> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(from.get0(), f.apply(from.get1()));
+			}
+
+			@Override
+			public String toString() {
+				return "transformer2_1";
+			}
+		};
+	}
+
+	/**
+	 * Returns a function transforming the second element of a 3-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T0, T, T2>> transformer3_1(final Function<T1, T> f) {
+		return new Function<Tuple3<T0, T1, T2>, Tuple3<T0, T, T2>>() {
+			@Override
+			public Tuple3<T0, T, T2> apply(Tuple3<T0, T1, T2> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(from.get0(), f.apply(from.get1()), from.get2());
+			}
+
+			@Override
+			public String toString() {
+				return "transformer3_1";
+			}
+		};
+	}
+
+	/**
+	 * Returns a function transforming the third element of a 3-element tuple. The returned function
+	 * returns {@code null} for {@code null} inputs.
+	 * @param f Element transformation function.
+	 * @return The requested function.
+	 */
+	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T0, T1, T>> transformer3_2(final Function<T2, T> f) {
+		return new Function<Tuple3<T0, T1, T2>, Tuple3<T0, T1, T>>() {
+			@Override
+			public Tuple3<T0, T1, T> apply(Tuple3<T0, T1, T2> from) {
+				if (from == null) {
+					return null;
+				}
+				return tuple(from.get0(), from.get1(), f.apply(from.get2()));
+			}
+
+			@Override
+			public String toString() {
+				return "transformer3_2";
+			}
+		};
 	}
 
 }
