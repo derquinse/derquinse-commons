@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#isOptional()
 	 */
-	@Override
 	public final boolean isOptional() {
 		return optional;
 	}
@@ -84,7 +83,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#isNull()
 	 */
-	@Override
 	public final Predicate<E> isNull() {
 		return Predicates.compose(Predicates.isNull(), this);
 	}
@@ -93,7 +91,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#notNull()
 	 */
-	@Override
 	public final Predicate<E> notNull() {
 		return Predicates.compose(Predicates.notNull(), this);
 	}
@@ -102,7 +99,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#equalTo(java.lang.Object)
 	 */
-	@Override
 	public final Predicate<E> equalTo(final E target) {
 		if (target == null) {
 			return Predicates.isNull();
@@ -118,7 +114,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#getPredicate()
 	 */
-	@Override
 	public final Predicate<T> getPredicate() {
 		return predicate;
 	}
@@ -127,7 +122,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#isValid(java.lang.Object)
 	 */
-	@Override
 	public final boolean isValid(T value) {
 		return predicate.apply(value);
 	}
@@ -136,7 +130,6 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.property.Property#check(java.lang.Object)
 	 */
-	@Override
 	public final T check(T value) {
 		if (!optional) {
 			checkNotNull(value, "The property %s is required", getName());

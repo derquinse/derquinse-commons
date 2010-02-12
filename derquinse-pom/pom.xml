@@ -5,7 +5,7 @@
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Derquinse Parent POM</name>
-	<version>2</version>
+	<version>3</version>
 	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
 	<licenses>
@@ -22,8 +22,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.5</source>
+					<target>1.5</target>
 				</configuration>
 			</plugin>
 			<plugin>

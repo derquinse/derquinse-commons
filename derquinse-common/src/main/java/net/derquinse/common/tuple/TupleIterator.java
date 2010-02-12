@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ final class TupleIterator implements Iterator<Object> {
 	 * (non-Javadoc)
 	 * @see java.util.Iterator#hasNext()
 	 */
-	@Override
 	public boolean hasNext() {
 		return index < tuple.arity();
 	}
@@ -47,7 +46,6 @@ final class TupleIterator implements Iterator<Object> {
 	 * (non-Javadoc)
 	 * @see java.util.Iterator#next()
 	 */
-	@Override
 	public Object next() {
 		if (index < tuple.arity()) {
 			Object o = tuple.get(index);
@@ -57,7 +55,6 @@ final class TupleIterator implements Iterator<Object> {
 		throw new NoSuchElementException();
 	}
 
-	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}

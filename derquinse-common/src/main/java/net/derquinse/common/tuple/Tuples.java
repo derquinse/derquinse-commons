@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,6 @@ public final class Tuples {
 	 */
 	public static <T0> Function<Tuple1<T0>, T0> getter0() {
 		return new Function<Tuple1<T0>, T0>() {
-			@Override
 			public T0 apply(Tuple1<T0> from) {
 				return get0(from);
 			}
@@ -89,7 +88,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1> Function<Tuple2<T0, T1>, T1> getter1() {
 		return new Function<Tuple2<T0, T1>, T1>() {
-			@Override
 			public T1 apply(Tuple2<T0, T1> from) {
 				return get1(from);
 			}
@@ -108,7 +106,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T2> Function<Tuple3<T0, T1, T2>, T2> getter2() {
 		return new Function<Tuple3<T0, T1, T2>, T2>() {
-			@Override
 			public T2 apply(Tuple3<T0, T1, T2> from) {
 				return get2(from);
 			}
@@ -313,7 +310,6 @@ public final class Tuples {
 	 */
 	public static <T0, T> Function<Tuple1<T0>, Tuple1<T>> transformer1_0(final Function<T0, T> f) {
 		return new Function<Tuple1<T0>, Tuple1<T>>() {
-			@Override
 			public Tuple1<T> apply(Tuple1<T0> from) {
 				if (from == null) {
 					return null;
@@ -336,7 +332,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T> Function<Tuple2<T0, T1>, Tuple2<T, T1>> transformer2_0(final Function<T0, T> f) {
 		return new Function<Tuple2<T0, T1>, Tuple2<T, T1>>() {
-			@Override
 			public Tuple2<T, T1> apply(Tuple2<T0, T1> from) {
 				if (from == null) {
 					return null;
@@ -359,7 +354,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T, T1, T2>> transformer3_0(final Function<T0, T> f) {
 		return new Function<Tuple3<T0, T1, T2>, Tuple3<T, T1, T2>>() {
-			@Override
 			public Tuple3<T, T1, T2> apply(Tuple3<T0, T1, T2> from) {
 				if (from == null) {
 					return null;
@@ -382,7 +376,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T> Function<Tuple2<T0, T1>, Tuple2<T0, T>> transformer2_1(final Function<T1, T> f) {
 		return new Function<Tuple2<T0, T1>, Tuple2<T0, T>>() {
-			@Override
 			public Tuple2<T0, T> apply(Tuple2<T0, T1> from) {
 				if (from == null) {
 					return null;
@@ -405,7 +398,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T0, T, T2>> transformer3_1(final Function<T1, T> f) {
 		return new Function<Tuple3<T0, T1, T2>, Tuple3<T0, T, T2>>() {
-			@Override
 			public Tuple3<T0, T, T2> apply(Tuple3<T0, T1, T2> from) {
 				if (from == null) {
 					return null;
@@ -428,7 +420,6 @@ public final class Tuples {
 	 */
 	public static <T0, T1, T2, T> Function<Tuple3<T0, T1, T2>, Tuple3<T0, T1, T>> transformer3_2(final Function<T2, T> f) {
 		return new Function<Tuple3<T0, T1, T2>, Tuple3<T0, T1, T>>() {
-			@Override
 			public Tuple3<T0, T1, T> apply(Tuple3<T0, T1, T2> from) {
 				if (from == null) {
 					return null;
