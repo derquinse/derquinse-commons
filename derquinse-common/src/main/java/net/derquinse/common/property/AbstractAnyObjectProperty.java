@@ -30,7 +30,7 @@ import com.google.common.base.Predicates;
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public abstract class AbstractProperty<E, T> extends AbstractMember<E> implements ObjectProperty<E, T> {
+public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> implements AnyObjectProperty<E, T> {
 	/** Whether the property is optional. */
 	private final boolean optional;
 	/** Validity predicate. */
@@ -43,7 +43,7 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	AbstractProperty(String name, boolean immutable, boolean optional, Predicate<? super T> predicate) {
+	AbstractAnyObjectProperty(String name, boolean immutable, boolean optional, Predicate<? super T> predicate) {
 		super(name, immutable);
 		this.optional = optional;
 		if (optional) {
@@ -67,7 +67,7 @@ public abstract class AbstractProperty<E, T> extends AbstractMember<E> implement
 	 * @param immutable Whether the property is immutable.
 	 * @param optional Whether the property is optional.
 	 */
-	AbstractProperty(String name, boolean immutable, boolean optional) {
+	AbstractAnyObjectProperty(String name, boolean immutable, boolean optional) {
 		this(name, optional, immutable, null);
 	}
 

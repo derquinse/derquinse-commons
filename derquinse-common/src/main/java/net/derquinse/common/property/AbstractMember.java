@@ -22,7 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class AbstractMember<E> implements Member<E> {
+public abstract class AbstractMember<E> extends AbstractDescriptor<E> implements Member<E> {
 	/** Member name. */
 	private final String name;
 	/** Whether the member is immutable. */

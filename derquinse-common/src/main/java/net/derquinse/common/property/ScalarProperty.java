@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public interface ObjectProperty<E, T> extends Member<E>, Function<E, T> {
+public interface ScalarProperty<E, T> extends Member<E>, Function<E, T> {
 	/**
 	 * Returns the property value.
 	 * @param from Enclosing object.

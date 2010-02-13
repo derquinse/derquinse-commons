@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class IntegerProperty<E> extends AbstractProperty<E, Integer> {
+public abstract class IntegerProperty<E> extends AbstractAnyObjectProperty<E, Integer> {
 
 	/**
 	 * Constructor.

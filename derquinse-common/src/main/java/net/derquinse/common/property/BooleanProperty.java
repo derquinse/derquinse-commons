@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class BooleanProperty<E> extends AbstractProperty<E, Boolean> {
+public abstract class BooleanProperty<E> extends AbstractAnyObjectProperty<E, Boolean> {
 
 	/**
 	 * Constructor.

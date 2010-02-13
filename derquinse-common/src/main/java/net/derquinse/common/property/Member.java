@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,10 @@ package net.derquinse.common.property;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public interface Member<E> {
+public interface Member<E> extends Descriptor<E> {
 	/**
 	 * Returns the member name.
 	 * @return The member name.
 	 */
 	String getName();
-
-	/**
-	 * Returns whether the member is immutable.
-	 * @return True if the member is immutable.
-	 */
-	boolean isImmutable();
-
 }
