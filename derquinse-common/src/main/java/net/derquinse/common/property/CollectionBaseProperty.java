@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,9 @@ import com.google.common.base.Predicate;
 public interface CollectionBaseProperty<E, T extends Collection<V>, V> extends IterableBaseProperty<E, T, V> {
 
 	/**
-	 * Returns a predicate that evaluates to true if the value being tested is
-	 * contained in the collection specified by the value of the current
-	 * property of the target object. If the target object is {@code null}, and
-	 * always false predicate is returned.
+	 * Returns a predicate that evaluates to true if the value being tested is contained in the
+	 * collection specified by the value of the current property of the target object. If the target
+	 * object is {@code null}, and always false predicate is returned.
 	 * @param target Target object.
 	 * @return The requested predicate.
 	 */

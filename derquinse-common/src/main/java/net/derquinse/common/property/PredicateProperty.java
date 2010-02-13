@@ -28,7 +28,7 @@ public abstract class PredicateProperty<E> extends AbstractProperty<E> implement
 	 * @param name Member name.
 	 * @param immutable Whether the member is immutable.
 	 */
-	public PredicateProperty(String name, boolean immutable) {
+	protected PredicateProperty(String name, boolean immutable) {
 		super(name, immutable);
 	}
 

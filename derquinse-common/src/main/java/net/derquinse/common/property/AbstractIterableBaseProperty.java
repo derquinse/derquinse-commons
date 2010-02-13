@@ -20,9 +20,9 @@ import java.util.Iterator;
 import com.google.common.base.Predicate;
 
 /**
- * Abstract base implementation for iterable properties. The validity predicates
- * may assume the object to check is not {@code null} as nullity vs optionality
- * checking is performed before using the predicate.
+ * Abstract base implementation for iterable properties. The validity predicates may assume the
+ * object to check is not {@code null} as nullity vs optionality checking is performed before using
+ * the predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
@@ -55,9 +55,7 @@ public abstract class AbstractIterableBaseProperty<E, T extends Iterable<V>, V> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * net.derquinse.common.property.IterableBaseProperty#iterator(java.lang
-	 * .Object)
+	 * @see net.derquinse.common.property.IterableBaseProperty#iterator(java.lang .Object)
 	 */
 	public final Iterator<V> iterator(E from) {
 		return apply(from).iterator();

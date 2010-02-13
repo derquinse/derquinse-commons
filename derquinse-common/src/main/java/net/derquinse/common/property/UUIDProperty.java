@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import java.util.UUID;
 import com.google.common.base.Predicate;
 
 /**
- * Abstract implementation for UUID properties. The validity predicates may
- * assume the object to check is not {@code null} as nullity vs optionality
- * checking is performed before using the predicate.
+ * Abstract implementation for UUID properties. The validity predicates may assume the object to
+ * check is not {@code null} as nullity vs optionality checking is performed before using the
+ * predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */

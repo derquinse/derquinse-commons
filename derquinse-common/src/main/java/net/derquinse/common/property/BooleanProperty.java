@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package net.derquinse.common.property;
 import com.google.common.base.Predicate;
 
 /**
- * Abstract implementation for boolean properties. The validity predicates may
- * assume the object to check is not {@code null} as nullity vs optionality
- * checking is performed before using the predicate.
+ * Abstract implementation for boolean properties. The validity predicates may assume the object to
+ * check is not {@code null} as nullity vs optionality checking is performed before using the
+ * predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
@@ -62,8 +62,8 @@ public abstract class BooleanProperty<E> extends AbstractAnyObjectProperty<E, Bo
 	}
 
 	/**
-	 * Returns a predicate member view of this property. In case the property
-	 * has a value of {@code null}, {@code false} is returned.
+	 * Returns a predicate member view of this property. In case the property has a value of {@code
+	 * null}, {@code false} is returned.
 	 * @return The requested predicate member.
 	 */
 	public final PredicateProperty<E> asPredicate() {
