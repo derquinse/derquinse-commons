@@ -16,12 +16,12 @@
 package net.derquinse.common.property;
 
 /**
- * Abstract implementation for properties.
+ * Abstract implementation for property members.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class AbstractProperty<E> extends AbstractMember<E> implements Property<E> {
-	/** Whether the member is immutable. */
+public abstract class AbstractPropertyMember<E> extends AbstractMember<E> implements PropertyMember<E> {
+	/** Whether the property is immutable. */
 	private final boolean immutable;
 
 	/**
@@ -29,7 +29,7 @@ public abstract class AbstractProperty<E> extends AbstractMember<E> implements P
 	 * @param name Property name.
 	 * @param immutable Whether the property is immutable.
 	 */
-	AbstractProperty(String name, boolean immutable) {
+	AbstractPropertyMember(String name, boolean immutable) {
 		super(name);
 		this.immutable = immutable;
 	}

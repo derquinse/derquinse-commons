@@ -16,11 +16,11 @@
 package net.derquinse.common.property;
 
 /**
- * Property declaration interface.
+ * Property members declaration interface.
  * @author Andres Rodriguez
  * @param <T> Property type.
  */
-public interface Property<E> {
+public interface PropertyMember<E> {
 	/**
 	 * Returns whether the property is immutable.
 	 * @return True if the property is immutable.

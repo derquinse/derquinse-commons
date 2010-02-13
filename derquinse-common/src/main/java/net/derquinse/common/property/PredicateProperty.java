@@ -22,7 +22,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class PredicateProperty<E> extends AbstractProperty<E> implements Predicate<E> {
+public abstract class PredicateProperty<E> extends AbstractPropertyMember<E> implements Predicate<E> {
 	/**
 	 * Constructor.
 	 * @param name Member name.
