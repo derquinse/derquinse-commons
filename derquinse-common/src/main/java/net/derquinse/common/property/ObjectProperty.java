@@ -26,14 +26,13 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 /**
- * Abstract implementation for reference type properties. The validity predicates may assume the
- * object to check is not {@code null} as nullity vs optionality checking is performed before using
- * the predicate.
+ * Abstract implementation for properties. The validity predicates may assume the object to check is
+ * not {@code null} as nullity vs optionality checking is performed before using the predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public abstract class AbstractAnyObjectProperty<E, T> extends AbstractPropertyMember<E> implements AnyObjectProperty<E, T> {
+public abstract class ObjectProperty<E, T> extends AbstractPropertyMember<E> implements Property<E, T> {
 	/** Whether the property is optional. */
 	private final boolean optional;
 	/** Validity predicate. */
@@ -46,7 +45,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractPropertyMe
 	 * @param optional Whether the property is optional.
 	 * @param predicate Validity predicate.
 	 */
-	AbstractAnyObjectProperty(String name, boolean immutable, boolean optional, Predicate<? super T> predicate) {
+	ObjectProperty(String name, boolean immutable, boolean optional, Predicate<? super T> predicate) {
 		super(name, immutable);
 		this.optional = optional;
 		if (optional) {
@@ -70,7 +69,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractPropertyMe
 	 * @param immutable Whether the property is immutable.
 	 * @param optional Whether the property is optional.
 	 */
-	AbstractAnyObjectProperty(String name, boolean immutable, boolean optional) {
+	ObjectProperty(String name, boolean immutable, boolean optional) {
 		this(name, optional, immutable, null);
 	}
 

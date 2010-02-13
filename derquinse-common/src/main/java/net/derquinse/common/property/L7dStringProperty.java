@@ -26,7 +26,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class L7dStringProperty<E> extends AbstractAnyObjectProperty<E, Localized<String>> {
+public abstract class L7dStringProperty<E> extends ObjectProperty<E, Localized<String>> {
 
 	/**
 	 * Constructor.

@@ -19,12 +19,12 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 /**
- * Reference type property declaration interface.
+ * Property declaration interface.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public interface AnyObjectProperty<E, T> extends PropertyMember<E>, Function<E, T> {
+public interface Property<E, T> extends PropertyMember<E>, Function<E, T> {
 	/**
 	 * Returns the property value.
 	 * @param from Enclosing object.

@@ -28,7 +28,7 @@ import com.google.common.base.Predicate;
  * @param <T> Property type.
  * @param <V> Value type.
  */
-public abstract class AbstractIterableBaseProperty<E, T extends Iterable<V>, V> extends AbstractAnyObjectProperty<E, T>
+public abstract class AbstractIterableBaseProperty<E, T extends Iterable<V>, V> extends ObjectProperty<E, T>
 		implements IterableBaseProperty<E, T, V> {
 
 	/**

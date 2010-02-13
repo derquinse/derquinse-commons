@@ -26,7 +26,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class UUIDProperty<E> extends AbstractAnyObjectProperty<E, UUID> {
+public abstract class UUIDProperty<E> extends ObjectProperty<E, UUID> {
 
 	/**
 	 * Constructor.
