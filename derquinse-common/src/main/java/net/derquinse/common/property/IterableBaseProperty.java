@@ -24,7 +24,7 @@ import java.util.Iterator;
  * @param <T> Property type.
  * @param <V> Value type.
  */
-public interface IterableBaseProperty<E, T extends Iterable<V>, V> extends Property<E, T> {
+public interface IterableBaseProperty<E, T extends Iterable<V>, V> extends ObjectProperty<E, T> {
 	/**
 	 * Returns an iterator for the property value.
 	 * @param from Enclosing object.

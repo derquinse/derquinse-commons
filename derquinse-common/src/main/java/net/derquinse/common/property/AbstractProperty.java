@@ -30,7 +30,7 @@ import com.google.common.base.Predicates;
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public abstract class AbstractProperty<E, T> extends AbstractMember<E> implements Property<E, T> {
+public abstract class AbstractProperty<E, T> extends AbstractMember<E> implements ObjectProperty<E, T> {
 	/** Whether the property is optional. */
 	private final boolean optional;
 	/** Validity predicate. */
