@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2008-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 /**
- * Property declaration interface.
+ * Reference type property declaration interface.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public interface AnyObjectProperty<E, T> extends Member<E>, Function<E, T> {
+public interface AnyObjectProperty<E, T> extends Property<E>, Function<E, T> {
 	/**
 	 * Returns the property value.
 	 * @param from Enclosing object.
@@ -40,36 +40,36 @@ public interface AnyObjectProperty<E, T> extends Member<E>, Function<E, T> {
 	boolean isOptional();
 
 	/**
-	 * Returns a predicate that evaluates to true if the property of the object
-	 * reference being tested is {@code null}. If the object reference is
-	 * {@code null} the predicate will throw {@code NullPointerException}.
+	 * Returns a predicate that evaluates to true if the property of the object reference being tested
+	 * is {@code null}. If the object reference is {@code null} the predicate will throw {@code
+	 * NullPointerException}.
 	 * @return The requested predicate.
 	 */
 	Predicate<E> isNull();
 
 	/**
-	 * Returns a predicate that evaluates to true if the property of the object
-	 * reference being tested is not {@code null}. If the object reference is
-	 * {@code null} the predicate will throw {@code NullPointerException}.
+	 * Returns a predicate that evaluates to true if the property of the object reference being tested
+	 * is not {@code null}. If the object reference is {@code null} the predicate will throw {@code
+	 * NullPointerException}.
 	 * @return The requested predicate.
 	 */
 	Predicate<E> notNull();
 
 	/**
-	 * Returns a predicate that evaluates to true if the object being tested and
-	 * the target object are {@code null}, if the property value of the object
-	 * {@code equals()} the given target's or both values are null.
+	 * Returns a predicate that evaluates to true if the object being tested and the target object are
+	 * {@code null}, if the property value of the object {@code equals()} the given target's or both
+	 * values are null.
 	 * @param target Target object.
 	 * @return The requested predicate.
 	 */
 	Predicate<E> equalTo(E target);
-	
+
 	/**
 	 * Returns the property validity predicate.
 	 * @return The requested predicate.
 	 */
 	Predicate<T> getPredicate();
-	
+
 	/**
 	 * Checks whether the provided value is valid according to the property's validity predicate.
 	 * Equivalent to {@code getPredicate().apply(value)}
@@ -77,7 +77,7 @@ public interface AnyObjectProperty<E, T> extends Member<E>, Function<E, T> {
 	 * @return True if the value is valid.
 	 */
 	boolean isValid(T value);
-	
+
 	/**
 	 * Checks whether the provided value is valid according to the property's validity predicate.
 	 * Equivalent to {@code Preconditions.checkArgument(isValid(value))}

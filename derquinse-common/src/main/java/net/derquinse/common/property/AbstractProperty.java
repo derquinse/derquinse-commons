@@ -15,30 +15,30 @@
  */
 package net.derquinse.common.property;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Abstract implementation for members.
+ * Abstract implementation for properties.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  */
-public abstract class AbstractMember<E> extends AbstractDescriptor<E> implements Member<E> {
-	/** Member name. */
-	private final String name;
+public abstract class AbstractProperty<E> extends AbstractMember<E> implements Property<E> {
+	/** Whether the member is immutable. */
+	private final boolean immutable;
 
 	/**
 	 * Constructor.
-	 * @param name Member name.
+	 * @param name Property name.
+	 * @param immutable Whether the property is immutable.
 	 */
-	AbstractMember(String name) {
-		this.name = checkNotNull(name, "The member name must be provided.");
+	AbstractProperty(String name, boolean immutable) {
+		super(name);
+		this.immutable = immutable;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Member#getName()
+	 * @see net.derquinse.common.property.Property#isImmutable()
 	 */
-	public final String getName() {
-		return name;
+	public final boolean isImmutable() {
+		return immutable;
 	}
 }

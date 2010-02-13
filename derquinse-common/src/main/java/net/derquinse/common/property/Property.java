@@ -21,11 +21,9 @@ package net.derquinse.common.property;
  * @param <T> Property type.
  */
 public interface Property<E> {
-
 	/**
-	 * Returns whether the member is immutable.
-	 * @return True if the member is immutable.
+	 * Returns whether the property is immutable.
+	 * @return True if the property is immutable.
 	 */
 	boolean isImmutable();
-
 }

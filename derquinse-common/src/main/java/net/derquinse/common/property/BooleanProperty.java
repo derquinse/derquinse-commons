@@ -52,8 +52,8 @@ public abstract class BooleanProperty<E> extends AbstractAnyObjectProperty<E, Bo
 	 * @param nullValue Value to use instead of {@code null}.
 	 * @return The requested predicate member.
 	 */
-	public final PredicateMember<E> asPredicate(final boolean nullValue) {
-		return new PredicateMember<E>(getName(), isImmutable()) {
+	public final PredicateProperty<E> asPredicate(final boolean nullValue) {
+		return new PredicateProperty<E>(getName(), isImmutable()) {
 			public boolean apply(E from) {
 				final Boolean value = BooleanProperty.this.apply(from);
 				return value != null ? value.booleanValue() : nullValue;
@@ -66,7 +66,7 @@ public abstract class BooleanProperty<E> extends AbstractAnyObjectProperty<E, Bo
 	 * has a value of {@code null}, {@code false} is returned.
 	 * @return The requested predicate member.
 	 */
-	public final PredicateMember<E> asPredicate() {
+	public final PredicateProperty<E> asPredicate() {
 		return asPredicate(false);
 	}
 

@@ -17,20 +17,23 @@ package net.derquinse.common.property;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Predicates.alwaysTrue;
+import static com.google.common.base.Predicates.and;
+import static com.google.common.base.Predicates.or;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 /**
- * Abstract implementation for properties. The validity predicates may assume
- * the object to check is not {@code null} as nullity vs optionality checking is
- * performed before using the predicate.
+ * Abstract implementation for reference type properties. The validity predicates may assume the
+ * object to check is not {@code null} as nullity vs optionality checking is performed before using
+ * the predicate.
  * @author Andres Rodriguez
  * @param <E> Enclosing type.
  * @param <T> Property type.
  */
-public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> implements AnyObjectProperty<E, T> {
+public abstract class AbstractAnyObjectProperty<E, T> extends AbstractProperty<E> implements AnyObjectProperty<E, T> {
 	/** Whether the property is optional. */
 	private final boolean optional;
 	/** Validity predicate. */
@@ -48,15 +51,15 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 		this.optional = optional;
 		if (optional) {
 			if (predicate == null) {
-				this.predicate = Predicates.alwaysTrue();
+				this.predicate = alwaysTrue();
 			} else {
-				this.predicate = Predicates.or(Predicates.isNull(), predicate);
+				this.predicate = or(Predicates.isNull(), predicate);
 			}
 		} else {
 			if (predicate == null) {
 				this.predicate = Predicates.notNull();
 			} else {
-				this.predicate = Predicates.and(Predicates.notNull(), predicate);
+				this.predicate = and(Predicates.notNull(), predicate);
 			}
 		}
 	}
@@ -73,7 +76,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#isOptional()
+	 * @see net.derquinse.common.property.AnyObjectProperty#isOptional()
 	 */
 	public final boolean isOptional() {
 		return optional;
@@ -81,7 +84,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#isNull()
+	 * @see net.derquinse.common.property.AnyObjectProperty#isNull()
 	 */
 	public final Predicate<E> isNull() {
 		return Predicates.compose(Predicates.isNull(), this);
@@ -89,7 +92,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#notNull()
+	 * @see net.derquinse.common.property.AnyObjectProperty#notNull()
 	 */
 	public final Predicate<E> notNull() {
 		return Predicates.compose(Predicates.notNull(), this);
@@ -97,7 +100,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#equalTo(java.lang.Object)
+	 * @see net.derquinse.common.property.AnyObjectProperty#equalTo(java.lang.Object)
 	 */
 	public final Predicate<E> equalTo(final E target) {
 		if (target == null) {
@@ -112,7 +115,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#getPredicate()
+	 * @see net.derquinse.common.property.AnyObjectProperty#getPredicate()
 	 */
 	public final Predicate<T> getPredicate() {
 		return predicate;
@@ -120,7 +123,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#isValid(java.lang.Object)
+	 * @see net.derquinse.common.property.AnyObjectProperty#isValid(java.lang.Object)
 	 */
 	public final boolean isValid(T value) {
 		return predicate.apply(value);
@@ -128,7 +131,7 @@ public abstract class AbstractAnyObjectProperty<E, T> extends AbstractMember<E> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.property.Property#check(java.lang.Object)
+	 * @see net.derquinse.common.property.AnyObjectProperty#check(java.lang.Object)
 	 */
 	public final T check(T value) {
 		if (!optional) {
