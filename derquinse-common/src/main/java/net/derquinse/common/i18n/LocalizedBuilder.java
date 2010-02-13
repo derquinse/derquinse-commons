@@ -45,18 +45,27 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 	private final Map<Locale, T> values = Maps.newHashMap();
 
 	/**
-	 * Default constructor.
+	 * Creates a new builder.
+	 * @return A newly created builder.
 	 */
-	public LocalizedBuilder() {
+	public static <T> LocalizedBuilder<T> create() {
+		return new LocalizedBuilder<T>();
 	}
 
 	/**
-	 * Constructor.
-	 * @param defaultValue.
-	 * @throws NullPointerException if the default value is null.
+	 * Creates a new builder.
+	 * @param defaultValue Default value.
+	 * @return A newly created builder.
+	 * @throws NullPointerException if the default value is {@code null}.
 	 */
-	public LocalizedBuilder(final T defaultValue) {
-		setDefault(defaultValue);
+	public static <T> LocalizedBuilder<T> create(T defaultValue) {
+		return new LocalizedBuilder<T>().setDefault(defaultValue);
+	}
+
+	/**
+	 * Default constructor. Use static factory to avoid generic parameter.
+	 */
+	private LocalizedBuilder() {
 	}
 
 	/**
@@ -108,6 +117,23 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 		}
 		// Check preconditions
 		for (Entry<? extends Locale, ? extends T> entry : values.entrySet()) {
+			put(entry.getKey(), entry.getValue());
+		}
+		return this;
+	}
+
+	/**
+	 * Puts all the localized values from the argument map, where the locales are strings.
+	 * @param values Localized values to add.
+	 * @return This builder.
+	 * @throws NullPointerException if any of the keys or values is null.
+	 */
+	public LocalizedBuilder<T> putAllStrings(Map<String, ? extends T> values) {
+		if (values == null || values.isEmpty()) {
+			return this; // nothing to do
+		}
+		// Check preconditions
+		for (Entry<String, ? extends T> entry : values.entrySet()) {
 			put(entry.getKey(), entry.getValue());
 		}
 		return this;
