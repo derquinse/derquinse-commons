@@ -64,6 +64,11 @@ final class Tuple0Impl extends Tuple {
 		checkIndex(index);
 		return null;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return TUPLE0 == obj;
+	}
 
 	@Override
 	public int hashCode() {
