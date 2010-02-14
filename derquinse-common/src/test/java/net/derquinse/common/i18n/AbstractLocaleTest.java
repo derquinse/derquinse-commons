@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,14 @@
  */
 package net.derquinse.common.i18n;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Locale;
 
 /**
- * Localized string annotation.
+ * Tests for LocalizedBuilder
  * @author Andres Rodriguez
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
-public @interface L7dString {
-	/** Default Value. */
-	String value();
-
-	/** Localized values. */
-	L7d[] values() default {};
-
+public class AbstractLocaleTest {
+	static final String HELLO = "hello";
+	static final String HOLA = "hola";
+	static final Locale ES = new Locale("es");
 }
