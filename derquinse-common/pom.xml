@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>derquinse-pom</artifactId>
+    <groupId>net.derquinse</groupId>
+    <version>2</version>
+  </parent>
+  <groupId>net.derquinse</groupId>
+  <artifactId>derquinse-common</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Derquinse Common Java Libraries</name>
+  <description>Derquinse Common Java Libraries</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.google.collections</groupId>
+  		<artifactId>google-collections</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.testng</groupId>
+  		<artifactId>testng</artifactId>
+  		<version>5.11</version>
+  		<classifier>jdk15</classifier>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
+</project>
