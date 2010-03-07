@@ -13,11 +13,6 @@
   <description>Derquinse Common Java Libraries</description>
   <dependencies>
   	<dependency>
-  		<groupId>com.google.collections</groupId>
-  		<artifactId>google-collections</artifactId>
-  		<version>1.0</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.testng</groupId>
   		<artifactId>testng</artifactId>
   		<version>5.11</version>
@@ -25,4 +20,7 @@
   		<scope>test</scope>
   	</dependency>
   </dependencies>
+  <modules>
+  	<module>derquinse-common-jse</module>
+  </modules>
 </project>
