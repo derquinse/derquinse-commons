@@ -19,13 +19,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import net.derquinse.common.product.Tuple;
-import net.derquinse.common.product.Tuple1;
-import net.derquinse.common.product.Tuple2;
-import net.derquinse.common.product.Tuple3;
 
 /**
- * Base class for tuple tests.
+ * Base class for product tests.
  * @author Andres Rodriguez
  */
 class Base {
@@ -39,17 +35,17 @@ class Base {
 		return obj;
 	}
 
-	static <T extends Tuple> T check(T t, Object... objs) {
+	static <T extends Product> T check(T t, Object... objs) {
 		assertEquals(t.arity(), objs.length);
 		for (int i = 0; i < objs.length; i++) {
 			assertEquals(t.get(i), objs[i]);
 		}
-		if (t instanceof Tuple1<?>) {
-			assertEquals(((Tuple1<?>) t).get0(), objs[0]);
-			if (t instanceof Tuple2<?, ?>) {
-				assertEquals(((Tuple2<?, ?>) t).get1(), objs[1]);
-				if (t instanceof Tuple3<?, ?, ?>) {
-					assertEquals(((Tuple3<?, ?, ?>) t).get2(), objs[2]);
+		if (t instanceof Product1<?>) {
+			assertEquals(((Product1<?>) t).get0(), objs[0]);
+			if (t instanceof Product2<?, ?>) {
+				assertEquals(((Product2<?, ?>) t).get1(), objs[1]);
+				if (t instanceof Product3<?, ?, ?>) {
+					assertEquals(((Product3<?, ?, ?>) t).get2(), objs[2]);
 				}
 			}
 		}
@@ -76,16 +72,49 @@ class Base {
 	/**
 	 * Equality 3.
 	 */
-	static void equality(Object one, Object two, Object three) {
+	static void equality(Object one, Object two) {
 		assertEquals(one, two);
 		assertEquals(two, one);
-		assertEquals(three, two);
-		assertEquals(two, three);
-		assertEquals(one, three);
-		assertEquals(three, one);
 		assertEquals(one.hashCode(), two.hashCode());
-		assertEquals(three.hashCode(), one.hashCode());
-		assertEquals(three.hashCode(), two.hashCode());
+	}
+
+	/**
+	 * Equality 3.
+	 */
+	static void equality(Object one, Object two, Object three) {
+		equality(one, two);
+		equality(three, two);
+		equality(one, three);
+	}
+
+	/**
+	 * Checks for a bad index.
+	 * @param p Product to test.
+	 * @param i Index to test.
+	 */
+	static void checkBadIndex(Product p, int i) {
+		boolean ok = false;
+		try {
+			p.get(i);
+		} catch (IndexOutOfBoundsException e) {
+			ok = true;
+		}
+		assertTrue(ok, String.format("Index %d should have thrown IndexOutOfBoundsException for %s", i, p));
+	}
+
+	/**
+	 * Checks for a bad index range.
+	 * @param min Range start.
+	 * @param max Range end.
+	 * @param products Products to test.
+	 */
+	static void checkBadIndexes(int min, int max, Product... products) {
+		assertTrue(max >= min);
+		for (int i = min; i <= max; i++) {
+			for (Product p : products) {
+				checkBadIndex(p, i);
+			}
+		}
 	}
 
 }

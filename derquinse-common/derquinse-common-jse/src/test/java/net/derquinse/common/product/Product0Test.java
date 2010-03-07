@@ -15,18 +15,18 @@
  */
 package net.derquinse.common.product;
 
+import static net.derquinse.common.product.Powers.power;
 import static net.derquinse.common.product.Tuples.tuple;
-
-import net.derquinse.common.product.Tuple;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for 1-element tuples.
+ * Tests for 0-element products.
  * @author Andres Rodriguez
  */
-public class Tuple0Test extends Base {
+public class Product0Test extends Base {
 	private Tuple t;
+	private Power<?> p;
 
 	/**
 	 * Create.
@@ -34,32 +34,31 @@ public class Tuple0Test extends Base {
 	@Test
 	public void create() {
 		t = notNull(tuple());
-	}
-
-	/**
-	 * Check.
-	 */
-	@Test(dependsOnMethods = "create")
-	public void check() {
+		p = notNull(power());
 		check(t);
+		check(p);
 	}
 
 	/**
 	 * Equality.
 	 */
-	@Test(dependsOnMethods = "check")
+	@Test(dependsOnMethods = "create")
 	public void equals() {
 		equality(t);
+		equality(t, tuple());
+		equality(t, power());
 		distinct(t, tuple(ONE));
 		equality(t, tuple(), tuple());
+		equality(t, tuple(), power());
+		equality(t, power(), power());
 	}
 
 	/**
 	 * Bad index.
 	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex1() {
-		t.get(0);
+	@Test(dependsOnMethods = "create")
+	public void badIndex() {
+		checkBadIndexes(-5, 5, t, p);
 	}
 
 	/**

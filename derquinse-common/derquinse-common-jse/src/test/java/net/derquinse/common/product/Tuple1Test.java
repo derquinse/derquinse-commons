@@ -34,20 +34,13 @@ public class Tuple1Test extends Base {
 	@Test
 	public void create() {
 		t = notNull(tuple(ONE));
-	}
-
-	/**
-	 * Check.
-	 */
-	@Test(dependsOnMethods = "create")
-	public void check() {
 		check(t, ONE);
 	}
 
 	/**
 	 * Equality.
 	 */
-	@Test(dependsOnMethods = "check")
+	@Test(dependsOnMethods = "create")
 	public void equals() {
 		equality(t);
 		distinct(t, tuple(TWO));

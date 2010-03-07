@@ -31,20 +31,21 @@ public final class Powers {
 	}
 
 	/**
-	 * Returns the empty tuple.
-	 * @return The empty tuple.
+	 * Returns the empty power.
+	 * @return The empty power.
 	 */
-	public static Tuple tuple() {
-		return Tuple0Impl.TUPLE0;
+	@SuppressWarnings("unchecked")
+	public static <T> Power<T> power() {
+		return (Power<T>) Power0Impl.POWER0;
 	}
 
 	/**
-	 * Builds a 1-element tuple.
+	 * Builds a singleton.
 	 * @param e Element.
-	 * @return The requested tuple.
+	 * @return The requested singleton.
 	 */
-	public static <T1> Tuple1<T1> tuple(T1 e) {
-		return new Tuple1Impl<T1>(e);
+	public static <T> Tuple1<T> tuple(T e) {
+		return new Tuple1Impl<T>(e);
 	}
 
 	/**
