@@ -26,23 +26,20 @@ public abstract class Singleton<T> extends Power<T> implements Product1<T> {
 	}
 
 	/**
-	 * Creates a new power with the same members as this except the one provided.
+	 * Creates a new singleton with the same elements as this except the one provided.
 	 * @param index The element to replace index.
 	 * @param value Value of the element to replace.
-	 * @return The new power.
+	 * @return The new singleton.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 * @throws ClassCastException if the provided member is of an invalid type.
 	 */
 	public abstract Singleton<T> set(int index, T value);
 
 	/**
-	 * Creates a new power with the same elements as this except the one with the provided index, which
-	 * is removed.
-	 * @param index The member to remove index.
-	 * @return The new power.
-	 * @throws IndexOutOfBoundsException if the index is out of range.
+	 * Creates a new singleton with the same elements as this except the first one.
+	 * @param value Value of the element.
+	 * @return The new singleton.
 	 */
-	public abstract Singleton<T> curry(int index);
+	public abstract Singleton<T> set0(T value);
 
 	/**
 	 * Creates a new tuple with the same members as this except the first one, which is removed.

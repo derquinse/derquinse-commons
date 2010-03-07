@@ -59,12 +59,11 @@ public abstract class Power<T> extends AbstractProduct implements Iterable<T> {
 	}
 
 	/**
-	 * Creates a new power with the same members as this except the one provided.
+	 * Creates a new power with the same elements as this except the one provided.
 	 * @param index The element to replace index.
 	 * @param value Value of the element to replace.
 	 * @return The new power.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 * @throws ClassCastException if the provided member is of an invalid type.
 	 */
 	public abstract Power<T> set(int index, T value);
 

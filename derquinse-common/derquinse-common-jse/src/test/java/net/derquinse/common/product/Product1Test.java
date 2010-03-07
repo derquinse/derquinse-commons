@@ -15,6 +15,7 @@
  */
 package net.derquinse.common.product;
 
+import static net.derquinse.common.product.Powers.singleton;
 import static net.derquinse.common.product.Tuples.tuple;
 
 import net.derquinse.common.product.Tuple1;
@@ -25,8 +26,9 @@ import org.testng.annotations.Test;
  * Tests for 1-element tuples.
  * @author Andres Rodriguez
  */
-public class Tuple1Test extends Base {
+public class Product1Test extends Base {
 	private Tuple1<Integer> t;
+	private Singleton<Integer> p;
 
 	/**
 	 * Create.
@@ -34,7 +36,9 @@ public class Tuple1Test extends Base {
 	@Test
 	public void create() {
 		t = notNull(tuple(ONE));
+		p = notNull(singleton(ONE));
 		check(t, ONE);
+		check(p, ONE);
 	}
 
 	/**

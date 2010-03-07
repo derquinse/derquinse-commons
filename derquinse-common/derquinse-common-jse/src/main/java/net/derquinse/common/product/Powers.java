@@ -44,8 +44,8 @@ public final class Powers {
 	 * @param e Element.
 	 * @return The requested singleton.
 	 */
-	public static <T> Tuple1<T> tuple(T e) {
-		return new Tuple1Impl<T>(e);
+	public static <T> Singleton<T> singleton(T e) {
+		return new SingletonImpl<T>(e);
 	}
 
 	/**
@@ -228,7 +228,8 @@ public final class Powers {
 				if (from == null) {
 					return null;
 				}
-				return tuple(f.apply(from.get0()));
+				// return tuple(f.apply(from.get0()));
+				return null;
 			}
 
 			@Override
