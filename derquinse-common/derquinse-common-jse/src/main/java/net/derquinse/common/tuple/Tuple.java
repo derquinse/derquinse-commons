@@ -15,27 +15,15 @@
  */
 package net.derquinse.common.tuple;
 
-import java.util.Iterator;
-
 /**
  * Base class for tuples. For tuples to obey {@code equals} and {@code hashCode} contracts, it is
  * strongly recommended to use only immutable objects as tuple members.
  * @author Andres Rodriguez
  */
-public abstract class Tuple implements Iterable<Object> {
-	/**
-	 * Returns the tuple's arity.
-	 * @return The tuple's arity (>0).
-	 */
-	public abstract int arity();
-
-	/**
-	 * Returns the element at position index (0 <= index < arity).
-	 * @param index The requested index.
-	 * @return The requested element.
-	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 */
-	public abstract Object get(int index);
+public abstract class Tuple extends AbstractProduct {
+	/** Default constructor. */
+	Tuple() {
+	}
 
 	/**
 	 * Creates a new tuple with the same members as this except the one provided.
@@ -55,24 +43,4 @@ public abstract class Tuple implements Iterable<Object> {
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
 	public abstract Tuple curry(int index);
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	public Iterator<Object> iterator() {
-		return new TupleIterator(this);
-	}
-
-	/**
-	 * Checks an index.
-	 * @param index Index to check.
-	 * @throws IndexOutOfBoundsException if index < 0 or index => arity.
-	 */
-	final void checkIndex(int index) {
-		if (index < 0 || index >= arity()) {
-			throw new IndexOutOfBoundsException(String.format("Requested element %d but arity is %d", index, arity()));
-		}
-	}
-
 }

@@ -15,6 +15,9 @@
  */
 package net.derquinse.common.tuple;
 
+import static net.derquinse.common.tuple.Products.get0;
+import static net.derquinse.common.tuple.Products.get1;
+
 import com.google.common.base.Function;
 
 /**
@@ -25,96 +28,6 @@ public final class Tuples {
 	/** Not instantiable. */
 	private Tuples() {
 		throw new AssertionError();
-	}
-
-	/**
-	 * First element extractor.
-	 * @param t Tuple.
-	 * @return The first element or {@code null} if the argument is {@code null}. hello
-	 */
-	public static <T0> T0 get0(Tuple1<T0> t) {
-		if (t == null) {
-			return null;
-		}
-		return t.get0();
-	}
-
-	/**
-	 * Second element extractor.
-	 * @param t Tuple.
-	 * @return The second element or {@code null} if the argument is {@code null}.
-	 */
-	public static <T0, T1> T1 get1(Tuple2<T0, T1> t) {
-		if (t == null) {
-			return null;
-		}
-		return t.get1();
-	}
-
-	/**
-	 * Third element extractor.
-	 * @param t Tuple.
-	 * @return The third element or {@code null} if the argument is {@code null} .
-	 */
-	public static <T0, T1, T2> T2 get2(Tuple3<T0, T1, T2> t) {
-		if (t == null) {
-			return null;
-		}
-		return t.get2();
-	}
-
-	/**
-	 * First element getter.
-	 * @return A function returning the first element or {@code null} if the argument is {@code null}
-	 *         .
-	 */
-	public static <T0> Function<Tuple1<T0>, T0> getter0() {
-		return new Function<Tuple1<T0>, T0>() {
-			public T0 apply(Tuple1<T0> from) {
-				return get0(from);
-			}
-
-			@Override
-			public String toString() {
-				return "getter0";
-			}
-		};
-	}
-
-	/**
-	 * Second element getter.
-	 * @return A function returning the second element or {@code null} if the argument is {@code null}
-	 *         .
-	 */
-	public static <T0, T1> Function<Tuple2<T0, T1>, T1> getter1() {
-		return new Function<Tuple2<T0, T1>, T1>() {
-			public T1 apply(Tuple2<T0, T1> from) {
-				return get1(from);
-			}
-
-			@Override
-			public String toString() {
-				return "getter1";
-			}
-		};
-	}
-
-	/**
-	 * Third element getter.
-	 * @return A function returning the third element or {@code null} if the argument is {@code null}
-	 *         .
-	 */
-	public static <T0, T1, T2> Function<Tuple3<T0, T1, T2>, T2> getter2() {
-		return new Function<Tuple3<T0, T1, T2>, T2>() {
-			public T2 apply(Tuple3<T0, T1, T2> from) {
-				return get2(from);
-			}
-
-			@Override
-			public String toString() {
-				return "getter2";
-			}
-		};
 	}
 
 	/**

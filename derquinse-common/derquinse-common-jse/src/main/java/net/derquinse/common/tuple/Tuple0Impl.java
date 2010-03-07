@@ -30,7 +30,7 @@ final class Tuple0Impl extends Tuple {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#arity()
+	 * @see net.derquinse.common.tuple.Product#arity()
 	 */
 	public int arity() {
 		return 0;
@@ -38,7 +38,7 @@ final class Tuple0Impl extends Tuple {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#get(int)
+	 * @see net.derquinse.common.tuple.Product#get(int)
 	 */
 	public Object get(int index) {
 		checkIndex(index);
@@ -63,16 +63,6 @@ final class Tuple0Impl extends Tuple {
 	public Tuple curry(int index) {
 		checkIndex(index);
 		return null;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		return TUPLE0 == obj;
-	}
-
-	@Override
-	public int hashCode() {
-		return 0;
 	}
 
 	@Override

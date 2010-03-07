@@ -17,8 +17,6 @@ package net.derquinse.common.tuple;
 
 import static net.derquinse.common.tuple.Tuples.tuple;
 
-import com.google.common.base.Objects;
-
 /**
  * Implementation of a 1-element tuple.
  * @author Andres Rodriguez
@@ -38,7 +36,7 @@ final class Tuple1Impl<T0> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#arity()
+	 * @see net.derquinse.common.tuple.Product#arity()
 	 */
 	public int arity() {
 		return 1;
@@ -46,7 +44,7 @@ final class Tuple1Impl<T0> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple1#get0()
+	 * @see net.derquinse.common.tuple.Product1#get0()
 	 */
 	@Override
 	public T0 get0() {
@@ -55,7 +53,7 @@ final class Tuple1Impl<T0> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.sf.derquinsej.tuple.Tuple#get(int)
+	 * @see net.derquinse.common.tuple.Product#get(int)
 	 */
 	public Object get(int index) {
 		checkIndex(index);
@@ -100,26 +98,4 @@ final class Tuple1Impl<T0> extends Tuple1<T0> {
 		checkIndex(index);
 		return tuple();
 	}
-
-	@Override
-	public int hashCode() {
-		return element != null ? element.hashCode() : 31;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj instanceof Tuple1Impl<?>) {
-			return Objects.equal(element, ((Tuple1Impl<?>) obj).element);
-		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("(%s)", element);
-	}
-
 }

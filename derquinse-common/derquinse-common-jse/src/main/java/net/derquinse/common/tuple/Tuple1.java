@@ -20,16 +20,10 @@ package net.derquinse.common.tuple;
  * @author Andres Rodriguez
  * @param <T0> First element type.
  */
-public abstract class Tuple1<T0> extends Tuple {
+public abstract class Tuple1<T0> extends Tuple implements Product1<T0> {
 	/** Constructor. */
 	Tuple1() {
 	}
-
-	/**
-	 * Returns the first element.
-	 * @return The first element.
-	 */
-	public abstract T0 get0();
 
 	/**
 	 * Creates a new tuple with the same members as this except the one provided.

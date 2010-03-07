@@ -21,17 +21,17 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * An iterator for tuple elements.
+ * An iterator for product elements.
  * @author Andres Rodriguez
  */
-final class TupleIterator implements Iterator<Object> {
-	/** Tuple to iterate. */
-	private final Tuple tuple;
+final class ProductIterator implements Iterator<Object> {
+	/** Product to iterate. */
+	private final Product product;
 	/** Current index. */
 	private int index = 0;
 
-	TupleIterator(final Tuple tuple) {
-		this.tuple = checkNotNull(tuple, "The tuple to iterate must be provided");
+	ProductIterator(final Product product) {
+		this.product = checkNotNull(product, "The product to iterate must be provided");
 	}
 
 	/*
@@ -39,7 +39,7 @@ final class TupleIterator implements Iterator<Object> {
 	 * @see java.util.Iterator#hasNext()
 	 */
 	public boolean hasNext() {
-		return index < tuple.arity();
+		return index < product.arity();
 	}
 
 	/*
@@ -47,8 +47,8 @@ final class TupleIterator implements Iterator<Object> {
 	 * @see java.util.Iterator#next()
 	 */
 	public Object next() {
-		if (index < tuple.arity()) {
-			Object o = tuple.get(index);
+		if (index < product.arity()) {
+			Object o = product.get(index);
 			index++;
 			return o;
 		}

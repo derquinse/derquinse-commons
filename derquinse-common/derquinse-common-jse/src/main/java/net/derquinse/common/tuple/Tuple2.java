@@ -17,18 +17,13 @@ package net.derquinse.common.tuple;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Arrays;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Objects;
-
 /**
  * Class for a 2-element tuple.
  * @author Andres Rodriguez
  * @param <T0> First element type.
  * @param <T1> Second element type.
  */
-public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
+public abstract class Tuple2<T0, T1> extends Tuple1<T0> implements Product2<T0, T1> {
 	/** Elements. */
 	private final Object[] array;
 
@@ -42,7 +37,7 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#arity()
+	 * @see net.derquinse.common.tuple.Product#arity()
 	 */
 	public final int arity() {
 		return array.length;
@@ -50,7 +45,7 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#get(int)
+	 * @see net.derquinse.common.tuple.Product#get(int)
 	 */
 	public Object get(int index) {
 		checkIndex(index);
@@ -59,7 +54,7 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple1#get0()
+	 * @see net.derquinse.common.tuple.Product1#get0()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -67,9 +62,9 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 		return (T0) array[0];
 	}
 
-	/**
-	 * Returns the second element.
-	 * @return The second element.
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product2#get1()
 	 */
 	@SuppressWarnings("unchecked")
 	public T1 get1() {
@@ -120,31 +115,5 @@ public abstract class Tuple2<T0, T1> extends Tuple1<T0> {
 	 * @return The new tuple.
 	 */
 	public abstract Tuple1<T0> curry1();
-
-	@Override
-	public final int hashCode() {
-		return Objects.hashCode(array);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj != null && getClass().equals(obj.getClass())) {
-			Tuple2<?, ?> t2 = (Tuple2<?, ?>) obj;
-			return Arrays.deepEquals(array, t2.array);
-		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder();
-		sb.append('(');
-		Joiner.on(", ").useForNull("null").appendTo(sb, array);
-		sb.append(')');
-		return sb.toString();
-	}
 
 }

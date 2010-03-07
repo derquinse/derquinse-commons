@@ -22,7 +22,7 @@ package net.derquinse.common.tuple;
  * @param <T1> Second element type.
  * @param <T2> Third element type.
  */
-public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
+public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> implements Product3<T0, T1, T2> {
 	/**
 	 * Internal constructor for subclasses.
 	 * @param e Elements. No defensive copy is made.
@@ -31,9 +31,9 @@ public abstract class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
 		super(e);
 	}
 
-	/**
-	 * Returns the third element.
-	 * @return The third element.
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product3#get2()
 	 */
 	@SuppressWarnings("unchecked")
 	public T2 get2() {
