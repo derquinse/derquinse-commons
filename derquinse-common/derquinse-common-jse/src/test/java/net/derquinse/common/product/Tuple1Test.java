@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.tuple;
+package net.derquinse.common.product;
 
-import static net.derquinse.common.tuple.Tuples.tuple;
+import static net.derquinse.common.product.Tuples.tuple;
+
+import net.derquinse.common.product.Tuple1;
 
 import org.testng.annotations.Test;
 
@@ -23,15 +25,15 @@ import org.testng.annotations.Test;
  * Tests for 1-element tuples.
  * @author Andres Rodriguez
  */
-public class Tuple0Test extends Base {
-	private Tuple t;
+public class Tuple1Test extends Base {
+	private Tuple1<Integer> t;
 
 	/**
 	 * Create.
 	 */
 	@Test
 	public void create() {
-		t = notNull(tuple());
+		t = notNull(tuple(ONE));
 	}
 
 	/**
@@ -39,7 +41,7 @@ public class Tuple0Test extends Base {
 	 */
 	@Test(dependsOnMethods = "create")
 	public void check() {
-		check(t);
+		check(t, ONE);
 	}
 
 	/**
@@ -48,8 +50,8 @@ public class Tuple0Test extends Base {
 	@Test(dependsOnMethods = "check")
 	public void equals() {
 		equality(t);
-		distinct(t, tuple(ONE));
-		equality(t, tuple(), tuple());
+		distinct(t, tuple(TWO));
+		equality(t, tuple(ONE), tuple(ONE));
 	}
 
 	/**
@@ -57,7 +59,7 @@ public class Tuple0Test extends Base {
 	 */
 	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
 	public void badIndex1() {
-		t.get(0);
+		t.get(-1);
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class Tuple0Test extends Base {
 	 */
 	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
 	public void badIndex2() {
-		t.get(1);
+		t.get(2);
 	}
 
 }

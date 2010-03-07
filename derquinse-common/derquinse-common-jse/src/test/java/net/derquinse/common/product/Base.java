@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.tuple;
+package net.derquinse.common.product;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import net.derquinse.common.product.Tuple;
+import net.derquinse.common.product.Tuple1;
+import net.derquinse.common.product.Tuple2;
+import net.derquinse.common.product.Tuple3;
 
 /**
  * Base class for tuple tests.

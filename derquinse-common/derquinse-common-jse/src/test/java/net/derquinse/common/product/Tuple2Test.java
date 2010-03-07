@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.tuple;
+package net.derquinse.common.product;
 
-import static net.derquinse.common.tuple.Tuples.tuple;
+import static net.derquinse.common.product.Tuples.tuple;
+
+import net.derquinse.common.product.Tuple2;
 
 import org.testng.annotations.Test;
 
