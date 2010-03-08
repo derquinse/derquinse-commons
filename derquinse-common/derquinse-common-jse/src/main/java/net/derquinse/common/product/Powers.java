@@ -49,6 +49,18 @@ public final class Powers {
 	}
 
 	/**
+	 * Builds a singleton.
+	 * @param e Element.
+	 * @return The requested singleton.
+	 */
+	public static <T> Singleton<T> singleton(Product1<T> e) {
+		if (e instanceof Singleton<?>) {
+			return (Singleton<T>) e;
+		}
+		return singleton(get0(e));
+	}
+
+	/**
 	 * Builds a 2-element tuple.
 	 * @param e0 First element.
 	 * @param e1 Second element.
@@ -217,24 +229,23 @@ public final class Powers {
 	}
 
 	/**
-	 * Returns a function transforming the first element of a 1-element tuple. The returned function
+	 * Returns a function transforming the first element of a 1-element product. The returned function
 	 * returns {@code null} for {@code null} inputs.
 	 * @param f Element transformation function.
 	 * @return The requested function.
 	 */
-	public static <T0, T> Function<Tuple1<T0>, Tuple1<T>> transformer1_0(final Function<T0, T> f) {
-		return new Function<Tuple1<T0>, Tuple1<T>>() {
-			public Tuple1<T> apply(Tuple1<T0> from) {
+	public static <T0, T> Function<Product1<T0>, Singleton<T>> p0toSingleton(final Function<T0, T> f) {
+		return new Function<Product1<T0>, Singleton<T>>() {
+			public Singleton<T> apply(Product1<T0> from) {
 				if (from == null) {
 					return null;
 				}
-				// return tuple(f.apply(from.get0()));
-				return null;
+				return singleton(f.apply(from.get0()));
 			}
 
 			@Override
 			public String toString() {
-				return "transformer1_0";
+				return String.format("p1 -> singleton(%s)", f);
 			}
 		};
 	}
