@@ -15,83 +15,12 @@
  */
 package net.derquinse.common.product;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Class for a pair.
+ * Interface for a 1-element cartesian power (pair).
  * @author Andres Rodriguez
  * @param <T> Element type.
  */
-public abstract class Pair<T> extends Singleton<T> implements Product2<T, T> {
-	/** Elements. */
-	private final T[] array;
-
-	/**
-	 * Internal constructor for subclasses.
-	 * @param e Elements. No defensive copy is made.
-	 */
-	Pair(T... e) {
-		this.array = checkNotNull(e, "No elements provided");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#arity()
-	 */
-	public final int arity() {
-		return array.length;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#get(int)
-	 */
-	public T get(int index) {
-		checkIndex(index);
-		return array[index];
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product1#get0()
-	 */
-	@Override
-	public T get0() {
-		return array[0];
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product2#get1()
-	 */
-	public T get1() {
-		return array[1];
-	}
-
-	/**
-	 * Creates a new power with the same members as this except the one provided.
-	 * @param index The element to replace index.
-	 * @param value Value of the element to replace.
-	 * @return The new power.
-	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 * @throws ClassCastException if the provided member is of an invalid type.
-	 */
-	public abstract Singleton<T> set(int index, T value);
-
-	/**
-	 * Creates a new tuple with the same members as this except the first one.
-	 * @param value Value of the first member.
-	 * @return The new tuple.
-	 */
-	public abstract Pair<T> set0(T value);
-
-	/**
-	 * Creates a new tuple with the same members as this except the second one.
-	 * @param value Value of the second member.
-	 * @return The new tuple.
-	 */
-	public abstract Pair<T> set1(T value);
-
+public interface Pair<T> extends Singleton<T>, Tuple2<T, T> {
 	/**
 	 * Creates a new power with the same elements as this except the one with the provided index,
 	 * which is removed.
@@ -99,18 +28,18 @@ public abstract class Pair<T> extends Singleton<T> implements Product2<T, T> {
 	 * @return The new power.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
-	public abstract Singleton<T> curry(int index);
+	Singleton<T> curry(int index);
 
 	/**
 	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
-	public abstract Singleton<T> curry0();
+	Singleton<T> curry0();
 
 	/**
 	 * Creates a new tuple with the same members as this except the second one, which is removed.
 	 * @return The new tuple.
 	 */
-	public abstract Singleton<T> curry1();
+	Singleton<T> curry1();
 
 }

@@ -15,58 +15,42 @@
  */
 package net.derquinse.common.product;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * Empty power.
+ * Bae class for array-based cartesian powers.
  * @author Andres Rodriguez
+ * @param <T> Element type.
  */
-final class Power0Impl extends Power<Object> {
-	static final Power0Impl POWER0 = new Power0Impl();
+abstract class AbstractArrayPower<T> extends AbstractPower<T> implements Power<T> {
+	/** Elements. */
+	private final T[] array;
 
 	/**
-	 * Constructor.
+	 * Internal constructor for subclasses.
+	 * @param arity Expected arity.
+	 * @param e Elements. No defensive copy is made.
 	 */
-	private Power0Impl() {
+	AbstractArrayPower(int arity, T... e) {
+		this.array = checkNotNull(e, "No elements provided");
+		checkArgument(arity == e.length, "Expected %d elements, provided %d", arity, e.length);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Product#arity()
 	 */
-	public int arity() {
-		return 0;
+	public final int arity() {
+		return array.length;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#get(int)
+	 * @see net.derquinse.common.product.Product#get(int)
 	 */
-	public Object get(int index) {
+	public final T get(int index) {
 		checkIndex(index);
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#set(int, java.lang.Object)
-	 */
-	@Override
-	public Power<Object> set(int index, Object value) {
-		checkIndex(index);
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#curry(int)
-	 */
-	@Override
-	public Power<Object> curry(int index) {
-		checkIndex(index);
-		return null;
-	}
-
-	@Override
-	public String toString() {
-		return "()";
+		return array[index];
 	}
 }

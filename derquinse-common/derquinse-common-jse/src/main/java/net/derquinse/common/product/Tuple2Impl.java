@@ -23,14 +23,42 @@ import static net.derquinse.common.product.Tuples.tuple;
  * @param <T0> First element type.
  * @param <T1> Second element type.
  */
-final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
+class Tuple2Impl<T0, T1> extends AbstractArrayTuple implements Tuple2<T0, T1> {
+	/**
+	 * Internal constructor for subclasses.
+	 * @param arity Expected arity.
+	 * @param e Elements. No defensive copy is made.
+	 */
+	Tuple2Impl(int arity, Object... e) {
+		super(arity, e);
+	}
+
 	/**
 	 * Constructor.
 	 * @param e0 First element.
 	 * @param e1 Second element.
 	 */
 	Tuple2Impl(T0 e0, T1 e1) {
-		super(e0, e1);
+		super(2, e0, e1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product1#get0()
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public final T0 get0() {
+		return (T0) get(0);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product2#get1()
+	 */
+	@SuppressWarnings("unchecked")
+	public final T1 get1() {
+		return (T1) get(1);
 	}
 
 	/*
@@ -60,34 +88,4 @@ final class Tuple2Impl<T0, T1> extends Tuple2<T0, T1> {
 	public Tuple1<T0> curry1() {
 		return tuple(get0());
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple2#set(int, java.lang.Object)
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public Tuple2<T0, T1> set(int index, Object value) {
-		checkIndex(index);
-		return index == 0 ? set0((T0) value) : set1((T1) value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple2#set0(java.lang.Object)
-	 */
-	@Override
-	public Tuple2<T0, T1> set0(T0 value) {
-		return tuple(value, get1());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple2#set1(java.lang.Object)
-	 */
-	@Override
-	public Tuple2<T0, T1> set1(T1 value) {
-		return tuple(get0(), value);
-	}
-
 }

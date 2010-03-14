@@ -17,6 +17,7 @@ package net.derquinse.common.product;
 
 import static net.derquinse.common.product.Products.get0;
 import static net.derquinse.common.product.Products.get1;
+import static net.derquinse.common.product.Products.singleton;
 
 import com.google.common.base.Function;
 
@@ -30,35 +31,6 @@ public final class Powers {
 		throw new AssertionError();
 	}
 
-	/**
-	 * Returns the empty power.
-	 * @return The empty power.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> Power<T> power() {
-		return (Power<T>) Power0Impl.POWER0;
-	}
-
-	/**
-	 * Builds a singleton.
-	 * @param e Element.
-	 * @return The requested singleton.
-	 */
-	public static <T> Singleton<T> singleton(T e) {
-		return new SingletonImpl<T>(e);
-	}
-
-	/**
-	 * Builds a singleton.
-	 * @param e Element.
-	 * @return The requested singleton.
-	 */
-	public static <T> Singleton<T> singleton(Product1<T> e) {
-		if (e instanceof Singleton<?>) {
-			return (Singleton<T>) e;
-		}
-		return singleton(get0(e));
-	}
 
 	/**
 	 * Builds a 2-element tuple.

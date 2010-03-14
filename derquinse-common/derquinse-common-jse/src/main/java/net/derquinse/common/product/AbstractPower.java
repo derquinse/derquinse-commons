@@ -15,16 +15,38 @@
  */
 package net.derquinse.common.product;
 
-/**
- * Interface for a 1-element tuple.
- * @author Andres Rodriguez
- * @param <T0> First element type.
- */
-public interface Tuple1<T0> extends Tuple, Product1<T0> {
-	/**
-	 * Creates a new tuple with the same members as this except the first one, which is removed.
-	 * @return The new tuple.
-	 */
-	Tuple curry0();
+import java.util.Iterator;
 
+/**
+ * Base class for cartesian powers.
+ * @author Andres Rodriguez
+ * @param <T> Element type.
+ */
+abstract class AbstractPower<T> extends AbstractProduct implements Power<T> {
+	AbstractPower() {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product#asIterable()
+	 */
+	public final Iterable<? extends Object> asIterable() {
+		return this;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.product.Product#productIterator()
+	 */
+	public Iterator<? extends Object> productIterator() {
+		return iterator();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
+	public Iterator<T> iterator() {
+		return new PowerIterator<T>(this);
+	}
 }

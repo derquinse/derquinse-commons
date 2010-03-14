@@ -16,35 +16,15 @@
 package net.derquinse.common.product;
 
 /**
- * Class for a 1-element power.
+ * Interface for a 1-element cartesian power.
  * @author Andres Rodriguez
  * @param <T> Element type.
  */
-public abstract class Singleton<T> extends Power<T> implements Product1<T> {
-	/** Constructor. */
-	Singleton() {
-	}
-
-	/**
-	 * Creates a new singleton with the same elements as this except the one provided.
-	 * @param index The element to replace index.
-	 * @param value Value of the element to replace.
-	 * @return The new singleton.
-	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 */
-	public abstract Singleton<T> set(int index, T value);
-
-	/**
-	 * Creates a new singleton with the same elements as this except the first one.
-	 * @param value Value of the element.
-	 * @return The new singleton.
-	 */
-	public abstract Singleton<T> set0(T value);
-
+public interface Singleton<T> extends Power<T>, Tuple1<T> {
 	/**
 	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
-	public abstract Power<T> curry0();
+	Power<T> curry0();
 
 }

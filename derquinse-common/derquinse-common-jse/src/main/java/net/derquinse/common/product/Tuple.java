@@ -20,21 +20,7 @@ package net.derquinse.common.product;
  * strongly recommended to use only immutable objects as tuple members.
  * @author Andres Rodriguez
  */
-public abstract class Tuple extends AbstractProduct {
-	/** Default constructor. */
-	Tuple() {
-	}
-
-	/**
-	 * Creates a new tuple with the same members as this except the one provided.
-	 * @param index The member to replace index.
-	 * @param value Value of the member to replace.
-	 * @return The new tuple.
-	 * @throws IndexOutOfBoundsException if the index is out of range.
-	 * @throws ClassCastException if the provided member is of an invalid type.
-	 */
-	public abstract Tuple set(int index, Object value);
-
+public interface Tuple extends Product {
 	/**
 	 * Creates a new tuple with the same members as this except the one with the provided index, which
 	 * is removed.
@@ -42,5 +28,5 @@ public abstract class Tuple extends AbstractProduct {
 	 * @return The new tuple.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
-	public abstract Tuple curry(int index);
+	Tuple curry(int index);
 }

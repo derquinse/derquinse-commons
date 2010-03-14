@@ -18,13 +18,22 @@ package net.derquinse.common.product;
 import static net.derquinse.common.product.Tuples.tuple;
 
 /**
- * Implementation of a 2-element tuple.
+ * Implementation of a 3-element tuple.
  * @author Andres Rodriguez
  * @param <T0> First element type.
  * @param <T1> Second element type.
  * @param <T2> Third element type.
  */
-final class Tuple3Impl<T0, T1, T2> extends Tuple3<T0, T1, T2> {
+class Tuple3Impl<T0, T1, T2> extends Tuple2Impl<T0, T1> implements Tuple3<T0, T1, T2> {
+	/**
+	 * Internal constructor for subclasses.
+	 * @param arity Expected arity.
+	 * @param e Elements. No defensive copy is made.
+	 */
+	Tuple3Impl(int arity, Object... e) {
+		super(arity, e);
+	}
+
 	/**
 	 * Constructor.
 	 * @param e0 First element.
@@ -32,7 +41,16 @@ final class Tuple3Impl<T0, T1, T2> extends Tuple3<T0, T1, T2> {
 	 * @param e2 Third element.
 	 */
 	Tuple3Impl(T0 e0, T1 e1, T2 e2) {
-		super(e0, e1);
+		super(3, e0, e1, e2);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.tuple.Product3#get2()
+	 */
+	@SuppressWarnings("unchecked")
+	public T2 get2() {
+		return (T2) get(2);
 	}
 
 	/*
@@ -80,52 +98,4 @@ final class Tuple3Impl<T0, T1, T2> extends Tuple3<T0, T1, T2> {
 	public Tuple2<T0, T1> curry2() {
 		return tuple(get0(), get1());
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple3#set(int, java.lang.Object)
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public Tuple3<T0, T1, T2> set(int index, Object value) {
-		checkIndex(index);
-		switch (index) {
-		case 0:
-			return set0((T0) value);
-		case 1:
-			return set1((T1) value);
-		case 2:
-			return set2((T2) value);
-		default:
-			throw new AssertionError();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple3#set0(java.lang.Object)
-	 */
-	@Override
-	public Tuple3<T0, T1, T2> set0(T0 value) {
-		return tuple(value, get1(), get2());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple3#set1(java.lang.Object)
-	 */
-	@Override
-	public Tuple3<T0, T1, T2> set1(T1 value) {
-		return tuple(get0(), value, get2());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple3#set2(java.lang.Object)
-	 */
-	@Override
-	public Tuple3<T0, T1, T2> set2(T2 value) {
-		return tuple(get0(), get1(), value);
-	}
-
 }

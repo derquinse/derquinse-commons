@@ -15,31 +15,31 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Products.tuple;
+import static net.derquinse.common.product.Products.singleton;
 
 /**
- * Implementation of a 1-element tuple.
+ * Pair implementation.
  * @author Andres Rodriguez
- * @param <T0> Element type.
+ * @param <T> Element type.
  */
-final class Tuple1Impl<T0> extends AbstractProduct implements Tuple1<T0> {
-	/** Element. */
-	private final T0 element;
+class PairImpl<T> extends AbstractArrayPower<T> implements Pair<T> {
+	/**
+	 * Internal constructor for subclasses.
+	 * @param arity Expected arity.
+	 * @param e Elements. No defensive copy is made.
+	 */
+	PairImpl(int arity, T... e) {
+		super(arity, e);
+	}
 
 	/**
 	 * Constructor.
-	 * @param element First element.
+	 * @param e0 First element.
+	 * @param e1 Second element.
 	 */
-	Tuple1Impl(T0 element) {
-		this.element = element;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#arity()
-	 */
-	public int arity() {
-		return 1;
+	@SuppressWarnings("unchecked")
+	PairImpl(T e0, T e1) {
+		super(2, e0, e1);
 	}
 
 	/*
@@ -47,33 +47,29 @@ final class Tuple1Impl<T0> extends AbstractProduct implements Tuple1<T0> {
 	 * @see net.derquinse.common.tuple.Product1#get0()
 	 */
 	@Override
-	public T0 get0() {
-		return element;
+	public T get0() {
+		return get(0);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#get(int)
+	 * @see net.derquinse.common.tuple.Product2#get1()
 	 */
-	public Object get(int index) {
+	public T get1() {
+		return get(1);
+	}
+
+	public Singleton<T> curry(int index) {
 		checkIndex(index);
-		return element;
+		return index == 0 ? curry0() : curry1();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple1#curry0()
-	 */
-	public Tuple curry0() {
-		return tuple();
+	public Singleton<T> curry0() {
+		return singleton(get1());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#curry(int)
-	 */
-	public Tuple curry(int index) {
-		checkIndex(index);
-		return tuple();
+	public Singleton<T> curry1() {
+		return singleton(get0());
 	}
+
 }

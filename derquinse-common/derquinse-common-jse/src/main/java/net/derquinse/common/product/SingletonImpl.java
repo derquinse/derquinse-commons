@@ -15,15 +15,14 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Powers.power;
-import static net.derquinse.common.product.Powers.singleton;
+import static net.derquinse.common.product.Products.power;
 
 /**
  * Implementation of a 1-element cartesian power.
  * @author Andres Rodriguez
  * @param <T> Element type.
  */
-final class SingletonImpl<T> extends Singleton<T> {
+final class SingletonImpl<T> extends AbstractPower<T> implements Singleton<T> {
 	/** Element. */
 	private final T element;
 
@@ -45,46 +44,24 @@ final class SingletonImpl<T> extends Singleton<T> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product1#get0()
+	 * @see net.derquinse.common.product.Product1#get0()
 	 */
-	@Override
 	public T get0() {
 		return element;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product#get(int)
+	 * @see net.derquinse.common.product.Product#get(int)
 	 */
 	public T get(int index) {
-		checkIndex(index);
 		return element;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.product.Singleton#set0(java.lang.Object)
-	 */
-	@Override
-	public Singleton<T> set0(T value) {
-		return singleton(value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.product.Singleton#set(int, java.lang.Object)
-	 */
-	@Override
-	public Singleton<T> set(int index, T value) {
-		checkIndex(index);
-		return set0(value);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.product.Singleton#curry0()
 	 */
-	@Override
 	public Power<T> curry0() {
 		return power();
 	}
@@ -93,7 +70,6 @@ final class SingletonImpl<T> extends Singleton<T> {
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.product.Power#curry(int)
 	 */
-	@Override
 	public Power<T> curry(int index) {
 		checkIndex(index);
 		return power();

@@ -15,17 +15,19 @@
  */
 package net.derquinse.common.product;
 
+import java.util.Iterator;
+
 /**
  * Empty tuple.
  * @author Andres Rodriguez
  */
-final class Tuple0Impl extends Tuple {
-	static final Tuple0Impl TUPLE0 = new Tuple0Impl();
+final class EmptyProduct extends AbstractProduct implements Power<Object> {
+	static final EmptyProduct INSTANCE = new EmptyProduct();
 
 	/**
 	 * Constructor.
 	 */
-	private Tuple0Impl() {
+	private EmptyProduct() {
 	}
 
 	/*
@@ -47,26 +49,24 @@ final class Tuple0Impl extends Tuple {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#set(int, java.lang.Object)
+	 * @see net.derquinse.common.tuple.Tuple#curry(int)
 	 */
-	@Override
-	public Tuple set(int index, Object value) {
+	public EmptyProduct curry(int index) {
 		checkIndex(index);
 		return null;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#curry(int)
+	 * @see java.lang.Iterable#iterator()
 	 */
-	@Override
-	public Tuple curry(int index) {
-		checkIndex(index);
-		return null;
+	public Iterator<Object> iterator() {
+		return new PowerIterator<Object>(this);
 	}
 
 	@Override
 	public String toString() {
 		return "()";
 	}
+
 }

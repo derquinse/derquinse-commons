@@ -23,9 +23,9 @@ import com.google.common.base.Joiner;
  * Skeletal implementation for products.
  * @author Andres Rodriguez
  */
-public abstract class AbstractProduct implements Product {
+abstract class AbstractProduct implements Product {
 	/** Default constructor. */
-	public AbstractProduct() {
+	AbstractProduct() {
 	}
 
 	/*
@@ -50,7 +50,7 @@ public abstract class AbstractProduct implements Product {
 	 * @param index Index to check.
 	 * @throws IndexOutOfBoundsException if index < 0 or index => arity.
 	 */
-	protected final void checkIndex(int index) {
+	final void checkIndex(int index) {
 		if (index < 0 || index >= arity()) {
 			throw new IndexOutOfBoundsException(String.format("Requested element %d but product arity is %d", index, arity()));
 		}

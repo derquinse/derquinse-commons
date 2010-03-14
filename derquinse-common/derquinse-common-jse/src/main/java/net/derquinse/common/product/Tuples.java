@@ -31,14 +31,6 @@ public final class Tuples {
 	}
 
 	/**
-	 * Returns the empty tuple.
-	 * @return The empty tuple.
-	 */
-	public static Tuple tuple() {
-		return Tuple0Impl.TUPLE0;
-	}
-
-	/**
 	 * Builds a 1-element tuple.
 	 * @param e Element.
 	 * @return The requested tuple.

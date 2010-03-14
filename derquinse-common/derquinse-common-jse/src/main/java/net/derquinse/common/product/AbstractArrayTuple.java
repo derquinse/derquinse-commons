@@ -15,65 +15,41 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Products.tuple;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Implementation of a 1-element tuple.
+ * Bae class for array-based tuples.
  * @author Andres Rodriguez
- * @param <T0> Element type.
  */
-final class Tuple1Impl<T0> extends AbstractProduct implements Tuple1<T0> {
-	/** Element. */
-	private final T0 element;
+abstract class AbstractArrayTuple extends AbstractProduct implements Tuple {
+	/** Elements. */
+	private final Object[] array;
 
 	/**
-	 * Constructor.
-	 * @param element First element.
+	 * Internal constructor for subclasses.
+	 * @param arity Expected arity.
+	 * @param e Elements. No defensive copy is made.
 	 */
-	Tuple1Impl(T0 element) {
-		this.element = element;
+	AbstractArrayTuple(int arity, Object... e) {
+		this.array = checkNotNull(e, "No elements provided");
+		checkArgument(arity == e.length, "Expected %d elements, provided %d", arity, e.length);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Product#arity()
 	 */
-	public int arity() {
-		return 1;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Product1#get0()
-	 */
-	@Override
-	public T0 get0() {
-		return element;
+	public final int arity() {
+		return array.length;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.tuple.Product#get(int)
 	 */
-	public Object get(int index) {
+	public final Object get(int index) {
 		checkIndex(index);
-		return element;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple1#curry0()
-	 */
-	public Tuple curry0() {
-		return tuple();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.tuple.Tuple#curry(int)
-	 */
-	public Tuple curry(int index) {
-		checkIndex(index);
-		return tuple();
+		return array[index];
 	}
 }

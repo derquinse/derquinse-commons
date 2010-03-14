@@ -16,31 +16,31 @@
 package net.derquinse.common.product;
 
 /**
- * Interface for a 2-element tuple.
+ * Interface for a 1-element cartesian power.
  * @author Andres Rodriguez
- * @param <T0> First element type.
- * @param <T1> Second element type.
+ * @param <T> Element type.
  */
-public interface Tuple2<T0, T1> extends Tuple1<T0>, Product2<T0, T1> {
+public interface AbstractSingleton<T> extends Power<T>, Product1<T> {
 	/**
-	 * Creates a new tuple with the same members as this except the one with the provided index, which
-	 * is removed.
-	 * @param index The member to remove index.
-	 * @return The new tuple.
+	 * Creates a new singleton with the same elements as this except the one provided.
+	 * @param index The element to replace index.
+	 * @param value Value of the element to replace.
+	 * @return The new singleton.
 	 * @throws IndexOutOfBoundsException if the index is out of range.
 	 */
-	Tuple1<?> curry(int index);
+	AbstractSingleton<T> set(int index, T value);
+
+	/**
+	 * Creates a new singleton with the same elements as this except the first one.
+	 * @param value Value of the element.
+	 * @return The new singleton.
+	 */
+	AbstractSingleton<T> set0(T value);
 
 	/**
 	 * Creates a new tuple with the same members as this except the first one, which is removed.
 	 * @return The new tuple.
 	 */
-	Tuple1<T1> curry0();
-
-	/**
-	 * Creates a new tuple with the same members as this except the second one, which is removed.
-	 * @return The new tuple.
-	 */
-	Tuple1<T0> curry1();
+	Power<T> curry0();
 
 }

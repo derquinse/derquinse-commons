@@ -15,8 +15,8 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Powers.power;
-import static net.derquinse.common.product.Tuples.tuple;
+import static net.derquinse.common.product.Products.power;
+import static net.derquinse.common.product.Products.tuple;
 
 import org.testng.annotations.Test;
 
@@ -47,7 +47,7 @@ public class Product0Test extends Base {
 		equality(t);
 		equality(t, tuple());
 		equality(t, power());
-		distinct(t, tuple(ONE));
+		distinct(t, Tuples.tuple(ONE));
 		equality(t, tuple(), tuple());
 		equality(t, tuple(), power());
 		equality(t, power(), power());

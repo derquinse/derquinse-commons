@@ -15,7 +15,7 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Powers.singleton;
+import static net.derquinse.common.product.Products.singleton;
 import static net.derquinse.common.product.Tuples.tuple;
 
 import net.derquinse.common.product.Tuple1;
