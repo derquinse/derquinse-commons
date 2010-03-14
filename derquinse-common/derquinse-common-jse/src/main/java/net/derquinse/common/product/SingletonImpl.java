@@ -55,6 +55,7 @@ final class SingletonImpl<T> extends AbstractPower<T> implements Singleton<T> {
 	 * @see net.derquinse.common.product.Product#get(int)
 	 */
 	public T get(int index) {
+		checkIndex(index);
 		return element;
 	}
 

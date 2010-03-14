@@ -15,7 +15,9 @@
  */
 package net.derquinse.common.product;
 
+import static net.derquinse.common.product.Products.pair;
 import static net.derquinse.common.product.Products.power;
+import static net.derquinse.common.product.Products.singleton;
 import static net.derquinse.common.product.Products.tuple;
 
 import org.testng.annotations.Test;
@@ -44,13 +46,9 @@ public class Product0Test extends Base {
 	 */
 	@Test(dependsOnMethods = "create")
 	public void equals() {
-		equality(t);
-		equality(t, tuple());
-		equality(t, power());
-		distinct(t, Tuples.tuple(ONE));
-		equality(t, tuple(), tuple());
-		equality(t, tuple(), power());
-		equality(t, power(), power());
+		equality(t, p, tuple(), power());
+		distinct(t, tuple(ONE), singleton(TWO), tuple(ONE, TWO), pair(TWO, ONE));
+		distinct(p, tuple(ONE), singleton(TWO), tuple(ONE, TWO), pair(TWO, ONE));
 	}
 
 	/**
@@ -60,13 +58,4 @@ public class Product0Test extends Base {
 	public void badIndex() {
 		checkBadIndexes(-5, 5, t, p);
 	}
-
-	/**
-	 * Bad index.
-	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex2() {
-		t.get(1);
-	}
-
 }

@@ -70,7 +70,7 @@ class Base {
 	}
 
 	/**
-	 * Equality 3.
+	 * Equality 2.
 	 */
 	static void equality(Object one, Object two) {
 		assertEquals(one, two);
@@ -79,14 +79,30 @@ class Base {
 	}
 
 	/**
-	 * Equality 3.
+	 * Equality many.
 	 */
-	static void equality(Object one, Object two, Object three) {
-		equality(one, two);
-		equality(three, two);
-		equality(one, three);
+	static void equality(Object... objects) {
+		final int n = objects.length;
+		for (int i = 0; i < n; i++) {
+			equality(objects[i]);
+			for (int j = i+1; j < n; j++) {
+				equality(objects[i], objects[j]);
+			}
+		}
 	}
 
+	/**
+	 * Distinct many.
+	 */
+	static void distinct(Object... objects) {
+		final int n = objects.length;
+		for (int i = 0; i < (n-1); i++) {
+			for (int j = i+1; j < n; j++) {
+				distinct(objects[i], objects[j]);
+			}
+		}
+	}
+	
 	/**
 	 * Checks for a bad index.
 	 * @param p Product to test.

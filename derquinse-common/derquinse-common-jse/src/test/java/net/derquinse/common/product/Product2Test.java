@@ -15,26 +15,29 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Tuples.tuple;
-
-import net.derquinse.common.product.Tuple2;
+import static net.derquinse.common.product.Products.pair;
+import static net.derquinse.common.product.Products.tuple;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for 2-element tuples.
+ * Tests for 2-element products.
  * @author Andres Rodriguez
  */
-public class Tuple2Test extends Base {
-	private Tuple2<Integer, Integer> t2;
+public class Product2Test extends Base {
+	private Tuple2<Integer, Integer> t;
+	private Pair<Integer> p;
+	
 
 	/**
 	 * Create.
 	 */
 	@Test
 	public void create() {
-		t2 = notNull(tuple(ONE, TWO));
-		check(t2, ONE, TWO);
+		t = notNull(tuple(ONE, TWO));
+		p = notNull(pair(ONE, TWO));
+		check(t, ONE, TWO);
+		check(p, ONE, TWO);
 	}
 
 	/**
@@ -42,25 +45,17 @@ public class Tuple2Test extends Base {
 	 */
 	@Test(dependsOnMethods = "create")
 	public void equals() {
-		equality(t2);
-		distinct(t2, tuple(ONE, BYE));
-		equality(t2, tuple(ONE, TWO), tuple(ONE, TWO));
+		equality(t, p, tuple(ONE, TWO), pair(ONE, TWO));
+		distinct(t, tuple(ONE, BYE), pair(HI, BYE));
+		distinct(p, tuple(ONE, BYE), pair(HI, BYE));
 	}
 
 	/**
 	 * Bad index.
 	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex1() {
-		t2.get(-1);
+	@Test(dependsOnMethods = "create")
+	public void badIndex() {
+		checkBadIndexes(-5, -1, t, p);
+		checkBadIndexes(2, 5, t, p);
 	}
-
-	/**
-	 * Bad index.
-	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex2() {
-		t2.get(2);
-	}
-
 }

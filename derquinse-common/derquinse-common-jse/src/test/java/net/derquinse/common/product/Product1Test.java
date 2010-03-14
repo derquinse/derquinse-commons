@@ -16,14 +16,14 @@
 package net.derquinse.common.product;
 
 import static net.derquinse.common.product.Products.singleton;
-import static net.derquinse.common.product.Tuples.tuple;
+import static net.derquinse.common.product.Products.tuple;
 
 import net.derquinse.common.product.Tuple1;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for 1-element tuples.
+ * Tests for 1-element products.
  * @author Andres Rodriguez
  */
 public class Product1Test extends Base {
@@ -46,25 +46,17 @@ public class Product1Test extends Base {
 	 */
 	@Test(dependsOnMethods = "create")
 	public void equals() {
-		equality(t);
-		distinct(t, tuple(TWO));
-		equality(t, tuple(ONE), tuple(ONE));
+		equality(t, p, tuple(ONE), singleton(ONE));
+		distinct(t, tuple(TWO), singleton(BYE));
+		distinct(p, tuple(TWO), singleton(BYE));
 	}
 
 	/**
 	 * Bad index.
 	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex1() {
-		t.get(-1);
+	@Test(dependsOnMethods = "create")
+	public void badIndex() {
+		checkBadIndexes(-5, -1, t, p);
+		checkBadIndexes(1, 5, t, p);
 	}
-
-	/**
-	 * Bad index.
-	 */
-	@Test(expectedExceptions = IndexOutOfBoundsException.class, dependsOnMethods = "create")
-	public void badIndex2() {
-		t.get(2);
-	}
-
 }

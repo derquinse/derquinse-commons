@@ -15,7 +15,7 @@
  */
 package net.derquinse.common.product;
 
-import static net.derquinse.common.product.Tuples.tuple;
+import static net.derquinse.common.product.Products.tuple;
 
 /**
  * Implementation of a 3-element tuple.
