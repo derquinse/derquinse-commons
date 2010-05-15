@@ -3,7 +3,7 @@
   <parent>
     <artifactId>derquinse-pom</artifactId>
     <groupId>net.derquinse</groupId>
-    <version>2</version>
+    <version>3</version>
   </parent>
   <groupId>net.derquinse</groupId>
   <artifactId>derquinse-common</artifactId>
@@ -15,8 +15,7 @@
   	<dependency>
   		<groupId>org.testng</groupId>
   		<artifactId>testng</artifactId>
-  		<version>5.11</version>
-  		<classifier>jdk15</classifier>
+  		<version>5.12.1</version>
   		<scope>test</scope>
   	</dependency>
   </dependencies>
