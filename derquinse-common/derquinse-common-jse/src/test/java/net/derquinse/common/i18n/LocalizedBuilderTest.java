@@ -40,18 +40,13 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 		builder.put(ES, HOLA);
 		final Localized<String> s = builder.get();
 		assertEquals(s.get(), HELLO);
-		assertEquals(s.get(ES), HOLA);
-		assertEquals(s.get(Locale.CANADA), HELLO);
+		assertEquals(s.apply(ES), HOLA);
+		assertEquals(s.apply(Locale.CANADA), HELLO);
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
 	public void checkNullKey() {
 		builder.put((Locale) null, "hello");
-	}
-
-	@Test(expectedExceptions = NullPointerException.class)
-	public void checkNullStringKey() {
-		builder.put((String) null, "hello");
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
@@ -64,4 +59,19 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 		builder.get();
 	}
 
+	@Test(expectedExceptions = NullPointerException.class)
+	public void nullDefault1() {
+		LocalizedBuilder.create(null);
+	}
+
+	@Test(expectedExceptions = NullPointerException.class)
+	public void nullDefault2() {
+		LocalizedBuilder.create().setDefault(null);
+	}
+
+	@Test(expectedExceptions = NullPointerException.class)
+	public void nullDefault3() {
+		LocalizedBuilder.create().setDefault(new Object()).setDefault(null);
+	}
+	
 }

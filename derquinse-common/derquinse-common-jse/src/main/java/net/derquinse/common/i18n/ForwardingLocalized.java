@@ -15,22 +15,29 @@
  */
 package net.derquinse.common.i18n;
 
+import java.util.Locale;
+
+import net.derquinse.common.base.ForwardingFunction;
+
 /**
- * Skeletal implementation for localized objects.
+ * An abstract base class for implementing the <a
+ * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a> for localized values.
+ * The {@link #delegate()} method must be overridden to return the instance being decorated.
+ * @param <T> Localized value type.
  * @author Andres Rodriguez
  */
-public abstract class AbstractLocalized<T> implements Localized<T> {
+public abstract class ForwardingLocalized<T> extends ForwardingFunction<Locale, T> implements Localized<T> {
 	/**
-	 * Default constructor.
+	 * Returns the backing delegate instance that methods are forwarded to.
+	 * @return The delegate instance.
 	 */
-	public AbstractLocalized() {
-	}
+	protected abstract Localized<T> delegate();
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.i18n.Localized#get()
 	 */
 	public T get() {
-		return apply(null);
+		return delegate().get();
 	}
 }

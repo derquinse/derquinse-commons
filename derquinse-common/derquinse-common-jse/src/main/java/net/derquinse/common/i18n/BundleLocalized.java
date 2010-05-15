@@ -55,9 +55,9 @@ public final class BundleLocalized<T> extends AbstractLocalized<T> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.i18n.Localized#get(java.util.Locale)
+	 * @see net.derquinse.common.i18n.Localized#apply(java.util.Locale)
 	 */
-	public T get(Locale locale) {
+	public T apply(Locale locale) {
 		try {
 			final ResourceBundle bundle;
 			if (locale == null) {

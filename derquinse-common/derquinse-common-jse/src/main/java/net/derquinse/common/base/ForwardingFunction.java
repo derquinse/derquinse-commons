@@ -15,6 +15,8 @@
  */
 package net.derquinse.common.base;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.ForwardingObject;
 
@@ -37,7 +39,7 @@ public abstract class ForwardingFunction<F, T> extends ForwardingObject implemen
 	 * (non-Javadoc)
 	 * @see com.google.common.base.Function#apply(java.lang.Object)
 	 */
-	public T apply(F from) {
+	public T apply(@Nullable F from) {
 		return delegate().apply(from);
 	};
 }

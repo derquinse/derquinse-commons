@@ -25,13 +25,6 @@ import com.google.common.base.Preconditions;
  * @author Andres Rodriguez
  */
 public final class Locales {
-	/** Static method fromString as a function. */
-	public static final Function<String, Locale> FROM_STRING = new Function<String, Locale>() {
-		public Locale apply(String from) {
-			return fromString(from);
-		}
-	};
-	
 	/**
 	 * Not instantiable.
 	 */
@@ -49,8 +42,8 @@ public final class Locales {
 	/**
 	 * Returns the parent of the provided locale.
 	 * @param locale Provided locale.
-	 * @return The parent locale or {@code null} if the provided locale is
-	 *         {@code null} or the provided locale has only language component.
+	 * @return The parent locale or {@code null} if the provided locale is {@code null} or the
+	 *         provided locale has only language component.
 	 */
 	public static Locale getParent(Locale locale) {
 		if (locale == null) {
@@ -70,10 +63,9 @@ public final class Locales {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Returns a locale parsed from a string.
-	 * Allowed values are:
+	 * Returns a locale parsed from a string. Allowed values are:
 	 * <ul>
 	 * <li>language</li>
 	 * <li>language_country</li>
@@ -89,7 +81,7 @@ public final class Locales {
 		Preconditions.checkArgument(localeString.length() > 0);
 		String[] split = localeString.split("_");
 		final int n = split.length;
-		if ( n == 1 ) {
+		if (n == 1) {
 			return new Locale(split[0]);
 		} else if (n == 2) {
 			return new Locale(split[0], split[1]);
@@ -97,6 +89,31 @@ public final class Locales {
 			return new Locale(split[0], split[1], split[2]);
 		}
 		throw new IllegalArgumentException("Unable to parse locale [" + localeString + ']');
+	}
+
+	/**
+	 * Returns a function encapsulating the {@link #fromString(Locale) fromString} method.
+	 * @return The {@link #fromString(Locale) fromString} function.
+	 */
+	public static Function<String, Locale> fromString() {
+		return FromString.INSTANCE;
+	}
+
+	private enum FromString implements Function<String, Locale> {
+		INSTANCE;
+
+		/*
+		 * (non-Javadoc)
+		 * @see com.google.common.base.Function#apply(java.lang.Object)
+		 */
+		public Locale apply(String from) {
+			return fromString(from);
+		}
+
+		@Override
+		public String toString() {
+			return "Locales.fromString";
+		}
 	}
 
 	/**
@@ -111,9 +128,34 @@ public final class Locales {
 		}
 		try {
 			return fromString(localeString);
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Returns a function encapsulating the {@link #safeFromString(Locale) safeFromString} method.
+	 * @return The {@link #safeFromString(Locale) safeFromString} function.
+	 */
+	public static Function<String, Locale> safeFromString() {
+		return SafeFromString.INSTANCE;
+	}
+
+	private enum SafeFromString implements Function<String, Locale> {
+		INSTANCE;
+
+		/*
+		 * (non-Javadoc)
+		 * @see com.google.common.base.Function#apply(java.lang.Object)
+		 */
+		public Locale apply(String from) {
+			return safeFromString(from);
+		}
+
+		@Override
+		public String toString() {
+			return "Locales.safeFromString";
+		}
+	}
+
 }

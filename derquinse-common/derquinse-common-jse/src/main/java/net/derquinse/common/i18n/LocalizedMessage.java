@@ -59,11 +59,11 @@ public final class LocalizedMessage extends AbstractLocalized<String> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.i18n.Localized#get(java.util.Locale)
+	 * @see net.derquinse.common.i18n.Localized#apply(java.util.Locale)
 	 */
-	public String get(Locale locale) {
+	public String apply(Locale locale) {
 		try {
-			final String text = pattern.get(locale);
+			final String text = pattern.apply(locale);
 			if (args.length == 0) {
 				return text;
 			}
@@ -73,7 +73,7 @@ public final class LocalizedMessage extends AbstractLocalized<String> {
 				for (int i = 0; i < args.length; i++) {
 					final Object o = args[i];
 					if (o instanceof Localized<?>) {
-						arguments[i] = ((Localized<?>) o).get(locale);
+						arguments[i] = ((Localized<?>) o).apply(locale);
 					} else {
 						arguments[i] = o;
 					}

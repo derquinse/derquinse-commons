@@ -16,19 +16,18 @@
 package net.derquinse.common.i18n;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static net.derquinse.common.i18n.Locales.fromString;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 /**
- * A localized formatted message.
+ * A localized value builder.
  * @author Andres Rodriguez
  * @param <T> Localized object type.
  */
@@ -94,18 +93,6 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 	}
 
 	/**
-	 * Puts the value for a locale.
-	 * @param locale Locale.
-	 * @param value Value.
-	 * @return This builder.
-	 * @throws NullPointerException if any of the arguments is null.
-	 * @throws IllegalArgumentException if unable to parse the locale.
-	 */
-	public LocalizedBuilder<T> put(String locale, T value) {
-		return put(fromString(checkNotNull(locale, NULL_LOCALE)), value);
-	}
-
-	/**
 	 * Puts all the localized values from the argument map.
 	 * @param values Localized values to add.
 	 * @return This builder.
@@ -123,29 +110,12 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 	}
 
 	/**
-	 * Puts all the localized values from the argument map, where the locales are strings.
-	 * @param values Localized values to add.
-	 * @return This builder.
-	 * @throws NullPointerException if any of the keys or values is null.
-	 */
-	public LocalizedBuilder<T> putAllStrings(Map<String, ? extends T> values) {
-		if (values == null || values.isEmpty()) {
-			return this; // nothing to do
-		}
-		// Check preconditions
-		for (Entry<String, ? extends T> entry : values.entrySet()) {
-			put(entry.getKey(), entry.getValue());
-		}
-		return this;
-	}
-
-	/**
 	 * Returns the localized value.
 	 * @return The localized value.
 	 * @throws IllegalStateException if the default value is null.
 	 */
 	public Localized<T> get() {
-		Preconditions.checkState(defaultValue != null, NULL_DEFAULT);
+		checkState(defaultValue != null, NULL_DEFAULT);
 		if (values.isEmpty()) {
 			return Unlocalized.of(defaultValue);
 		}
@@ -176,9 +146,9 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 
 		/*
 		 * (non-Javadoc)
-		 * @see net.derquinse.common.i18n.Localized#get(java.util.Locale)
+		 * @see net.derquinse.common.i18n.Localized#apply(java.util.Locale)
 		 */
-		public T get(Locale locale) {
+		public T apply(Locale locale) {
 			while (locale != null) {
 				T value = values.get(locale);
 				if (value != null) {
@@ -187,14 +157,6 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 				locale = Locales.getParent(locale);
 			}
 			return defaultValue;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see net.derquinse.common.i18n.Localized#getKnownValues()
-		 */
-		public Map<Locale, T> getKnownValues() {
-			return values;
 		}
 	}
 

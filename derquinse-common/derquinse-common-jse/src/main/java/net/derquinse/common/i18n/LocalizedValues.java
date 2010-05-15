@@ -19,35 +19,42 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Iterables.filter;
+import static net.derquinse.common.i18n.Locales.fromString;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 /**
- * Utility methods to build localized string.
+ * Utility methods to build localized values.
  * @author Andres Rodriguez
  */
-public final class LocalizedStrings {
+public final class LocalizedValues {
 	/**
 	 * Not instantiable.
 	 */
-	private LocalizedStrings() {
+	private LocalizedValues() {
 		throw new AssertionError();
 	}
 
 	/**
-	 * Builds a localized map.
+	 * Builds a localized value.
 	 * @param defaultValue Default value.
 	 * @param values Localized values map.
 	 * @return The localized string.
 	 * @throws NullPointerException if the default value or any of the keys or values is {@code null}.
 	 */
-	public static Localized<String> fromLocaleMap(String defaultValue, Map<? extends Locale, String> values) {
+	public static <T> Localized<T> fromMap(T defaultValue, @Nullable Map<? extends Locale, ? extends T> values) {
+		if (values == null || values.isEmpty()) {
+			return Unlocalized.of(defaultValue);
+		}
 		return LocalizedBuilder.create(defaultValue).putAll(values).get();
 	}
 
@@ -59,15 +66,22 @@ public final class LocalizedStrings {
 	 * @throws NullPointerException if the default value or any of the keys or values is {@code null}.
 	 * @throws IllegalArgumentException if unable to parse any of the locales.
 	 */
-	public static Localized<String> fromStringMap(String defaultValue, Map<String, String> values) {
-		return LocalizedBuilder.create(defaultValue).putAllStrings(values).get();
+	public static <T> Localized<T> fromStringMap(T defaultValue, @Nullable Map<String, ? extends T> values) {
+		if (values == null || values.isEmpty()) {
+			return Unlocalized.of(defaultValue);
+		}
+		final LocalizedBuilder<T> builder = LocalizedBuilder.create(defaultValue);
+		for (Entry<String, ? extends T> entry : values.entrySet()) {
+			builder.put(fromString(entry.getKey()), entry.getValue());
+		}
+		return builder.get();
 	}
 
 	/**
-	 * Parses a collection of {@see L7d} annotations.
+	 * Parses a collection of {@link L7d} annotations.
 	 * @param values Collection. {@code null} elements are filtered out.
 	 * @return The parsed locale map.
-	 * @throws IllegalArgumentException if unable to parse any of the locales.
+	 * @throws IllegalArgumentException if unable to parse any of the annotations.
 	 */
 	public static Map<Locale, String> parse(Iterable<? extends L7d> values) {
 		if (values == null) {
@@ -81,7 +95,7 @@ public final class LocalizedStrings {
 	}
 
 	/**
-	 * Parses a collection of {@see L7d} annotations.
+	 * Parses an array of {@link L7d} annotations.
 	 * @param values Collection. {@code null} elements are filtered out.
 	 * @return The parsed locale map.
 	 * @throws IllegalArgumentException if unable to parse any of the locales.
@@ -94,7 +108,7 @@ public final class LocalizedStrings {
 	}
 
 	/**
-	 * Parses a {@see L7dString} annotation.
+	 * Parses a {@link L7dString} annotation.
 	 * @param values Collection. {@code null} elements are filtered out.
 	 * @return The parsed localized string or {@code null} if the argument is {@code null}.
 	 * @throws IllegalArgumentException if unable to parse any of the locales.
@@ -103,7 +117,7 @@ public final class LocalizedStrings {
 		if (value == null) {
 			return null;
 		}
-		return fromLocaleMap(value.value(), parse(value.values()));
+		return fromMap(value.value(), parse(value.values()));
 	}
 
 	private static <T> T get(Class<?> type, Object object, String method, Class<T> returnType, String error) {
@@ -134,7 +148,47 @@ public final class LocalizedStrings {
 		final Class<? extends Annotation> type = annotation.annotationType();
 		final String defaultValue = get(type, annotation, value, String.class, "default value");
 		final L7d[] l7ds = get(type, annotation, values, L7d[].class, "localized values");
-		return fromLocaleMap(defaultValue, parse(l7ds));
+		return fromMap(defaultValue, parse(l7ds));
 	}
 
+	/**
+	 * Wraps a localized value with another that provides fallback value.
+	 * @param value Localized value to wrap.
+	 * @param fallback Fallback value.
+	 * @return The localized object or the fallback value if an error occurs (may be {@code null} if
+	 *         the provided fallback value is {@code null}).
+	 */
+	public static <T> Localized<T> withFallback(final Localized<T> value, final T fallback) {
+		checkNotNull(value, "The localized value to wrap must be provided");
+		checkNotNull(value, "The fallback value must be provided");
+		return new ForwardingLocalized<T>() {
+			@Override
+			public T apply(Locale from) {
+				try {
+					return delegate().apply(from);
+				} catch (UnableToLocalizeException e) {
+					return fallback;
+				}
+			}
+
+			@Override
+			public T get() {
+				try {
+					return delegate().get();
+				} catch (UnableToLocalizeException e) {
+					return fallback;
+				}
+			}
+
+			@Override
+			protected Localized<T> delegate() {
+				return value;
+			}
+
+			@Override
+			public String toString() {
+				return String.format("Localized value [%s] with fallback [%s]", value, fallback);
+			}
+		};
+	}
 }

@@ -16,8 +16,10 @@
 package net.derquinse.common.i18n;
 
 import java.util.Locale;
-import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
 import com.google.common.base.Supplier;
 
 /**
@@ -27,15 +29,16 @@ import com.google.common.base.Supplier;
  * @author Andres Rodriguez
  * @param <T> Localized object type.
  */
-public interface Localized<T> extends Supplier<T> {
+public interface Localized<T> extends Supplier<T>, Function<Locale, T> {
 	/**
 	 * Returns the object for the specified locale. If no value for the specified locale is found or
-	 * the argument is {@code null}, the default value must be returned.
+	 * the argument is {@code null}, the default value must be returned. The returned value must be
+	 * non-null.
 	 * @param locale The requested locale.
 	 * @return The localized object.
 	 * @throws UnableToLocalizeException if an error occurs.
 	 */
-	T get(Locale locale);
+	T apply(@Nullable Locale locale);
 
 	/**
 	 * Returns the default value for the localized object. The returned value must be non-null. Note
@@ -44,19 +47,4 @@ public interface Localized<T> extends Supplier<T> {
 	 * @throws UnableToLocalizeException if an error occurs.
 	 */
 	T get();
-
-	/**
-	 * Returns the object for the specified locale.
-	 * @param locale The requested locale.
-	 * @param locale Fallback value.
-	 * @return The localized object or the fallback value if an error occurs.
-	 */
-	T get(Locale locale, T fallback);
-
-	/**
-	 * Returns the known localized values. The default value may not be included. The returned map may
-	 * not be complete, e.g. if some values are dynamic or generated on demand.
-	 * @return A map with the known values. The returned map may not be modifiable.
-	 */
-	Map<Locale, T> getKnownValues();
 }

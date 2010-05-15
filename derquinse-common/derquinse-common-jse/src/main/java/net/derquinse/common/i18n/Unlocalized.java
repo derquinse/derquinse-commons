@@ -16,9 +16,6 @@
 package net.derquinse.common.i18n;
 
 import java.util.Locale;
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
 
 /**
  * Adapter for language-independent or unlocalized values.
@@ -60,25 +57,10 @@ public final class Unlocalized<T> implements Localized<T> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.i18n.Localized#get(java.util.Locale, java.lang.Object)
+	 * @see net.derquinse.common.i18n.Localized#apply(java.util.Locale)
 	 */
-	public T get(Locale locale, T fallback) {
+	public T apply(Locale locale) {
 		return value;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.i18n.Localized#get(java.util.Locale)
-	 */
-	public T get(Locale locale) {
-		return value;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.derquinse.common.i18n.Localized#getKnownValues()
-	 */
-	public Map<Locale, T> getKnownValues() {
-		return ImmutableMap.of();
-	}
 }

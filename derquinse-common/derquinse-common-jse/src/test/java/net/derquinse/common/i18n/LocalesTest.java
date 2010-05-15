@@ -30,11 +30,17 @@ import org.testng.annotations.Test;
  * @author Andres Rodriguez
  */
 public class LocalesTest {
+
+	private void checkOk(String s, Locale locale) {
+		assertEquals(fromString(s), locale);
+		assertEquals(fromString().apply(s), locale);
+	}
+
 	@Test
 	public void testOk() {
-		assertEquals(fromString("en"), new Locale("en"));
-		assertEquals(fromString("en_EN"), new Locale("en", "EN"));
-		assertEquals(fromString("en_EN_WIN"), new Locale("en", "EN", "WIN"));
+		checkOk("en", new Locale("en"));
+		checkOk("en_EN", new Locale("en", "EN"));
+		checkOk("en_EN_WIN", new Locale("en", "EN", "WIN"));
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
@@ -60,9 +66,13 @@ public class LocalesTest {
 	@Test
 	public void testSafe() {
 		assertNull(safeFromString(null));
+		assertNull(safeFromString().apply(null));
 		assertNull(safeFromString(""));
+		assertNull(safeFromString().apply(""));
 		assertNotNull(safeFromString("en"));
+		assertNotNull(safeFromString().apply("en"));
 		assertEquals(safeFromString("en_EN"), new Locale("en", "EN"));
+		assertEquals(safeFromString().apply("en_EN"), new Locale("en", "EN"));
 	}
 
 }
