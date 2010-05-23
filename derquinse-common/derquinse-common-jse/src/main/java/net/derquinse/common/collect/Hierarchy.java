@@ -18,17 +18,31 @@ package net.derquinse.common.collect;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
+import com.google.common.annotations.Beta;
+
 /**
- * A hierarchy is a set of objects identified organized in a tree-like, where each level is an
- * ordered list. The first level of a hierarchy is the list of elements that have no parent. A
+ * A hierarchy is a set of objects identified organized in a tree-like structure, where each level
+ * is an ordered list. The first level of a hierarchy is the list of elements that have no parent. A
  * hierarchy is rooted if the first level has exactly one element, which is named the root element.
+ * Null elements are not allowed. As only an immutable implementation is provided, mutable semantics
+ * are not specified yet.
  * @author Andres Rodriguez
  * @param <E> Type of the elements in the hierarchy.
  * @see java.util.Set
  */
-public interface Hierarchy<E> extends Set<E> {
+@Beta
+public interface Hierarchy<E> {
 	/**
-	 * Returns the first level of the hierarchy.
+	 * Returns the set of elements that are part of the hierarchy.
+	 * @return A set containing a live view the elements of the hierarchy.
+	 */
+	Set<E> elements();
+
+	/**
+	 * Returns the first level of the hierarchy. For a rooted hierarchy it will be a single list
+	 * element.
 	 * @return The list of values with no parent.
 	 */
 	List<E> getFirstLevel();
@@ -63,22 +77,34 @@ public interface Hierarchy<E> extends Set<E> {
 	E getParent(E element);
 
 	/**
-	 * Returns all the descendants of the specified element.
-	 * @param element Element which descendants are requested.
-	 * @return All descendants. The iteration order is unspecified.
-	 * @throws IllegalArgumentException if the specified value is not part of the hierarchy.
-	 */
-	Set<E> getDescendants(E element);
-
-	/**
-	 * Returns a subhierarchy if the current hierarchy. Implementations must specify if they provide a
-	 * view or a new hierarchy.
-	 * @param element Element in which the requested subhierarchy hierarchy starts.
-	 * @param included If the provided element is to be included in the subhierarchy. In that case,
-	 *          the subhierarchy is rooted with the provided element being the root.
-	 * @return The requested subhierarchy.
+	 * Returns the coordinates of the specified element.
+	 * @param element Element which coordinates are requested.
+	 * @return The element coordinates.
 	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
 	 */
-	Hierarchy<E> getSubhierarchy(E element, boolean included);
+	HierarchyCoordinates<E> getCoordinates(E element);
 
+	/**
+	 * Returns the ancestors of the specified element.
+	 * @param element Element which ancestors are requested.
+	 * @return The ancestors in descending level order.
+	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
+	 */
+	Iterable<E> getAncestors(E element);
+
+	/**
+	 * Traverses the hierarchy depth-first.
+	 * @param visitor Visitor.
+	 */
+	void visitDepthFirst(HierarchyVisitor<? super E> visitor);
+
+	/**
+	 * Traverses the hierarchy depth-first, starting in the specified element.
+	 * @param visitor Visitor.
+	 * @param element Starting element. If {@code null} the call is equivalent to {@code
+	 *          visitDepthFirst(visitor)}.
+	 * @param includeStarting Whether to include the starting element.
+	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
+	 */
+	void visitDepthFirst(HierarchyVisitor<? super E> visitor, @Nullable E element, boolean includeStarting);
 }
