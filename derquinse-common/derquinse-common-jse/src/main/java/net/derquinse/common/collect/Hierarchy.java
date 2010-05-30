@@ -35,6 +35,19 @@ import com.google.common.annotations.Beta;
 @Beta
 public interface Hierarchy<E> {
 	/**
+	 * Returns the number of elements in this hierarchy. If this hierarchy contains more than
+	 * <tt>Integer.MAX_VALUE</tt> elements, returns <tt>Integer.MAX_VALUE</tt>.
+	 * @return the number of elements in this collection
+	 */
+	int size();
+
+	/**
+	 * Returns <tt>true</tt> if this hierarchy contains no elements.
+	 * @return <tt>true</tt> if this hierarchy contains no elements
+	 */
+	boolean isEmpty();
+
+	/**
 	 * Returns the set of elements that are part of the hierarchy.
 	 * @return A set containing a live view the elements of the hierarchy.
 	 */

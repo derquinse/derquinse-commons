@@ -48,6 +48,22 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 				"The provided element [%s] is not part of the hierarchy", element);
 		return element;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.Hierarchy#isEmpty()
+	 */
+	public boolean isEmpty() {
+		return elements().isEmpty();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.Hierarchy#size()
+	 */
+	public int size() {
+		return elements().size();
+	}
 
 	/*
 	 * (non-Javadoc)

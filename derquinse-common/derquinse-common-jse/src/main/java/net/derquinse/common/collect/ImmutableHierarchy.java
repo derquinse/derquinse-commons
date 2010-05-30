@@ -50,6 +50,25 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 	}
 
 	/**
+	 * Returns an immutable copy of the provided hierarchy. If the argument is itself an immutable
+	 * hierarchy no copy is performed.
+	 * @param hierarchy Hierarchy to copy.
+	 * @return An immutable hierarchy equal to the the one provided.
+	 */
+	public static <E> ImmutableHierarchy<E> copyOf(Hierarchy<? extends E> hierarchy) {
+		checkNotNull(hierarchy, "The source hierachy must be provided");
+		if (hierarchy instanceof ImmutableHierarchy<?>) {
+			@SuppressWarnings("unchecked")
+			final ImmutableHierarchy<E> h = (ImmutableHierarchy<E>) hierarchy;
+			return h;
+		} else if (hierarchy.isEmpty()) {
+			return of();
+		}
+		final Builder<E> builder = builder();
+		return builder.addHierarchy(null, hierarchy, null, true).get();
+	}
+
+	/**
 	 * Returns a new builder that does not allow out of order insertion (initially).
 	 */
 	public static <E> Builder<E> builder() {
@@ -168,8 +187,16 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 			return this;
 		}
 
-		public Builder<E> addHierarchy(E parent, Hierarchy<E> hierarchy, @Nullable E root, boolean includeRoot) {
+		private static <T> Hierarchy<T> check(Hierarchy<? extends T> hierarchy) {
 			checkNotNull(hierarchy, "The source hierarchy is required");
+			// Safe because we are just reading.
+			@SuppressWarnings("unchecked")
+			Hierarchy<T> h = (Hierarchy<T>) hierarchy;
+			return h;
+		}
+
+		public Builder<E> addHierarchy(E parent, Hierarchy<? extends E> hierarchy, @Nullable E root, boolean includeRoot) {
+			final Hierarchy<E> h = check(hierarchy);
 			checkArgument(root == null || hierarchy.elements().contains(root));
 			List<E> level;
 			if (root != null) {
@@ -177,11 +204,11 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 					add(parent, root);
 					parent = root;
 				}
-				level = hierarchy.getChildren(root);
+				level = h.getChildren(root);
 			} else {
-				level = hierarchy.getFirstLevel();
+				level = h.getFirstLevel();
 			}
-			addHierarchyRec(parent, hierarchy, level);
+			addHierarchyRec(parent, h, level);
 			return this;
 		}
 
@@ -192,9 +219,9 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 			}
 		}
 
-		public <F> Builder<E> addHierarchy(E parent, Hierarchy<F> hierarchy, @Nullable F root, boolean includeRoot,
-				Function<F, E> function) {
-			checkNotNull(hierarchy, "The source hierarchy is required");
+		public <F> Builder<E> addHierarchy(E parent, Hierarchy<? extends F> hierarchy, @Nullable F root, boolean includeRoot,
+				Function<? super F, E> function) {
+			final Hierarchy<F> h = check(hierarchy);
 			checkNotNull(hierarchy, "The transformation function is required");
 			checkArgument(root == null || hierarchy.elements().contains(root));
 			List<F> level;
@@ -204,15 +231,15 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 					add(parent, newRoot);
 					parent = newRoot;
 				}
-				level = hierarchy.getChildren(root);
+				level = h.getChildren(root);
 			} else {
-				level = hierarchy.getFirstLevel();
+				level = h.getFirstLevel();
 			}
-			addHierarchyRec(parent, hierarchy, level, function);
+			addHierarchyRec(parent, h, level, function);
 			return this;
 		}
 
-		private <F> void addHierarchyRec(E parent, Hierarchy<F> hierarchy, List<F> level, Function<F, E> function) {
+		private <F> void addHierarchyRec(E parent, Hierarchy<F> hierarchy, List<F> level, Function<? super F, E> function) {
 			for (F element : level) {
 				E transformed = function.apply(element);
 				add(parent, transformed);
