@@ -13,13 +13,22 @@
   <description>Derquinse Common Java Libraries</description>
   <dependencies>
   	<dependency>
+  		<groupId>com.google.guava</groupId>
+  		<artifactId>guava</artifactId>
+  		<version>r03</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.code.findbugs</groupId>
+  		<artifactId>jsr305</artifactId>
+  		<version>1.3.9</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
   		<groupId>org.testng</groupId>
   		<artifactId>testng</artifactId>
   		<version>5.12.1</version>
   		<scope>test</scope>
   	</dependency>
   </dependencies>
-  <modules>
-  	<module>derquinse-common-jse</module>
-  </modules>
 </project>
