@@ -19,7 +19,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Type;
 
-import net.derquinse.common.base.Types;
 
 /**
  * Skeletal implementation of a type descriptors.
