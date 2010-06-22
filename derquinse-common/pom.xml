@@ -15,7 +15,7 @@
   	<dependency>
   		<groupId>com.google.guava</groupId>
   		<artifactId>guava</artifactId>
-  		<version>r03</version>
+  		<version>r05</version>
   	</dependency>
   	<dependency>
   		<groupId>com.google.code.findbugs</groupId>

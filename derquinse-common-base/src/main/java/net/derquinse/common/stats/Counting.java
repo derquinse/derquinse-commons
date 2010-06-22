@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.base;
+package net.derquinse.common.stats;
 
 /**
- * Union interface for {@see PartialFunction} and {@see CountingFunction}.
+ * Base interface for counting measurements.
  * @author Andres Rodriguez
- * @param <F> The type of the function input.
- * @param <T> The type of the function output.
  */
-public interface CountingPartialFunction<F, T> extends CountingFunction<F, T>, PartialFunction<F, T> {
+public interface Counting extends Measurement {
+	/**
+	 * Returns the number of elements.
+	 * @return The number of elements.
+	 */
+	long getCount();
 }

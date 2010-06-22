@@ -15,8 +15,6 @@
  */
 package net.derquinse.common.base;
 
-import com.google.common.collect.ForwardingObject;
-
 /**
  * An abstract base class for implementing the <a
  * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a> for partial
@@ -26,7 +24,7 @@ import com.google.common.collect.ForwardingObject;
  * @param <T> the type of the function output
  * @author Andres Rodriguez
  */
-public abstract class ForwardingPartialFunction<F, T> extends ForwardingObject implements PartialFunction<F, T> {
+public abstract class ForwardingPartialFunction<F, T> extends ForwardingFunction<F, T> implements PartialFunction<F, T> {
 	/**
 	 * Returns the backing delegate instance that methods are forwarded to.
 	 * @return The delegate instance.

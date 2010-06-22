@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.base;
+package net.derquinse.common.stats;
 
-import com.google.common.base.Function;
+import net.derquinse.common.math.PartialRealFunction;
 
 /**
- * Interface for functions that count number of requests the receive.
+ * Populations factory and helper methods.
  * @author Andres Rodriguez
- * @param <F> The type of the function input.
- * @param <T> The type of the function output.
  */
-public interface CountingFunction<F, T> extends Function<F, T> {
-	/**
-	 * Returns the number of requests made.
-	 * @return The number of requests.
-	 */
-	long getRequestedValues();
+public final class Populations {
+	/** Not instantiable. */
+	private Populations() {
+		throw new AssertionError();
+	}
+
+	public static LongPopulation ofLong() {
+		return LongPopulationImpl.EMPTY;
+	}
+
+	public static PartialRealFunction normalQuantile(LongPopulation population) {
+		return new NormalLongQuantile(population);
+	}
+
 }
