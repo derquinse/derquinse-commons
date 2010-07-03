@@ -34,4 +34,15 @@ public final class RefCounts {
 	public <T> RefCount<T> refCount(T object) {
 		return new SimpleRefCount<T>(object);
 	}
+
+	/**
+	 * Returns stoppable reference-counted object. The reference count is kept in a thread-safe way.
+	 * @param object Object to supply.
+	 * @return The requested supplier.
+	 * @throws NullPointerException if the argument is {@code null}.
+	 */
+	public <T> StoppableRefCount<T> stoppable(T object) {
+		return new StoppableRefCountImpl<T>(object);
+	}
+
 }

@@ -179,7 +179,7 @@ final class StoppableRefCountImpl<T> extends AbstractRefCount<T> implements Stop
 
 		@Override
 		boolean isRunning() {
-			return count > 0;
+			return true;
 		}
 
 		@Override

@@ -15,31 +15,25 @@
  */
 package net.derquinse.common.util.concurrent;
 
-import java.util.concurrent.ExecutorService;
+import static org.testng.Assert.assertEquals;
 
-import org.testng.annotations.Test;
-
-import com.google.common.util.concurrent.MoreExecutors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Tests for SimpleListenableFuture
+ * Counter for tests.
  * @author Andres Rodriguez
  */
-public class SimpleListenableFutureTest {
-	@Test
-	public void once() {
-		final ExecutorService es = MoreExecutors.sameThreadExecutor();
-		final Counter c = new Counter();
-		final SimpleListenableFuture<Object> f = new SimpleListenableFuture<Object>();
-		f.addListener(c, es);
-		c.check(0);
-		f.set(null);
-		c.check(1);
-		f.set(null);
-		c.check(1);
-		f.addListener(c, es);
-		c.check(2);
-		f.set(null);
-		c.check(2);
+final class Counter implements Runnable {
+	private final AtomicInteger times = new AtomicInteger();
+
+	Counter() {
+	}
+
+	public void run() {
+		times.incrementAndGet();
+	}
+
+	void check(int times) {
+		assertEquals(this.times.get(), times);
 	}
 }

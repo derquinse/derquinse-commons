@@ -15,31 +15,42 @@
  */
 package net.derquinse.common.util.concurrent;
 
-import java.util.concurrent.ExecutorService;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.google.common.util.concurrent.MoreExecutors;
-
 /**
- * Tests for SimpleListenableFuture
+ * Tests for IntegerHighWaterMark.
  * @author Andres Rodriguez
  */
-public class SimpleListenableFutureTest {
-	@Test
-	public void once() {
-		final ExecutorService es = MoreExecutors.sameThreadExecutor();
-		final Counter c = new Counter();
-		final SimpleListenableFuture<Object> f = new SimpleListenableFuture<Object>();
-		f.addListener(c, es);
-		c.check(0);
-		f.set(null);
-		c.check(1);
-		f.set(null);
-		c.check(1);
-		f.addListener(c, es);
-		c.check(2);
-		f.set(null);
-		c.check(2);
+public class IntegerHighWaterMarkTest {
+	/** Test target. */
+	private IntegerHighWaterMark hwm;
+
+	public IntegerHighWaterMarkTest() {
 	}
+
+	private void check(int value) {
+		Assert.assertEquals(hwm.intValue(), value);
+	}
+
+	private void set(int value) {
+		hwm.set(value);
+		check(value);
+	}
+
+	private void set(int value, int expected) {
+		hwm.set(value);
+		check(expected);
+	}
+
+	@Test
+	public void test() {
+		hwm = IntegerHighWaterMark.create();
+		check(0);
+		set(20);
+		set(1, 20);
+		set(30);
+		set(20, 30);
+	}
+
 }
