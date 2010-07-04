@@ -31,7 +31,7 @@ public final class RefCounts {
 	 * @return The requested supplier.
 	 * @throws NullPointerException if the argument is {@code null}.
 	 */
-	public <T> RefCount<T> refCount(T object) {
+	public <T> RefCount<T> of(T object) {
 		return new SimpleRefCount<T>(object);
 	}
 
