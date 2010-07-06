@@ -46,4 +46,11 @@ public interface Sequence {
 	 * @throws IllegalArgumentException if the new increment is not valid.
 	 */
 	void setIncrement(final long increment);
+
+	/**
+	 * Increments the sequence.
+	 * @return The new value of the sequence.
+	 */
+	long getNext();
+
 }

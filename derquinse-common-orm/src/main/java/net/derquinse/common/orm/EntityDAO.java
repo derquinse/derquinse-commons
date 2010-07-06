@@ -16,7 +16,6 @@
 package net.derquinse.common.orm;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Generic DAO interface for entities.
@@ -25,51 +24,4 @@ import java.util.List;
  * @param <T> Persistent entity type.
  */
 public interface EntityDAO<T extends Entity<ID>, ID extends Serializable> extends GenericDAO<T, ID> {
-	/**
-	 * Finds an entity by ID.
-	 * @param id ID
-	 * @param lock If the entity shall be locked.
-	 * @return The requested entity or {@code null} if it is not found.
-	 */
-	T findById(ID id, boolean lock);
-
-	/**
-	 * Returns all entities of the persistent type.
-	 * @return A list with all the instances.
-	 */
-	List<T> findAll();
-
-	/**
-	 * Saves an entity.
-	 * @param entity Entity to save.
-	 * @return The persisted entity.
-	 */
-	T save(T entity);
-
-	/**
-	 * Updates an entity.
-	 * @param entity Entity to update.
-	 * @return The persisted entity.
-	 */
-	T update(T entity);
-
-	/**
-	 * Saves or updates an entity, depending upon resolution of the
-	 * unsaved-value checks.
-	 * @param entity Entity to persist.
-	 * @return The persisted entity.
-	 */
-	T saveOrUpdate(T entity);
-
-	/**
-	 * Deletes an entity instance.
-	 * @param entity Instance to delete.
-	 */
-	void delete(T entity);
-
-	/**
-	 * Deletes an entity instance.
-	 * @param id Id of the instance to delete.
-	 */
-	void deleteById(ID id);
 }
