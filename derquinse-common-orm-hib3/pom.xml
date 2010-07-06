@@ -7,13 +7,13 @@
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common-orm-hib3</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>Derquinse Common Libraries :: ORM :: Hibernate 3.5</name>
 	<description>Derquinse Common Libraries :: ORM :: Hibernate 3.5</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-hib3-1.0.1</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-hib3-1.0.1</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-orm-hib3-1.0.1</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm-hib3</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm-hib3</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-orm-hib3</url>
 	</scm>
 	<repositories>
 		<repository>
