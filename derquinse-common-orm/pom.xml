@@ -7,12 +7,12 @@
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common-orm</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>Derquinse Common Libraries :: ORM</name>
 	<description>Derquinse Common Libraries :: ORM</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-orm</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-1.0.1</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-1.0.1</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-orm-1.0.1</url>
 	</scm>
 </project>
