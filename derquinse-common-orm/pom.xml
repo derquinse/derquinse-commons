@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-common</artifactId>
@@ -8,12 +7,12 @@
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common-orm</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Derquinse Common Libraries :: ORM</name>
 	<description>Derquinse Common Libraries :: ORM</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-orm</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-orm</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-1.0.0</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-orm-1.0.0</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-orm-1.0.0</url>
 	</scm>
 </project>
