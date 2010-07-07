@@ -71,6 +71,16 @@ public abstract class ImmutableHierarchyMap<K, V> extends ForwardingMap<K, V> im
 	ImmutableHierarchyMap() {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.HierarchyMap#apply(java.lang.Object)
+	 */
+	public V apply(K key) {
+		final V value = get(checkNotNull(key));
+		checkArgument(value != null);
+		return value;
+	}
+
 	/**
 	 * Builder for immutable hierarchies.
 	 * @author Andres Rodriguez

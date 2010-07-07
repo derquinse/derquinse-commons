@@ -15,6 +15,7 @@
  */
 package net.derquinse.common.collect;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -33,20 +34,7 @@ import com.google.common.annotations.Beta;
  * @see java.util.Set
  */
 @Beta
-public interface Hierarchy<E> {
-	/**
-	 * Returns the number of elements in this hierarchy. If this hierarchy contains more than
-	 * <tt>Integer.MAX_VALUE</tt> elements, returns <tt>Integer.MAX_VALUE</tt>.
-	 * @return the number of elements in this collection
-	 */
-	int size();
-
-	/**
-	 * Returns <tt>true</tt> if this hierarchy contains no elements.
-	 * @return <tt>true</tt> if this hierarchy contains no elements
-	 */
-	boolean isEmpty();
-
+public interface Hierarchy<E> extends Collection<E> {
 	/**
 	 * Returns the set of elements that are part of the hierarchy.
 	 * @return A set containing a live view the elements of the hierarchy.
@@ -56,7 +44,7 @@ public interface Hierarchy<E> {
 	/**
 	 * Returns the first level of the hierarchy. For a rooted hierarchy it will be a single list
 	 * element.
-	 * @return The list of values with no parent.
+	 * @return The list of values with no parent. Never {@code null}.
 	 */
 	List<E> getFirstLevel();
 
@@ -75,11 +63,11 @@ public interface Hierarchy<E> {
 
 	/**
 	 * Returns the children of the specified element.
-	 * @param element Element which children are requested.
-	 * @return The list of children, the empty list if it has no children.
+	 * @param element Element which children are requested. If {@code null} the first level will be returned.
+	 * @return The list of children, the empty list if it has no children. Never {@code null}.
 	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
 	 */
-	List<E> getChildren(E element);
+	List<E> getChildren(@Nullable E element);
 
 	/**
 	 * Returns the parent of the specified element.
@@ -120,4 +108,25 @@ public interface Hierarchy<E> {
 	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
 	 */
 	void visitDepthFirst(HierarchyVisitor<? super E> visitor, @Nullable E element, boolean includeStarting);
+
+	/**
+	 * Compares the specified object with this hierarchy for equality. Returns <tt>true</tt> if the
+	 * specified object is also a hierarchy, the two hierarchies have the same size, and both contain
+	 * the same elements in the same coordinates. This definition ensures that the equals method works
+	 * properly across different implementations of the hierarchy interface.
+	 * @param o Object to be compared for equality with this hierarchy.
+	 * @return True if the specified object is equal to this hierarchy.
+	 */
+	boolean equals(@Nullable Object o);
+
+	/**
+	 * Returns the hash code value for this hierarchy. The hash code of a hierarchy is defined to be
+	 * that of the set of elements it contains. This definition fulfills the general contract of
+	 * {@link Object#hashCode}.
+	 * @return The hash code value for this hierarchy.
+	 * @see Object#equals(Object)
+	 * @see Hierarchy#equals(Object)
+	 */
+	int hashCode();
+
 }

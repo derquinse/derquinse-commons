@@ -18,9 +18,12 @@ package net.derquinse.common.collect;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import javax.annotation.Nullable;
 
 import com.google.common.collect.UnmodifiableIterator;
 
@@ -48,21 +51,61 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 				"The provided element [%s] is not part of the hierarchy", element);
 		return element;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.Hierarchy#isEmpty()
+	 * @see java.util.Collection#isEmpty()
 	 */
 	public boolean isEmpty() {
 		return elements().isEmpty();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.Hierarchy#size()
+	 * @see java.util.Collection#size()
 	 */
 	public int size() {
 		return elements().size();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Collection#contains(java.lang.Object)
+	 */
+	public boolean contains(Object o) {
+		return elements().contains(o);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Collection#containsAll(java.util.Collection)
+	 */
+	public boolean containsAll(Collection<?> c) {
+		return elements().containsAll(c);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Collection#iterator()
+	 */
+	public Iterator<E> iterator() {
+		return elements().iterator();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Collection#toArray()
+	 */
+	public Object[] toArray() {
+		return elements().toArray();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Collection#toArray(T[])
+	 */
+	public <T> T[] toArray(T[] a) {
+		return elements().toArray(a);
 	}
 
 	/*
@@ -142,6 +185,49 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 			visitDepthFirst(element, getChildren(element), visitor);
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return elements().hashCode();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Hierarchy<?>) {
+			// SAFE: Read-only.
+			@SuppressWarnings("unchecked")
+			final Hierarchy<Object> h = (Hierarchy<Object>) obj;
+			if (isRooted() == h.isRooted() && size() == h.size()) {
+				return equals(null, h);
+			}
+		}
+		return false;
+	}
+
+	/* Equality helper. */
+	private boolean equals(@Nullable E element, Hierarchy<Object> other) {
+		final List<E> a = getChildren(element);
+		if (a.equals(other.getChildren(element))) {
+			for (E e : a) {
+				if (!equals(e, other)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	final class AncestorsIterator extends UnmodifiableIterator<E> {

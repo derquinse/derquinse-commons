@@ -18,6 +18,7 @@ package net.derquinse.common.collect;
 import java.util.Map;
 
 import com.google.common.annotations.Beta;
+import com.google.common.base.Function;
 
 /**
  * A hierarchy map is a map which keys form a hierarchy.
@@ -28,10 +29,19 @@ import com.google.common.annotations.Beta;
  * @see Hierarchy
  */
 @Beta
-public interface HierarchyMap<K, V> extends Map<K, V> {
+public interface HierarchyMap<K, V> extends Map<K, V>, Function<K, V> {
 	/**
 	 * Returns the hierarchy of keys.
 	 * @The hierarchy of keys.
 	 */
 	Hierarchy<K> keyHierarchy();
+
+	/**
+	 * Returns the value to which the specified key is mapped.
+	 * @param key The key whose associated value is to be returned.
+	 * @return The associated value.
+	 * @throws NullPointerException if the argument is {@code null}.
+	 * @throws IllegalArgumentException if key is not contained in the map.
+	 */
+	V apply(K key);
 }

@@ -37,7 +37,15 @@ public class ImmutableHierarchyTest {
 		return ImmutableHierarchy.builder(outOfOrder);
 	}
 
-	private void empty(Hierarchy<Integer> h) {
+	private static void equality(Hierarchy<Integer> h) {
+		if (h == null) {
+			return;
+		}
+		assertTrue(h.equals(h));
+	}
+
+	private static void empty(Hierarchy<Integer> h) {
+		equality(h);
 		assertNotNull(h);
 		assertNotNull(h.getFirstLevel());
 		assertTrue(h.getFirstLevel().isEmpty());
@@ -96,6 +104,7 @@ public class ImmutableHierarchyTest {
 	@Test
 	public void one() {
 		Hierarchy<Integer> h = builder().add(null, 1).get();
+		equality(h);
 		check(h, 1, 2);
 		checkList(h.getFirstLevel(), 1, 1, 2);
 	}
@@ -126,6 +135,7 @@ public class ImmutableHierarchyTest {
 
 	private void checkTwo(ImmutableHierarchy.Builder<Integer> builder) {
 		final Hierarchy<Integer> h = builder.get();
+		equality(h);
 		check(h, 1, 3);
 		check(h, 2, 3);
 		checkList(h.getFirstLevel(), 1, 1, 2);

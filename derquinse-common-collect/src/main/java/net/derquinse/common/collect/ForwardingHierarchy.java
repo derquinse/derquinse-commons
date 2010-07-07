@@ -18,14 +18,14 @@ package net.derquinse.common.collect;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.collect.ForwardingObject;
+import com.google.common.collect.ForwardingCollection;
 
 /**
  * A hierarchy that forward its method calls to a delegated hierarchy.
  * @author Andres Rodriguez
  * @param <E> Type of the elements in the hierarchy.
  */
-public abstract class ForwardingHierarchy<E> extends ForwardingObject implements Hierarchy<E> {
+public abstract class ForwardingHierarchy<E> extends ForwardingCollection<E> implements Hierarchy<E> {
 	public ForwardingHierarchy() {
 	}
 

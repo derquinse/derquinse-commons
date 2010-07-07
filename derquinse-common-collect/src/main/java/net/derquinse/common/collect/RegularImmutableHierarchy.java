@@ -19,6 +19,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
@@ -53,7 +55,10 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.collect.Hierarchy#getChildren(java.lang.Object)
 	 */
-	public List<E> getChildren(E element) {
+	public List<E> getChildren(@Nullable E element) {
+		if (element == null) {
+			return getFirstLevel();
+		}
 		checkMember(element);
 		return children.get(element);
 	}

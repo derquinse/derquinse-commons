@@ -17,6 +17,8 @@ package net.derquinse.common.collect;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
@@ -39,7 +41,10 @@ final class EmptyImmutableHierarchy extends ImmutableHierarchy<Object> {
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.collect.Hierarchy#getChildren(java.lang.Object)
 	 */
-	public List<Object> getChildren(Object element) {
+	public List<Object> getChildren(@Nullable Object element) {
+		if (element == null) {
+			return getFirstLevel();
+		}
 		checkMember(element);
 		return ImmutableList.of();
 	}
