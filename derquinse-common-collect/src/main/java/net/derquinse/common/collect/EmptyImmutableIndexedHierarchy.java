@@ -15,33 +15,38 @@
  */
 package net.derquinse.common.collect;
 
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableBiMap;
 
 /**
- * An empty immutable hierarchy map.
+ * An empty immutable indexed hierarchy.
  * @author Andres Rodriguez
  * @param <K> Type of the keys.
  * @param <V> Type of the values.
  */
-final class EmptyImmutableHierarchyMap extends ImmutableHierarchyMap<Object, Object> {
-	static final EmptyImmutableHierarchyMap INSTANCE = new EmptyImmutableHierarchyMap();
+final class EmptyImmutableIndexedHierarchy extends ImmutableIndexedHierarchy<Object, Object> {
+	static final EmptyImmutableIndexedHierarchy INSTANCE = new EmptyImmutableIndexedHierarchy();
 
-	private EmptyImmutableHierarchyMap() {
+	private EmptyImmutableIndexedHierarchy() {
 	}
 
 	@Override
-	protected Map<Object, Object> delegate() {
-		return ImmutableMap.of();
+	protected Hierarchy<Object> delegate() {
+		return ImmutableHierarchy.of();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.HierarchyMap#keyHierarchy()
+	 * @see net.derquinse.common.collect.ImmutableIndexedHierarchy#asMap()
 	 */
-	public Hierarchy<Object> keyHierarchy() {
-		return ImmutableHierarchy.of();
+	public ImmutableBiMap<Object, Object> asMap() {
+		return ImmutableBiMap.of();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.IndexedHierarchy#inverse()
+	 */
+	public IndexedHierarchy<Object, Object> inverse() {
+		return this;
+	}
 }

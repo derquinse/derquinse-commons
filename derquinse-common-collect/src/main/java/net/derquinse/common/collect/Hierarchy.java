@@ -36,10 +36,10 @@ import com.google.common.annotations.Beta;
 @Beta
 public interface Hierarchy<E> extends Collection<E> {
 	/**
-	 * Returns the set of elements that are part of the hierarchy.
+	 * Returns the set of distinct elements contained in this hierarchy.
 	 * @return A set containing a live view the elements of the hierarchy.
 	 */
-	Set<E> elements();
+	Set<E> elementSet();
 
 	/**
 	 * Returns the first level of the hierarchy. For a rooted hierarchy it will be a single list
@@ -63,7 +63,8 @@ public interface Hierarchy<E> extends Collection<E> {
 
 	/**
 	 * Returns the children of the specified element.
-	 * @param element Element which children are requested. If {@code null} the first level will be returned.
+	 * @param element Element which children are requested. If {@code null} the first level will be
+	 *          returned.
 	 * @return The list of children, the empty list if it has no children. Never {@code null}.
 	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
 	 */

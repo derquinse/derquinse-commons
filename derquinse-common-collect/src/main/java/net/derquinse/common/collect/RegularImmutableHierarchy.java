@@ -47,7 +47,7 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 	}
 
 	@Override
-	public ImmutableSet<E> elements() {
+	public ImmutableSet<E> elementSet() {
 		return elements;
 	}
 

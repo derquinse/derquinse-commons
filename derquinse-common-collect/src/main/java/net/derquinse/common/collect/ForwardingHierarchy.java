@@ -18,6 +18,8 @@ package net.derquinse.common.collect;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ForwardingCollection;
 
 /**
@@ -34,10 +36,10 @@ public abstract class ForwardingHierarchy<E> extends ForwardingCollection<E> imp
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.Hierarchy#elements()
+	 * @see net.derquinse.common.collect.Hierarchy#elementSet()()
 	 */
-	public Set<E> elements() {
-		return delegate().elements();
+	public Set<E> elementSet() {
+		return delegate().elementSet();
 	}
 
 	/*
@@ -63,7 +65,7 @@ public abstract class ForwardingHierarchy<E> extends ForwardingCollection<E> imp
 	public E getParent(E element) {
 		return delegate().getParent(element);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.collect.Hierarchy#getCoordinates(java.lang.Object)
@@ -114,4 +116,23 @@ public abstract class ForwardingHierarchy<E> extends ForwardingCollection<E> imp
 			boolean includeStarting) {
 		delegate().visitDepthFirst(visitor, element, includeStarting);
 	};
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(@Nullable Object object) {
+		return object == this || delegate().equals(object);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return delegate().hashCode();
+	}
+
 }

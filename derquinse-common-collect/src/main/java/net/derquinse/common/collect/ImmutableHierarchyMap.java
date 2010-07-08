@@ -41,8 +41,8 @@ public abstract class ImmutableHierarchyMap<K, V> extends ForwardingMap<K, V> im
 	 */
 	static void check(Map<?, ?> map, Hierarchy<?> hierarchy) {
 		checkNotNull(map, "The backing map must be provided.");
-		checkNotNull(map, "The backing hierarchy must be provided.");
-		checkArgument(map.keySet().equals(hierarchy.elements()), "Inconsistent map and hierarchy");
+		checkNotNull(hierarchy, "The backing hierarchy must be provided.");
+		checkArgument(map.keySet().equals(hierarchy.elementSet()), "Inconsistent map and hierarchy");
 	}
 
 	/**

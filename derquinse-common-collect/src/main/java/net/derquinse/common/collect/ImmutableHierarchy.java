@@ -19,7 +19,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,7 +39,7 @@ import com.google.common.collect.Sets;
  * @author Andres Rodriguez
  * @param <E> Type of the elements in the hierarchy.
  */
-public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
+public abstract class ImmutableHierarchy<E> extends AbstractImmutableHierarchy<E> {
 
 	/**
 	 * Returns an empty immutable hierarchy.
@@ -90,57 +89,9 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.Hierarchy#elements()
+	 * @see net.derquinse.common.collect.Hierarchy#elementSet()()
 	 */
-	public abstract ImmutableSet<E> elements();
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#add(java.lang.Object)
-	 */
-	public final boolean add(E e) {
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#addAll(java.util.Collection)
-	 */
-	public final boolean addAll(Collection<? extends E> c) {
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#clear()
-	 */
-	public final void clear() {
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#remove(java.lang.Object)
-	 */
-	public final boolean remove(Object o) {
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#removeAll(java.util.Collection)
-	 */
-	public final boolean removeAll(Collection<?> c) {
-		throw new UnsupportedOperationException();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Collection#retainAll(java.util.Collection)
-	 */
-	public final boolean retainAll(Collection<?> c) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract ImmutableSet<E> elementSet();
 
 	/**
 	 * Builder for immutable hierarchies.
@@ -246,7 +197,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 
 		public Builder<E> addHierarchy(E parent, Hierarchy<? extends E> hierarchy, @Nullable E root, boolean includeRoot) {
 			final Hierarchy<E> h = check(hierarchy);
-			checkArgument(root == null || hierarchy.elements().contains(root));
+			checkArgument(root == null || hierarchy.elementSet().contains(root));
 			List<E> level;
 			if (root != null) {
 				if (includeRoot) {
@@ -272,7 +223,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 				boolean includeRoot, Function<? super F, E> function) {
 			final Hierarchy<F> h = check(hierarchy);
 			checkNotNull(hierarchy, "The transformation function is required");
-			checkArgument(root == null || hierarchy.elements().contains(root));
+			checkArgument(root == null || hierarchy.elementSet().contains(root));
 			List<F> level;
 			if (root != null) {
 				if (includeRoot) {

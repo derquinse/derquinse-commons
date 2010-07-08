@@ -15,33 +15,43 @@
  */
 package net.derquinse.common.collect;
 
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.BiMap;
 
 /**
- * An empty immutable hierarchy map.
+ * An indexed hierarchy that forwards its method calls to a delegated one.
  * @author Andres Rodriguez
  * @param <K> Type of the keys.
  * @param <V> Type of the values.
  */
-final class EmptyImmutableHierarchyMap extends ImmutableHierarchyMap<Object, Object> {
-	static final EmptyImmutableHierarchyMap INSTANCE = new EmptyImmutableHierarchyMap();
-
-	private EmptyImmutableHierarchyMap() {
+public abstract class ForwardingIndexedHierarchy<K, V> extends ForwardingHierarchy<V> implements IndexedHierarchy<K, V> {
+	public ForwardingIndexedHierarchy() {
 	}
 
 	@Override
-	protected Map<Object, Object> delegate() {
-		return ImmutableMap.of();
+	protected abstract IndexedHierarchy<K, V> delegate();
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.IndexedHierarchy#apply(java.lang.Object)
+	 */
+	public V apply(K key) {
+		return delegate().apply(key);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.derquinse.common.collect.HierarchyMap#keyHierarchy()
+	 * @see net.derquinse.common.collect.IndexedHierarchy#asMap()
 	 */
-	public Hierarchy<Object> keyHierarchy() {
-		return ImmutableHierarchy.of();
+	public BiMap<K, V> asMap() {
+		return delegate().asMap();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.IndexedHierarchy#inverse()
+	 */
+	public IndexedHierarchy<V, K> inverse() {
+		return delegate().inverse();
 	}
 
 }

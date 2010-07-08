@@ -47,7 +47,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	}
 
 	final E checkMember(E element) {
-		checkArgument(elements().contains(checkRequired(element)),
+		checkArgument(elementSet().contains(checkRequired(element)),
 				"The provided element [%s] is not part of the hierarchy", element);
 		return element;
 	}
@@ -57,7 +57,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#isEmpty()
 	 */
 	public boolean isEmpty() {
-		return elements().isEmpty();
+		return elementSet().isEmpty();
 	}
 
 	/*
@@ -65,7 +65,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#size()
 	 */
 	public int size() {
-		return elements().size();
+		return elementSet().size();
 	}
 
 	/*
@@ -73,7 +73,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#contains(java.lang.Object)
 	 */
 	public boolean contains(Object o) {
-		return elements().contains(o);
+		return elementSet().contains(o);
 	}
 
 	/*
@@ -81,7 +81,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#containsAll(java.util.Collection)
 	 */
 	public boolean containsAll(Collection<?> c) {
-		return elements().containsAll(c);
+		return elementSet().containsAll(c);
 	}
 
 	/*
@@ -89,7 +89,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#iterator()
 	 */
 	public Iterator<E> iterator() {
-		return elements().iterator();
+		return elementSet().iterator();
 	}
 
 	/*
@@ -97,7 +97,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#toArray()
 	 */
 	public Object[] toArray() {
-		return elements().toArray();
+		return elementSet().toArray();
 	}
 
 	/*
@@ -105,7 +105,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 * @see java.util.Collection#toArray(T[])
 	 */
 	public <T> T[] toArray(T[] a) {
-		return elements().toArray(a);
+		return elementSet().toArray(a);
 	}
 
 	/*
@@ -193,7 +193,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 */
 	@Override
 	public int hashCode() {
-		return elements().hashCode();
+		return elementSet().hashCode();
 	}
 
 	/*

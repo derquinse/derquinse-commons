@@ -35,7 +35,7 @@ final class FlatImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 	}
 
 	@Override
-	public ImmutableSet<E> elements() {
+	public ImmutableSet<E> elementSet() {
 		return set;
 	}
 

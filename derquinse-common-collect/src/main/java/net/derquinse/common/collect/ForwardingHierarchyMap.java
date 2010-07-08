@@ -15,33 +15,35 @@
  */
 package net.derquinse.common.collect;
 
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ForwardingMap;
 
 /**
- * An empty immutable hierarchy map.
+ * A hierarchy map that forwards its method calls to a delegated one.
  * @author Andres Rodriguez
  * @param <K> Type of the keys.
  * @param <V> Type of the values.
  */
-final class EmptyImmutableHierarchyMap extends ImmutableHierarchyMap<Object, Object> {
-	static final EmptyImmutableHierarchyMap INSTANCE = new EmptyImmutableHierarchyMap();
-
-	private EmptyImmutableHierarchyMap() {
+public abstract class ForwardingHierarchyMap<K, V> extends ForwardingMap<K, V> implements HierarchyMap<K, V> {
+	public ForwardingHierarchyMap() {
 	}
 
 	@Override
-	protected Map<Object, Object> delegate() {
-		return ImmutableMap.of();
+	protected abstract HierarchyMap<K, V> delegate();
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.HierarchyMap#apply(java.lang.Object)
+	 */
+	public V apply(K key) {
+		return delegate().apply(key);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.collect.HierarchyMap#keyHierarchy()
 	 */
-	public Hierarchy<Object> keyHierarchy() {
-		return ImmutableHierarchy.of();
+	public Hierarchy<K> keyHierarchy() {
+		return delegate().keyHierarchy();
 	}
 
 }
