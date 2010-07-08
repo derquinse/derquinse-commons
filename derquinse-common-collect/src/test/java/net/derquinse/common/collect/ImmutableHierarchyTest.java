@@ -17,10 +17,7 @@ package net.derquinse.common.collect;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
-
-import java.util.List;
+import net.derquinse.common.collect.ImmutableHierarchy.Builder;
 
 import org.testng.annotations.Test;
 
@@ -28,28 +25,13 @@ import org.testng.annotations.Test;
  * Tests for ImmutableHierarchy.
  * @author Andres Rodriguez
  */
-public class ImmutableHierarchyTest {
-	private static ImmutableHierarchy.Builder<Integer> builder() {
+public class ImmutableHierarchyTest extends AbstractHierarchyTest {
+	private static Builder<Integer> builder() {
 		return ImmutableHierarchy.builder();
 	}
 
-	private static ImmutableHierarchy.Builder<Integer> builder(boolean outOfOrder) {
+	private static Builder<Integer> builder(boolean outOfOrder) {
 		return ImmutableHierarchy.builder(outOfOrder);
-	}
-
-	private static void equality(Hierarchy<Integer> h) {
-		if (h == null) {
-			return;
-		}
-		assertTrue(h.equals(h));
-	}
-
-	private static void empty(Hierarchy<Integer> h) {
-		equality(h);
-		assertNotNull(h);
-		assertNotNull(h.getFirstLevel());
-		assertTrue(h.getFirstLevel().isEmpty());
-		assertFalse(h.elements().contains(1));
 	}
 
 	/**
@@ -66,7 +48,7 @@ public class ImmutableHierarchyTest {
 	 */
 	@Test
 	public void nullContains() {
-		assertFalse(builder().get().elements().contains(null));
+		assertFalse(builder().get().elementSet().contains(null));
 	}
 
 	/**
@@ -85,28 +67,16 @@ public class ImmutableHierarchyTest {
 		builder().get().getParent(1);
 	}
 
-	private void check(Hierarchy<Integer> h, Integer yes, Integer no) {
-		assertNotNull(h);
-		assertTrue(h.elements().contains(yes));
-		assertFalse(h.elements().contains(no));
-	}
-
-	private void checkList(List<Integer> list, int size, Integer yes, Integer no) {
-		assertNotNull(list);
-		assertTrue(list.size() == size);
-		assertTrue(list.contains(yes));
-		assertFalse(list.contains(no));
-	}
-
 	/**
 	 * One element.
 	 */
 	@Test
 	public void one() {
 		Hierarchy<Integer> h = builder().add(null, 1).get();
-		equality(h);
-		check(h, 1, 2);
-		checkList(h.getFirstLevel(), 1, 1, 2);
+		self(h);
+		check(h, 1, 1, 2);
+		check(h.getFirstLevel(), 1, 1, 2);
+		empty(h.getChildren(1));
 	}
 
 	/**
@@ -135,11 +105,11 @@ public class ImmutableHierarchyTest {
 
 	private void checkTwo(ImmutableHierarchy.Builder<Integer> builder) {
 		final Hierarchy<Integer> h = builder.get();
-		equality(h);
-		check(h, 1, 3);
-		check(h, 2, 3);
-		checkList(h.getFirstLevel(), 1, 1, 2);
-		checkList(h.getChildren(1), 1, 2, 1);
+		self(h);
+		check(h, 2, 1, 3);
+		check(h, 2, 2, 3);
+		check(h.getFirstLevel(), 1, 1, 2);
+		check(h.getChildren(1), 1, 2, 1);
 		assertEquals(h.getParent(2), Integer.valueOf(1));
 	}
 
@@ -190,4 +160,34 @@ public class ImmutableHierarchyTest {
 	public void loop2() {
 		builder(true).add(1, 2).add(2, 3).add(3, 4).add(4, 1);
 	}
+
+	private static Hierarchy<Integer> create(int n) {
+		Builder<Integer> b = builder();
+		for (int i = 1; i <= n; i++) {
+			b.add(null, i);
+			for (int j = 1; j <= n; j++) {
+				b.add(i, i * 10 + j);
+			}
+		}
+		return b.get();
+	}
+
+	/**
+	 * Equality.
+	 */
+	@Test
+	public void equality() {
+		final Hierarchy<Integer> h1 = create(5);
+		final Hierarchy<Integer> h2 = create(5);
+		final Hierarchy<Integer> hf = new ForwardingHierarchy<Integer>() {
+			@Override
+			protected Hierarchy<Integer> delegate() {
+				return h1;
+			}
+		};
+		equality(h1, h2);
+		equality(h1, hf);
+		equality(h2, hf);
+	}
+
 }
