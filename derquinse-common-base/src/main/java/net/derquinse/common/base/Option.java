@@ -41,6 +41,7 @@ public abstract class Option<V> implements Supplier<V> {
 
 	/**
 	 * Returns a defined option.
+	 * @throws NullPointerException if th argument is {@code null}.
 	 */
 	public static <T> Option<T> some(T value) {
 		return new Some<T>(value);
@@ -100,7 +101,7 @@ public abstract class Option<V> implements Supplier<V> {
 		private final V value;
 
 		Some(V value) {
-			this.value = checkNotNull(value);
+			this.value = checkNotNull(value, "Some value cannot be null");
 		}
 
 		@Override
@@ -122,6 +123,19 @@ public abstract class Option<V> implements Supplier<V> {
 		public V getOrElse(@Nullable V fallback) {
 			return value;
 		};
+
+		@Override
+		public int hashCode() {
+			return value.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof Some<?>) {
+				return value.equals(((Some<?>) obj).value);
+			}
+			return false;
+		}
 	}
 
 	private static final class None<V> extends Option<V> {
@@ -146,7 +160,17 @@ public abstract class Option<V> implements Supplier<V> {
 		@Override
 		public V getOrElse(@Nullable V fallback) {
 			return fallback;
-		};
+		}
+
+		@Override
+		public int hashCode() {
+			return 0;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			return obj instanceof None<?>;
+		}
 	}
 
 	/** Method {@link #some(Object)} as a function. */
