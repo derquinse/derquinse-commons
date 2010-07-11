@@ -20,10 +20,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
-import com.google.common.base.Function;
-import com.google.common.base.Supplier;
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
 
@@ -79,87 +75,5 @@ public abstract class ImmutableHierarchyMap<K, V> extends ForwardingMap<K, V> im
 		final V value = get(checkNotNull(key));
 		checkArgument(value != null);
 		return value;
-	}
-
-	/**
-	 * Builder for immutable hierarchies.
-	 * @author Andres Rodriguez
-	 * @param <K> Type of the keys.
-	 * @param <V> Type of the values.
-	 */
-	public static final class Builder<K, V> implements Supplier<ImmutableHierarchyMap<K, V>> {
-		private final ImmutableHierarchy.Builder<K> hierarchyBuilder;
-		private final ImmutableMap.Builder<K, V> mapBuilder;
-
-		/** Constructor. Use static factory method. */
-		private Builder(boolean allowOutOfOrder) {
-			this.hierarchyBuilder = ImmutableHierarchy.builder(allowOutOfOrder);
-			this.mapBuilder = ImmutableMap.builder();
-		}
-
-		public boolean isAllowOutOfOrder() {
-			return hierarchyBuilder.isAllowOutOfOrder();
-		}
-
-		public Builder<K, V> setAllowOutOfOrder(boolean allowOutOfOrder) {
-			hierarchyBuilder.setAllowOutOfOrder(allowOutOfOrder);
-			return this;
-		}
-
-		public Builder<K, V> add(K parent, K element) {
-			hierarchyBuilder.add(parent, element);
-			return this;
-		}
-
-		public Builder<K, V> addAll(K parent, Iterable<? extends K> elements) {
-			hierarchyBuilder.addAll(parent, elements);
-			return this;
-		}
-
-		public Builder<K, V> addAll(K parent, K... elements) {
-			hierarchyBuilder.addAll(parent, elements);
-			return this;
-		}
-
-		public Builder<K, V> addHierarchy(K parent, Hierarchy<? extends K> hierarchy, @Nullable K root, boolean includeRoot) {
-			hierarchyBuilder.addHierarchy(parent, hierarchy, root, includeRoot);
-			return this;
-		}
-
-		public <F> Builder<K, V> addHierarchy(K parent, Hierarchy<? extends F> hierarchy, @Nullable F root,
-				boolean includeRoot, Function<? super F, K> function) {
-			hierarchyBuilder.addHierarchy(parent, hierarchy, root, includeRoot, function);
-			return this;
-		}
-
-		/**
-		 * Associates {@code key} with {@code value} in the built map. Duplicate keys are not allowed,
-		 * and will cause {@link #build} to fail.
-		 */
-		public Builder<K, V> put(K key, V value) {
-			mapBuilder.put(key, value);
-			return this;
-		}
-
-		/**
-		 * Associates all of the given map's keys and values in the built map. Duplicate keys are not
-		 * allowed, and will cause {@link #build} to fail.
-		 * @throws NullPointerException if any key or value in {@code map} is null
-		 */
-		public Builder<K, V> putAll(Map<? extends K, ? extends V> map) {
-			mapBuilder.putAll(map);
-			return this;
-		}
-
-		/**
-		 * Builds and returns an immutable hierarchy with the nodes added up to the method call.
-		 * @returns An immutable hierarchy.
-		 * @throws IllegalStateException if there are referenced parents that are not part of the
-		 *           hierarchy yet.
-		 */
-		public ImmutableHierarchyMap<K, V> get() {
-			return of(mapBuilder.build(), hierarchyBuilder.get());
-		}
-
 	}
 }

@@ -15,35 +15,42 @@
  */
 package net.derquinse.common.collect;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
+import java.util.Map;
+
+import net.derquinse.common.collect.ImmutableHierarchy.Builder;
+
+import com.google.common.collect.Maps;
 
 /**
  * Abstract class for hierarchy tests.
  * @author Andres Rodriguez
  */
 public class AbstractHierarchyTest {
-	static void self(Hierarchy<?> h) {
-		if (h == null) {
+	static void self(Object o) {
+		if (o == null) {
 			return;
 		}
-		assertTrue(h.equals(h));
+		assertTrue(o.equals(o));
+		assertFalse(o.equals(null));
 	}
 
-	static void equality(Hierarchy<?> h1, Hierarchy<?> h2) {
-		if (h1 == null && h2 == null) {
+	static void equality(Object o1, Object o2) {
+		if (o1 == null && o2 == null) {
 			return;
 		}
-		assertTrue(h1 != null && h2 != null);
-		self(h1);
-		self(h2);
-		assertTrue(h1.equals(h2));
-		assertTrue(h2.equals(h1));
-		assertTrue(h1.hashCode() == h2.hashCode());
+		assertTrue(o1 != null && o2 != null);
+		self(o1);
+		self(o2);
+		assertTrue(o1.equals(o2));
+		assertTrue(o2.equals(o1));
+		assertTrue(o1.hashCode() == o2.hashCode());
 	}
 
 	static void empty(Collection<?> c) {
@@ -51,6 +58,16 @@ public class AbstractHierarchyTest {
 		assertTrue(c.isEmpty());
 		assertEquals(c.size(), 0);
 		assertFalse(c.contains(new Object()));
+	}
+
+	static void empty(Map<?, ?> m) {
+		assertNotNull(m);
+		assertTrue(m.isEmpty());
+		assertEquals(m.size(), 0);
+		assertFalse(m.containsKey(new Object()));
+		assertFalse(m.containsValue(new Object()));
+		empty(m.keySet());
+		empty(m.values());
 	}
 
 	static void empty(Hierarchy<?> h) {
@@ -79,6 +96,30 @@ public class AbstractHierarchyTest {
 	static void check(Hierarchy<?> h, int size, Object yes, Object no) {
 		check((Collection<?>) h, size, yes, no);
 		check(h.elementSet(), size, yes, no);
+	}
+
+	static Hierarchy<Integer> create(int n) {
+		checkArgument(n >= 0);
+		int d = 10;
+		while (d <= n) {
+			d *= 10;
+		}
+		Builder<Integer> b = ImmutableHierarchy.builder();
+		for (int i = 1; i <= n; i++) {
+			b.add(null, i);
+			for (int j = 1; j <= n; j++) {
+				b.add(i, i * d + j);
+			}
+		}
+		return b.get();
+	}
+
+	static <K> Map<K, String> createStringMap(Iterable<K> keys) {
+		final Map<K, String> map = Maps.newHashMap();
+		for (K i : keys) {
+			map.put(i, i.toString());
+		}
+		return map;
 	}
 
 }

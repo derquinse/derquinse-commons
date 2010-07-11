@@ -39,7 +39,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test
 	public void empty() {
-		empty(ImmutableHierarchy.<Integer> of());
+		empty(ImmutableHierarchy.of());
 		empty(builder().get());
 	}
 
@@ -159,17 +159,6 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	@Test(expectedExceptions = IllegalStateException.class)
 	public void loop2() {
 		builder(true).add(1, 2).add(2, 3).add(3, 4).add(4, 1);
-	}
-
-	private static Hierarchy<Integer> create(int n) {
-		Builder<Integer> b = builder();
-		for (int i = 1; i <= n; i++) {
-			b.add(null, i);
-			for (int j = 1; j <= n; j++) {
-				b.add(i, i * 10 + j);
-			}
-		}
-		return b.get();
 	}
 
 	/**

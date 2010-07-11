@@ -15,6 +15,7 @@
  */
 package net.derquinse.common.collect;
 
+import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableBiMap;
 
 /**
@@ -47,7 +48,7 @@ final class RegularImmutableIndexedHierarchy<K, V> extends ImmutableIndexedHiera
 			final V parentValue = parentKey != null ? map.get(parentKey) : null;
 			builder.add(parentValue, map.get(key));
 		}
-		this.values = builder.get();
+		this.values = ImmutableHierarchy.<V> builder().addHierarchy(null, keys, null, false, Functions.forMap(map)).get();
 		this.keys = keys;
 	}
 

@@ -219,7 +219,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractImmutableHierarchy<E
 			}
 		}
 
-		public <F> Builder<E> addHierarchy(E parent, Hierarchy<? extends F> hierarchy, @Nullable F root,
+		public <F> Builder<E> addHierarchy(E parent, Hierarchy<F> hierarchy, @Nullable F root,
 				boolean includeRoot, Function<? super F, E> function) {
 			final Hierarchy<F> h = check(hierarchy);
 			checkNotNull(hierarchy, "The transformation function is required");
