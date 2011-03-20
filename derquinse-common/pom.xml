@@ -7,14 +7,14 @@
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Common Java Libraries</name>
 	<description>Derquinse Common Java Libraries</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-1.0.2</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-1.0.2</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-1.0.2</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common</url>
 	</scm>
 	<dependencies>
 		<dependency>
