@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>4</version>
+		<version>5</version>
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common</artifactId>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>r06</version>
+			<version>r08</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>5.12.1</version>
+			<version>6.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
