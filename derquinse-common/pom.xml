@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Common Java Libraries</name>
 	<description>Derquinse Common Java Libraries</description>
