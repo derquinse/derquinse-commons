@@ -3,11 +3,11 @@
   <parent>
     <artifactId>derquinse-common</artifactId>
     <groupId>net.derquinse</groupId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
   </parent>
   <groupId>net.derquinse</groupId>
   <artifactId>derquinse-common-base</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.0.4-SNAPSHOT</version>
   <name>Derquinse Common Libraries :: Java SE</name>
   <description>Derquinse Common Libraries :: Java SE</description>
 	<scm>
