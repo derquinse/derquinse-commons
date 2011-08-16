@@ -16,7 +16,7 @@
 package net.derquinse.common.reflect;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static net.derquinse.common.reflect.Types.getSuperclassTypeArgument;
+import static net.derquinse.common.reflect.DQTypes.getSuperclassTypeArgument;
 
 /**
  * Base class for classes that make reference to themselves' types.

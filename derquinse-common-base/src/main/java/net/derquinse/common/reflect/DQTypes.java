@@ -26,11 +26,11 @@ import java.lang.reflect.TypeVariable;
  * Utility methods to deal with Types.
  * @author Andres Rodriguez
  */
-public final class Types {
+public final class DQTypes {
 	/**
 	 * Not instantiable.
 	 */
-	private Types() {
+	private DQTypes() {
 		throw new AssertionError();
 	}
 

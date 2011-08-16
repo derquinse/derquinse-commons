@@ -34,8 +34,8 @@ public abstract class SkeletalAboutType<T> implements AboutType<T> {
 	/** Constructor. */
 	@SuppressWarnings("unchecked")
 	protected SkeletalAboutType() {
-		this.type = Types.getSuperclassTypeArgument(getClass());
-		this.rawType = (Class<? super T>) Types.getRawType(this.type);
+		this.type = DQTypes.getSuperclassTypeArgument(getClass());
+		this.rawType = (Class<? super T>) DQTypes.getRawType(this.type);
 	}
 
 	/**
