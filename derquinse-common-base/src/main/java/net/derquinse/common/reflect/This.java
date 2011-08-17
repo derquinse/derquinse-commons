@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package net.derquinse.common.reflect;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static net.derquinse.common.reflect.DQTypes.getSuperclassTypeArgument;
 
 /**
  * Base class for classes that make reference to themselves' types.
@@ -30,7 +29,7 @@ public abstract class This<T extends This<T>> {
 	 */
 	public This() {
 		final Class<?> type = getClass();
-		checkArgument(type.equals(getSuperclassTypeArgument(type)));
+		checkArgument(type.equals(Types.getSuperclassTypeArgument(type)));
 	}
 
 	/**

@@ -15,18 +15,37 @@
  */
 package net.derquinse.common.reflect;
 
-import net.derquinse.common.base.Builder;
+import static org.testng.Assert.assertTrue;
+
+import java.util.List;
+
+import org.testng.annotations.Test;
 
 /**
- * Base class for covariant builders.
+ * Tests for AbstractTypeDescriptor
  * @author Andres Rodriguez
- * @param <B> Builder type.
- * @param <T> Built type.
  */
-public abstract class CovariantBuilder<B extends CovariantBuilder<B, T>, T> extends This<B> implements Builder<T> {
+public class AbstractTypeDescriptorTest {
 	/**
-	 * Constructs a new builder.
+	 * Non-generic.
 	 */
-	protected CovariantBuilder() {
+	@Test
+	public void string() {
+		TypeDescriptor<String> d = new AbstractTypeDescriptor<String>() {
+		};
+		assertTrue(d.getType().equals(String.class));
+		assertTrue(d.getRawType().equals(String.class));
 	}
+
+	/**
+	 * Generic.
+	 */
+	@Test
+	public void generic() {
+		TypeDescriptor<List<String>> d = new AbstractTypeDescriptor<List<String>>() {
+		};
+		assertTrue(d.getType().equals(Types.listOf(String.class)));
+		assertTrue(d.getRawType().equals(List.class));
+	}
+
 }

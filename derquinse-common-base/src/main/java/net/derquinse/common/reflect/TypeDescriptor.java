@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright 2008-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <T> Described type.
  */
-public interface AboutType<T> extends WithTypeProperty, WithRawTypeProperty {
+public interface TypeDescriptor<T> extends WithTypeProperty, WithRawTypeProperty {
 	/**
 	 * Returns the raw type.
 	 * @return The raw type.
@@ -30,8 +30,8 @@ public interface AboutType<T> extends WithTypeProperty, WithRawTypeProperty {
 	Class<? super T> getRawType();
 
 	/** Is raw type predicate. */
-	Predicate<AboutType<?>> IS_RAW_TYPE = new Predicate<AboutType<?>>() {
-		public boolean apply(AboutType<?> input) {
+	Predicate<TypeDescriptor<?>> IS_RAW_TYPE = new Predicate<TypeDescriptor<?>>() {
+		public boolean apply(TypeDescriptor<?> input) {
 			return input.isRawType();
 		}
 	};

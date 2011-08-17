@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.reflect;
-
-import net.derquinse.common.base.Builder;
+package net.derquinse.common.base;
 
 /**
- * Base class for covariant builders.
+ * A class that builds objects of a certain type.
+ * @param <T> the type of the created object.
  * @author Andres Rodriguez
- * @param <B> Builder type.
- * @param <T> Built type.
  */
-public abstract class CovariantBuilder<B extends CovariantBuilder<B, T>, T> extends This<B> implements Builder<T> {
+public interface Builder<T> {
 	/**
-	 * Constructs a new builder.
+	 * Returns the built object. Semantically a new instance is created but in case of immutable
+	 * objects instance reuse is allowed.
 	 */
-	protected CovariantBuilder() {
-	}
+	T build();
 }

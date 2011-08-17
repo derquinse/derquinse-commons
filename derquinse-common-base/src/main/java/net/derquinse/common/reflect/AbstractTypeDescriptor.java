@@ -16,6 +16,7 @@
 package net.derquinse.common.reflect;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.derquinse.common.reflect.Types.getSuperclassTypeArgument;
 
 import java.lang.reflect.Type;
 
@@ -25,7 +26,7 @@ import java.lang.reflect.Type;
  * @author Andres Rodriguez
  * @param <T> Described type.
  */
-public abstract class SkeletalAboutType<T> implements AboutType<T> {
+public class AbstractTypeDescriptor<T> implements TypeDescriptor<T> {
 	/** The type. */
 	private final Type type;
 	/** The raw type. */
@@ -33,16 +34,16 @@ public abstract class SkeletalAboutType<T> implements AboutType<T> {
 
 	/** Constructor. */
 	@SuppressWarnings("unchecked")
-	protected SkeletalAboutType() {
-		this.type = DQTypes.getSuperclassTypeArgument(getClass());
-		this.rawType = (Class<? super T>) DQTypes.getRawType(this.type);
+	protected AbstractTypeDescriptor() {
+		this.type = getSuperclassTypeArgument(getClass());
+		this.rawType = (Class<? super T>) Types.getRawType(this.type);
 	}
 
 	/**
 	 * Constructor with a raw type.
 	 * @param type Raw type.
 	 */
-	protected SkeletalAboutType(Class<T> type) {
+	protected AbstractTypeDescriptor(Class<T> type) {
 		this.type = checkNotNull(type, "The type must be provided");
 		this.rawType = type;
 	}

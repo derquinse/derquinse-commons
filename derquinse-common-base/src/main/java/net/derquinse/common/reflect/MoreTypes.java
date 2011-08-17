@@ -65,7 +65,7 @@ class MoreTypes {
 	 * Returns a type that is functionally equal but not necessarily equal according to
 	 * {@link Object#equals(Object) Object.equals()}. The returned type is {@link Serializable}.
 	 */
-	public static Type canonicalize(Type type) {
+	static Type canonicalize(Type type) {
 		if (type instanceof Class) {
 			Class<?> c = (Class<?>) type;
 			return c.isArray() ? new GenericArrayTypeImpl(canonicalize(c.getComponentType())) : c;
@@ -91,7 +91,7 @@ class MoreTypes {
 		}
 	}
 
-	public static Class<?> getRawType(Type type) {
+	static Class<?> getRawType(Type type) {
 		if (type instanceof Class<?>) {
 			// type is a normal class.
 			return (Class<?>) type;
@@ -182,7 +182,7 @@ class MoreTypes {
 		return o != null ? o.hashCode() : 0;
 	}
 
-	public static String typeToString(Type type) {
+	static String typeToString(Type type) {
 		return type instanceof Class ? ((Class<?>) type).getName() : type.toString();
 	}
 
@@ -225,7 +225,7 @@ class MoreTypes {
 		return toResolve;
 	}
 
-	public static Type resolveTypeVariable(Type type, Class<?> rawType, TypeVariable<?> unknown) {
+	static Type resolveTypeVariable(Type type, Class<?> rawType, TypeVariable<?> unknown) {
 		Class<?> declaredByRaw = declaringClassOf(unknown);
 
 		// we can't reduce this further
@@ -260,7 +260,7 @@ class MoreTypes {
 		return genericDeclaration instanceof Class ? (Class<?>) genericDeclaration : null;
 	}
 
-	public static class ParameterizedTypeImpl implements ParameterizedType, Serializable, CompositeType {
+	static class ParameterizedTypeImpl implements ParameterizedType, Serializable, CompositeType {
 		private final Type ownerType;
 		private final Type rawType;
 		private final Type[] typeArguments;
@@ -344,7 +344,7 @@ class MoreTypes {
 		private static final long serialVersionUID = 0;
 	}
 
-	public static class GenericArrayTypeImpl implements GenericArrayType, Serializable, CompositeType {
+	static class GenericArrayTypeImpl implements GenericArrayType, Serializable, CompositeType {
 		private final Type componentType;
 
 		public GenericArrayTypeImpl(Type componentType) {
@@ -382,7 +382,7 @@ class MoreTypes {
 	 * support what the Java 6 language needs - at most one bound. If a lower bound is set, the upper
 	 * bound must be Object.class.
 	 */
-	public static class WildcardTypeImpl implements WildcardType, Serializable, CompositeType {
+	static class WildcardTypeImpl implements WildcardType, Serializable, CompositeType {
 		private final Type upperBound;
 		private final Type lowerBound;
 
