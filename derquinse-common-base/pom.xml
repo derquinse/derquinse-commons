@@ -6,7 +6,7 @@
     <version>1.0.5-SNAPSHOT</version>
   </parent>
   <artifactId>derquinse-common-base</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.5-SNAPSHOT</version>
   <name>Derquinse Common Libraries :: Java SE</name>
   <description>Derquinse Common Libraries :: Java SE</description>
 	<scm>
