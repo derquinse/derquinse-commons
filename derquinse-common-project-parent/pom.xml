@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>derquinse-pom</artifactId>
+		<groupId>net.derquinse</groupId>
+		<version>7-SNAPSHOT</version>
+	</parent>
+  <artifactId>derquinse-common-project-parent</artifactId>
+  <version>1.0.5-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Derquinse Commons :: Parent POM for projects based on it.</name>
+  <scm>
+    <connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</connection>
+    <developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</developerConnection>
+    <url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-project-parent</url>
+  </scm>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.derquinse</groupId>
+				<artifactId>derquinse-common-base</artifactId>
+				<version>1.0.5-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
