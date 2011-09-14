@@ -33,4 +33,10 @@
 			<artifactId>testng</artifactId>
 		</dependency>
 	</dependencies>
+	
+	<modules>
+		<module>derquinse-common-base</module>
+		<module>derquinse-common-orm</module>
+		<module>derquinse-common-orm-hib</module>
+	</modules>
 </project>

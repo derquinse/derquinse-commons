@@ -6,12 +6,6 @@
     <version>1.0.5-SNAPSHOT</version>
   </parent>
   <artifactId>derquinse-common-base</artifactId>
-  <version>1.0.5-SNAPSHOT</version>
   <name>Derquinse Common Libraries :: Java SE</name>
   <description>Derquinse Common Libraries :: Java SE</description>
-	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-base</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-base</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-base</url>
-	</scm>
 </project>
