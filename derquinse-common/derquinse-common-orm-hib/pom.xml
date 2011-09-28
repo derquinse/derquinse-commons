@@ -6,7 +6,7 @@
 		<groupId>net.derquinse</groupId>
 		<version>1.0.5-SNAPSHOT</version>
 	</parent>
-	<artifactId>derquinse-common-orm-hib3</artifactId>
+	<artifactId>derquinse-common-orm-hib</artifactId>
 	<name>Derquinse Common Libraries :: ORM :: Hibernate</name>
 	<description>Derquinse Common Libraries :: ORM :: Hibernate</description>
 	<dependencies>
