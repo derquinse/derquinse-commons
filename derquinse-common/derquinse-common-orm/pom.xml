@@ -9,4 +9,11 @@
 	<artifactId>derquinse-common-orm</artifactId>
 	<name>Derquinse Common Libraries :: ORM</name>
 	<description>Derquinse Common Libraries :: ORM</description>
+	<dependencies>
+		<dependency>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>

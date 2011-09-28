@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright (C) the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
  */
 package net.derquinse.common.orm;
 
-import com.google.common.base.Function;
+import net.derquinse.common.property.MetaProperty;
 
 /**
  * Interface for the version property.
  * @author Andres Rodriguez
  */
-public interface WithVersion {
+public interface WithVersionProperty {
 	/** Version property getter. */
-	Function<WithVersion, Integer> VERSION = new Function<WithVersion, Integer>() {
-		public Integer apply(WithVersion from) {
+	MetaProperty<WithVersionProperty, Integer> VERSION = new MetaProperty<WithVersionProperty, Integer>("version", true) {
+		public Integer apply(WithVersionProperty from) {
 			return from.getVersion();
 		}
 	};

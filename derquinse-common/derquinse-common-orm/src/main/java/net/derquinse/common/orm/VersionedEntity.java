@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010 the original author or authors.
+ * Copyright (C) the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,5 +22,5 @@ import java.io.Serializable;
  * @author Andres Rodriguez
  * @param <ID> Primary Key type.
  */
-public interface VersionedEntity<ID extends Serializable> extends Entity<ID>, WithVersion {
+public interface VersionedEntity<ID extends Serializable> extends Entity<ID>, WithVersionProperty {
 }
