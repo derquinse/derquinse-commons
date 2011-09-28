@@ -4,23 +4,36 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>7-SNAPSHOT</version>
+		<version>7</version>
 	</parent>
-  <artifactId>derquinse-common-project-parent</artifactId>
-  <version>1.0.5-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>Derquinse Commons :: Parent POM for projects based on it.</name>
-  <scm>
-    <connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</connection>
-    <developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</developerConnection>
-    <url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-project-parent</url>
-  </scm>
+	<artifactId>derquinse-common-project-parent</artifactId>
+	<version>1.0.5-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Derquinse Commons :: Parent POM for projects based on it.</name>
+	<properties>
+		<derquinseCommonVersion>1.0.5</derquinseCommonVersion>
+	</properties>
+	<scm>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-project-parent</url>
+	</scm>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-base</artifactId>
-				<version>1.0.5-SNAPSHOT</version>
+				<version>${derquinseCommonVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.derquinse</groupId>
+				<artifactId>derquinse-common-orm</artifactId>
+				<version>${derquinseCommonVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.derquinse</groupId>
+				<artifactId>derquinse-common-orm-hib</artifactId>
+				<version>${derquinseCommonVersion}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
