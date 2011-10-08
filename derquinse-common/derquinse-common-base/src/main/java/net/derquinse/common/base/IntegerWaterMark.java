@@ -30,7 +30,7 @@ public final class IntegerWaterMark {
 	private final int min;
 
 	/**
-	 * Creates a new high watermark with the provided initial value.
+	 * Creates a new object with the provided initial value.
 	 * @param initialValue Inital value.
 	 * @return The created object.
 	 */
@@ -39,7 +39,7 @@ public final class IntegerWaterMark {
 	}
 
 	/**
-	 * Creates a new high watermark with initial value 0.
+	 * Creates a new object with initial value 0.
 	 * @return The created object.
 	 */
 	public static final IntegerWaterMark of() {
