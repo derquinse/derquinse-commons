@@ -15,6 +15,8 @@
  */
 package net.derquinse.common.property;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Base class for property and flag descriptors.
  * @author Andres Rodriguez
@@ -36,7 +38,7 @@ public abstract class Meta<C> {
 	 * @param name Property name.
 	 */
 	Meta(String name) {
-		this.name = NAME.checkValue(name);
+		this.name = checkNotNull(name, "The name property must be provided");
 	}
 
 	/**

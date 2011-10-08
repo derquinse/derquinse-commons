@@ -97,7 +97,7 @@ public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, 
 				throw new NullPointerException(String.format("Property [%s] does not allow null values", getName()));
 			}
 		} else {
-			if (validity.apply(value)) {
+			if (!validity.apply(value)) {
 				String msg = String.format("Illegal value [%s] for property [%s]", value.toString(), getName());
 				throw new IllegalArgumentException(msg);
 			}
