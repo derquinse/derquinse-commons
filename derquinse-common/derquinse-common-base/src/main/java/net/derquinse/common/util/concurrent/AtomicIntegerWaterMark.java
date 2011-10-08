@@ -88,6 +88,30 @@ public final class AtomicIntegerWaterMark {
 	}
 
 	/**
+	 * Sets the value if the current reference is the same as the provided one.
+	 * @param expected Expected current reference.
+	 * @param value Value to set.
+	 * @return If the update was successful.
+	 */
+	public boolean compareAndSet(IntegerWaterMark expected, int value) {
+		return ref.compareAndSet(expected, expected.set(value));
+	}
+
+	/**
+	 * Sets the value if the current one is the same as the provided one.
+	 * @param expected Expected current value.
+	 * @param value Value to set.
+	 * @return If the update was successful.
+	 */
+	public boolean compareAndSet(int expected, int value) {
+		final IntegerWaterMark current = ref.get();
+		if (current.get() == expected) {
+			return compareAndSet(current, value);
+		}
+		return false;
+	}
+	
+	/**
 	 * Adds a certain amount to the current value.
 	 * @param value Value to add.
 	 * @return The value set.
@@ -100,6 +124,30 @@ public final class AtomicIntegerWaterMark {
 			newValue = current.add(value);
 		} while (!ref.compareAndSet(current, newValue));
 		return newValue;
+	}
+
+	/**
+	 * Adds a certain amount to the current value if the current reference is the same as the provided one.
+	 * @param expected Expected current reference.
+	 * @param value Value to set.
+	 * @return If the update was successful.
+	 */
+	public boolean compareAndAdd(IntegerWaterMark expected, int value) {
+		return ref.compareAndSet(expected, expected.add(value));
+	}
+
+	/**
+	 * Adds a certain amount to the current value if it is the same as the provided one.
+	 * @param expected Expected current value.
+	 * @param value Value to set.
+	 * @return If the update was successful.
+	 */
+	public boolean compareAndAdd(int expected, int value) {
+		final IntegerWaterMark current = ref.get();
+		if (current.get() == expected) {
+			return compareAndAdd(current, value);
+		}
+		return false;
 	}
 
 	/**

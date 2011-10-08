@@ -83,19 +83,18 @@ public class AtomicIntegerWaterMarkTest {
 		m.set(9);
 		test(9);
 	}
+	
+	private synchronized int rnd() {
+		return r.nextInt();
+	}
 
 	/**
 	 * Mutations.
 	 */
 	@Test(dependsOnMethods = "mutation", invocationCount = 1000, threadPoolSize = 20)
 	public void threads() {
-		int v1, v2;
-		synchronized (r) {
-			v1 = r.nextInt();
-			v2 = r.nextInt();
-		}
-		test(m.set(v1), v1);
-		//test(m.add(v2), v2);
+		final int v = rnd();
+		test(m.set(v), v);
 	}
 
 }
