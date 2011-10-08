@@ -30,17 +30,7 @@ import com.google.common.base.Predicates;
  * @param <C> Containing type.
  * @param <T> Property type.
  */
-public abstract class MetaProperty<C, T> implements Function<C, T> {
-	/** Descriptor for name property. */
-	public static final StringMetaProperty<MetaProperty<?, ?>> NAME = new StringMetaProperty<MetaProperty<?, ?>>("name",
-			true) {
-		public String apply(MetaProperty<?, ?> input) {
-			return input.getName();
-		}
-	};
-
-	/** Property name. */
-	private final String name;
+public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, T> {
 	/** Whether the property is required. */
 	private final boolean required;
 	/** Validity predicate. */
@@ -57,7 +47,7 @@ public abstract class MetaProperty<C, T> implements Function<C, T> {
 	 */
 	protected MetaProperty(String name, boolean required, @Nullable Predicate<? super T> validity,
 			@Nullable T defaultValue) {
-		this.name = name;
+		super(name);
 		this.required = required;
 		if (validity != null) {
 			this.validity = validity;
@@ -87,14 +77,6 @@ public abstract class MetaProperty<C, T> implements Function<C, T> {
 	}
 
 	/**
-	 * Returns the property name.
-	 * @return The property name.
-	 */
-	public final String getName() {
-		return name;
-	}
-
-	/**
 	 * Returns the default value.
 	 * @return The default value or {@code null} if the property has no default value.
 	 */
@@ -112,11 +94,11 @@ public abstract class MetaProperty<C, T> implements Function<C, T> {
 	public final T checkValue(@Nullable T value) {
 		if (value == null) {
 			if (required) {
-				throw new NullPointerException(String.format("Property [%s] does not allow null values", name));
+				throw new NullPointerException(String.format("Property [%s] does not allow null values", getName()));
 			}
 		} else {
 			if (validity.apply(value)) {
-				String msg = String.format("Illegal value [%s] for property [%s]", value.toString(), name);
+				String msg = String.format("Illegal value [%s] for property [%s]", value.toString(), getName());
 				throw new IllegalArgumentException(msg);
 			}
 		}
@@ -144,7 +126,7 @@ public abstract class MetaProperty<C, T> implements Function<C, T> {
 	 */
 	private T getDefault() {
 		if (required && defaultValue == null) {
-			throw new IllegalStateException(String.format("No default value for required property [%s]", name));
+			throw new IllegalStateException(String.format("No default value for required property [%s]", getName()));
 		}
 		return defaultValue;
 	}
