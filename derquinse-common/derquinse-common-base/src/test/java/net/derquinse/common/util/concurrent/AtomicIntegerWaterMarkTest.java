@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.base;
+package net.derquinse.common.util.concurrent;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -21,6 +21,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.security.SecureRandom;
 
+import net.derquinse.common.base.IntegerWaterMark;
 import net.derquinse.common.util.concurrent.AtomicIntegerWaterMark;
 
 import org.testng.annotations.Test;
