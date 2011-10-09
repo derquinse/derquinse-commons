@@ -19,8 +19,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import net.derquinse.common.meta.Meta;
-
 import org.testng.annotations.Test;
 
 /**
@@ -35,7 +33,8 @@ public class MetaTest {
 	 */
 	@Test
 	public void name() {
-		final Meta<Object> meta = new Meta<Object>(VALUE0) {};
+		final Meta<Object> meta = new Meta<Object>(VALUE0) {
+		};
 		assertEquals(meta.getName(), VALUE0);
 		assertEquals(Meta.NAME.apply(meta), VALUE0);
 		assertFalse(Meta.NAME.isValid(null));

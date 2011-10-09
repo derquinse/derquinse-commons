@@ -51,6 +51,7 @@ public class StringMetaPropertyTest {
 		};
 		
 		assertEquals(VALUE0.toLowerCase(), TestObject.SAMPLE.compose(lower).apply(obj));
+		//System.out.println(obj);
 	}
 	
 	private static final class TestObject {
@@ -70,6 +71,11 @@ public class StringMetaPropertyTest {
 		
 		public String getSample() {
 			return sample;
+		}
+		
+		@Override
+		public String toString() {
+			return Metas.toStringHelper(this).add(SAMPLE).toString();
 		}
 	}
 }

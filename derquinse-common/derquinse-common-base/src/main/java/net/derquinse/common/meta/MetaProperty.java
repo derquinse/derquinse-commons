@@ -31,6 +31,13 @@ import com.google.common.base.Predicates;
  * @param <T> Property type.
  */
 public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, T> {
+	/** Descriptor for required flag. */
+	public static final MetaFlag<MetaProperty<?, ?>> REQUIRED = new MetaFlag<MetaProperty<?, ?>>("required") {
+		public boolean apply(MetaProperty<?, ?> input) {
+			return input.isRequired();
+		}
+	};
+
 	/** Whether the property is required. */
 	private final boolean required;
 	/** Validity predicate. */
@@ -74,6 +81,13 @@ public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, 
 	 */
 	protected MetaProperty(String name, boolean required) {
 		this(name, required, null);
+	}
+
+	/**
+	 * Returns whether the property is required.
+	 */
+	public final boolean isRequired() {
+		return required;
 	}
 
 	/**
@@ -224,4 +238,15 @@ public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, 
 		return compose(Predicates.in(target));
 	}
 
+	@Override
+	public String toString() {
+		final Metas.ToStringHelper<?> h = Metas.toStringHelper(this).add(NAME).add(REQUIRED);
+		if (defaultValue != null) {
+			h.add("defaultValue", defaultValue);
+		}
+		if (!Predicates.alwaysTrue().equals(validity)) {
+			h.add("validity", validity);
+		}
+		return h.toString();
+	}
 }

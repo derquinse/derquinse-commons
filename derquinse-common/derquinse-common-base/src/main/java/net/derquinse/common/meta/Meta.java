@@ -48,4 +48,9 @@ public abstract class Meta<C> {
 	public final String getName() {
 		return name;
 	}
+	
+	@Override
+	public String toString() {
+		return Metas.toStringHelper(this).add(NAME).toString();
+	}
 }

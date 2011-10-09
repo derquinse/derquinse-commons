@@ -42,6 +42,8 @@ public class MetaFlagTest {
 		assertFalse(TestObject.SAMPLE.apply(f));
 		assertTrue(TestObject.SAMPLE.or(Predicates.alwaysFalse()).apply(t));
 		assertFalse(TestObject.SAMPLE.and(Predicates.alwaysFalse()).apply(t));
+		//System.out.println(t);
+		//System.out.println(f);
 	}
 
 	private static final class TestObject {
@@ -61,6 +63,11 @@ public class MetaFlagTest {
 
 		public boolean isSample() {
 			return sample;
+		}
+		
+		@Override
+		public String toString() {
+			return Metas.toStringHelper(this).add(SAMPLE).toString();
 		}
 	}
 }
