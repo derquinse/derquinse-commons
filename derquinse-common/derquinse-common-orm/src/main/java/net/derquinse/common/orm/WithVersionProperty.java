@@ -15,7 +15,7 @@
  */
 package net.derquinse.common.orm;
 
-import net.derquinse.common.property.MetaProperty;
+import net.derquinse.common.meta.MetaProperty;
 
 /**
  * Interface for the version property.
