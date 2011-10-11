@@ -33,5 +33,5 @@ public interface WithVersionProperty {
 	 * Returns the version.
 	 * @return The value of the version property.
 	 */
-	int getVersion();
+	Integer getVersion();
 }
