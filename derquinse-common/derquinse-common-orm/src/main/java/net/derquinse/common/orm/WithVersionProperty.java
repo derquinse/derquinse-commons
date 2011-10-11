@@ -15,7 +15,7 @@
  */
 package net.derquinse.common.orm;
 
-import net.derquinse.common.meta.MetaProperty;
+import net.derquinse.common.meta.IntegerMetaProperty;
 
 /**
  * Interface for the version property.
@@ -23,7 +23,7 @@ import net.derquinse.common.meta.MetaProperty;
  */
 public interface WithVersionProperty {
 	/** Version property getter. */
-	MetaProperty<WithVersionProperty, Integer> VERSION = new MetaProperty<WithVersionProperty, Integer>("version", true) {
+	IntegerMetaProperty<WithVersionProperty> VERSION = new IntegerMetaProperty<WithVersionProperty>("version", false) {
 		public Integer apply(WithVersionProperty from) {
 			return from.getVersion();
 		}
