@@ -156,8 +156,7 @@ public abstract class MetaFlag<C> extends Meta<C> implements Predicate<C> {
 		@Override
 		public boolean equals(Object obj) {
 			if (obj instanceof MetaFlag.FlagProperty) {
-				MetaFlag<?>.FlagProperty p = (MetaFlag<?>.FlagProperty) obj;
-				return get() == p.get();
+				return get() == getClass().cast(obj).get();
 			}
 			return false;
 		}
