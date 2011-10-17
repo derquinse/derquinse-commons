@@ -25,7 +25,6 @@ import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
 import java.util.List;
 
 import com.google.common.base.Charsets;
@@ -37,6 +36,14 @@ import com.google.common.base.Charsets;
  * @author Andres Rodriguez
  */
 public final class ByteString {
+	/** Used to build output as Hex. */
+	private static final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
+			'e', 'f' };
+
+	/** Used to build output as Hex. */
+	private static final char[] DIGITS_UPPER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+			'E', 'F' };
+
 	private final byte[] bytes;
 
 	private ByteString(final byte[] bytes) {
@@ -230,6 +237,30 @@ public final class ByteString {
 		}
 	}
 
+	/**
+	 * Constructs a new {@code String} by encoding the bytes in hexadecimal.
+	 */
+	public String toHexString(boolean lowercase) {
+		return toHexString(lowercase ? DIGITS_LOWER : DIGITS_UPPER);
+	}
+
+	/**
+	 * Constructs a new {@code String} by encoding the bytes in hexadecimal.
+	 */
+	public String toHexString() {
+		return toHexString(true);
+	}
+
+	private String toHexString(char[] toDigits) {
+		final int length = 2 * bytes.length;
+		final StringBuilder b = new StringBuilder(length);
+		for (int i = 0; i < bytes.length; i++) {
+			b.append(toDigits[(0xF0 & bytes[i]) >>> 4]);
+			b.append(toDigits[0x0F & bytes[i]]);
+		}
+		return b.toString();
+	}
+
 	// =================================================================
 	// equals() and hashCode()
 
@@ -334,28 +365,4 @@ public final class ByteString {
 			return new ByteString(byteArray);
 		}
 	}
-
-	/**
-	 * Builder based on a message digest. Call {@link #build()} to create the {@code ByteString}
-	 * instance.
-	 */
-	public static final class Digest implements Builder<ByteString> {
-		private final MessageDigest digest;
-
-		/**
-		 * Constructs a new builder.
-		 */
-		private Digest(final MessageDigest digest) {
-			this.digest = digest;
-		}
-
-		/**
-		 * Creates a {@code ByteString} instance from this {@code Digest}.
-		 */
-		public ByteString build() {
-			final byte[] byteArray = digest.digest();
-			return new ByteString(byteArray);
-		}
-	}
-
 }
