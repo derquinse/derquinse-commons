@@ -19,6 +19,13 @@
 		<system>Google Code</system>
 		<url>http://code.google.com/p/derquinse-commons/issues/list</url>
 	</issueManagement>
+	<repositories>
+		<repository>
+			<id>derquinse-m2</id>
+			<name>Derquinse Maven 2 Repository</name>
+			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
