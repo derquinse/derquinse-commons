@@ -23,15 +23,15 @@ import org.testng.annotations.Test;
  * Tests for Digests
  * @author Andres Rodriguez
  */
-public class DigestTest {
+public class DigestsTest {
 	/**
 	 * Creation test.
 	 */
 	@Test
 	public void creation() throws NoSuchAlgorithmException {
-		Digest.md5();
-		Digest.sha1();
-		Digest.sha256();
-		Digest.sha512();
+		Digests.md5();
+		Digests.sha1();
+		Digests.sha256();
+		Digests.sha512();
 	}
 }

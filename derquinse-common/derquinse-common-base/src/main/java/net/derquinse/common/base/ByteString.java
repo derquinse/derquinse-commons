@@ -16,6 +16,8 @@
  */
 package net.derquinse.common.base;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;
@@ -165,6 +167,58 @@ public final class ByteString {
 			pos += str.size();
 		}
 		return new ByteString(bytes);
+	}
+
+	/**
+	 * Converts an array of characters representing hexadecimal values into an array of bytes of those
+	 * same values. The returned byte string will be half the length of the passed array, as it takes two
+	 * characters to represent any given byte. An exception is thrown if the passed char array has an
+	 * odd number of elements.
+	 * @param data An array of characters containing hexadecimal digits
+	 * @return A byte string containing binary data decoded from the supplied char array.
+	 * @throws IllegalArgumentException Thrown if an odd number or illegal of characters is supplied
+	 */
+	public static ByteString fromHexChars(char[] data) {
+		int len = data.length;
+		checkArgument((len & 0x01) == 0, "Odd number of characters.");
+		byte[] out = new byte[len >> 1];
+		// two characters form the hex value.
+		for (int i = 0, j = 0; j < len; i++) {
+			int f = toDigit(data[j], j) << 4;
+			j++;
+			f = f | toDigit(data[j], j);
+			j++;
+			out[i] = (byte) (f & 0xFF);
+		}
+		return new ByteString(out);
+	}
+
+	/**
+	 * Converts an string representing hexadecimal values into an array of bytes of those
+	 * same values. The returned byte string will be half the length of the passed array, as it takes two
+	 * characters to represent any given byte. An exception is thrown if the passed char array has an
+	 * odd number of elements.
+	 * @param data An string containing hexadecimal digits
+	 * @return A byte string containing binary data decoded from the supplied string.
+	 * @throws IllegalArgumentException Thrown if an odd number or illegal of characters is supplied
+	 */
+	public static ByteString fromHexString(String data) {
+		return fromHexChars(data.toCharArray());
+	}
+
+	/**
+	 * Converts a hexadecimal character to an integer.
+	 * @param ch A character to convert to an integer digit
+	 * @param index The index of the character in the source
+	 * @return An integer
+	 * @throws IllegalArgumentException Thrown if ch is an illegal hex character
+	 */
+	private static int toDigit(char ch, int index) {
+		int digit = Character.digit(ch, 16);
+		if (digit == -1) {
+			throw new IllegalArgumentException("Illegal hexadecimal character " + ch + " at index " + index);
+		}
+		return digit;
 	}
 
 	// =================================================================

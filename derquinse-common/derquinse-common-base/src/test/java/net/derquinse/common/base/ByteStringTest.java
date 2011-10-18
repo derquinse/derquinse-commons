@@ -15,8 +15,10 @@
  */
 package net.derquinse.common.base;
 
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -29,13 +31,17 @@ public class ByteStringTest {
 	 */
 	@Test
 	public void simple() throws Exception {
-		final Digest d = Digest.sha1();
+		final MessageDigest d = Digests.sha1();
 		final SecureRandom r = new SecureRandom();
 		final byte[] bytes = new byte[2048];
 		for (int i = 0; i < 1500; i++) {
 			r.nextBytes(bytes);
 			d.update(bytes);
 		}
-		System.out.println(d.toByteString().toHexString());
+		ByteString s1 = ByteString.copyFrom(d.digest());
+		String s = s1.toHexString();
+		System.out.println();
+		ByteString s2 = ByteString.fromHexString(s);
+		Assert.assertEquals(s2, s1);
 	}
 }
