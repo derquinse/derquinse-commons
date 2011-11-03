@@ -22,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
@@ -37,7 +38,10 @@ import com.google.common.base.Charsets;
  * @author kenton@google.com Kenton Varda
  * @author Andres Rodriguez
  */
-public final class ByteString {
+public final class ByteString implements Serializable {
+	/** Serial UID. */
+	private static final long serialVersionUID = 5380545035055097521L;
+
 	/** Used to build output as Hex. */
 	private static final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
 			'e', 'f' };
