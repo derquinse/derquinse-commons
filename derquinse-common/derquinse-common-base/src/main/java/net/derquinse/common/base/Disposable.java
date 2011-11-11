@@ -31,7 +31,8 @@ public interface Disposable<T> extends Supplier<T> {
 	
 	/**
 	 * Called when the object is no longer in use. It can be called safely multiple times.
-	 * Once called, every call to get will throw {@link IllegalStateException}. 
+	 * Once called, every call to get will throw {@link IllegalStateException}.
+	 * It is the caller's responsibity to ensure the object is no longer used after calling this method. 
 	 */
 	void dispose();
 }

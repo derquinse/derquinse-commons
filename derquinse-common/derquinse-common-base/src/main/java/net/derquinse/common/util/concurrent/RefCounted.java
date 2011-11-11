@@ -15,6 +15,9 @@
  */
 package net.derquinse.common.util.concurrent;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+
 import net.derquinse.common.base.Disposable;
 
 import com.google.common.base.Supplier;
@@ -26,8 +29,33 @@ import com.google.common.base.Supplier;
  */
 public interface RefCounted<T> extends Supplier<Disposable<T>> {
 	/**
-	 * Returns a new the disposabe reference. The return value will be valid until it is disposed.
-	 * @throws IllegalStateException if the object has been disposed.
+	 * Returns a new disposable reference. The return value will be valid until it is disposed.
+	 * @throws IllegalStateException if the object has been shut down.
 	 */
 	Disposable<T> get();
+	
+	/**
+	 * Returns the current number of active references.
+	 */
+	int getCount();
+	
+	/**
+	 * Returns the maximum number of active references.
+	 */
+	int getMaxCount();
+
+	/**
+	 * Shuts the reference down. No more references will be provided and when the last one is disposed the shutdown hook will be submitted to the provided executor.
+	 * If the reference has been already shut down this method is a no-op.
+	 * @param executor Executor to use for the shutdown hook.
+	 * @return A future which result is the shuwdown hook execution time.
+	 */
+	Future<Long> shutdown(Executor executor);
+
+	/**
+	 * Shuts the reference down using the calling thread of the last disposed reference.
+	 * @see RefCounted#shutdown(Executor)
+	 */
+	Future<Long> shutdown();
+
 }
