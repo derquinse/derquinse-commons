@@ -34,7 +34,7 @@ import com.google.common.base.Objects;
  */
 public class ByteStringUserType implements UserType {
 	/** SQL Types. */
-	private static final int[] TYPES = { Types.VARCHAR };
+	private static final int[] TYPES = { Types.BINARY };
 
 	/** Default constructor. */
 	public ByteStringUserType() {
