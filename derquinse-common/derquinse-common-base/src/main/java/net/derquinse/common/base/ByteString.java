@@ -22,6 +22,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;
 import java.io.InputStream;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.BufferOverflowException;
@@ -175,9 +177,9 @@ public final class ByteString implements Serializable {
 
 	/**
 	 * Converts an array of characters representing hexadecimal values into an array of bytes of those
-	 * same values. The returned byte string will be half the length of the passed array, as it takes two
-	 * characters to represent any given byte. An exception is thrown if the passed char array has an
-	 * odd number of elements.
+	 * same values. The returned byte string will be half the length of the passed array, as it takes
+	 * two characters to represent any given byte. An exception is thrown if the passed char array has
+	 * an odd number of elements.
 	 * @param data An array of characters containing hexadecimal digits
 	 * @return A byte string containing binary data decoded from the supplied char array.
 	 * @throws IllegalArgumentException Thrown if an odd number or illegal of characters is supplied
@@ -198,8 +200,8 @@ public final class ByteString implements Serializable {
 	}
 
 	/**
-	 * Converts an string representing hexadecimal values into an array of bytes of those
-	 * same values. The returned byte string will be half the length of the passed array, as it takes two
+	 * Converts an string representing hexadecimal values into an array of bytes of those same values.
+	 * The returned byte string will be half the length of the passed array, as it takes two
 	 * characters to represent any given byte. An exception is thrown if the passed char array has an
 	 * odd number of elements.
 	 * @param data An string containing hexadecimal digits
@@ -422,5 +424,30 @@ public final class ByteString implements Serializable {
 			final byte[] byteArray = bout.toByteArray();
 			return new ByteString(byteArray);
 		}
+	}
+
+	// =================================================================
+	// Serialization proxy
+
+	private static class SerializationProxy implements Serializable {
+		/** Serial UID. */
+		private static final long serialVersionUID = 3486210277801140074L;
+		private final byte[] bytes;
+
+		public SerializationProxy(ByteString s) {
+			this.bytes = s.bytes;
+		}
+
+		private Object readResolve() {
+			return ByteString.copyFrom(bytes);
+		}
+	}
+
+	private Object writeReplace() {
+		return new SerializationProxy(this);
+	}
+
+	private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+		throw new InvalidObjectException("Proxy required");
 	}
 }

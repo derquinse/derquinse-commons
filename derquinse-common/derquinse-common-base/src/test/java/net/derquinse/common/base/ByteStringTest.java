@@ -15,6 +15,10 @@
  */
 package net.derquinse.common.base;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
@@ -26,22 +30,44 @@ import org.testng.annotations.Test;
  * @author Andres Rodriguez
  */
 public class ByteStringTest {
+	private static final SecureRandom R = new SecureRandom();
+	
+	private ByteString createRandom() {
+		final MessageDigest d = Digests.sha1();
+		final byte[] bytes = new byte[2048];
+		for (int i = 0; i < 1500; i++) {
+			R.nextBytes(bytes);
+			d.update(bytes);
+		}
+		return ByteString.copyFrom(d.digest());
+	}
+
 	/**
 	 * Simple test.
 	 */
 	@Test
 	public void simple() throws Exception {
-		final MessageDigest d = Digests.sha1();
-		final SecureRandom r = new SecureRandom();
-		final byte[] bytes = new byte[2048];
-		for (int i = 0; i < 1500; i++) {
-			r.nextBytes(bytes);
-			d.update(bytes);
-		}
-		ByteString s1 = ByteString.copyFrom(d.digest());
+		ByteString s1 = createRandom();
 		String s = s1.toHexString();
 		System.out.println();
 		ByteString s2 = ByteString.fromHexString(s);
 		Assert.assertEquals(s2, s1);
 	}
+
+	/**
+	 * Serialization.
+	 */
+	@Test
+	public void serialization() throws Exception {
+		ByteString s = createRandom();
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(256);
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(s);
+		oos.close();
+		ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+		ObjectInputStream ois = new ObjectInputStream(bis);
+		Assert.assertEquals(ois.readObject(), s);
+	}
+
+
 }
