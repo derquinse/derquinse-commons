@@ -81,4 +81,9 @@ final class EmptyImmutableHierarchy extends ImmutableHierarchy<Object> {
 	public boolean isRooted() {
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "[]";
+	}
 }

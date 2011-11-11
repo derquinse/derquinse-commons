@@ -17,6 +17,7 @@ package net.derquinse.common.collect;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Iterables.transform;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,6 +26,8 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
 
@@ -167,6 +170,30 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 			}
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		final Joiner j = Joiner.on(", ");
+		final Function<E, String> f = new Function<E, String>() {
+			public String apply(E input) {
+				String element = input.toString();
+				List<E> children = getChildren(input);
+				if (children.isEmpty()) {
+					return element;
+				}
+				StringBuilder b = new StringBuilder(element).append('[');
+				j.appendTo(b, transform(children, this));
+				return b.append(']').toString();
+			}
+		};
+		StringBuilder b = new StringBuilder("Hierarchy[");
+		j.appendTo(b, transform(getFirstLevel(), f));
+		return b.append(']').toString();
 	}
 
 	/* Equality helper. */

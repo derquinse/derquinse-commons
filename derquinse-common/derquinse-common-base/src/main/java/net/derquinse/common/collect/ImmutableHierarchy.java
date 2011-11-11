@@ -77,7 +77,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 
 	/**
 	 * Returns a new builder.
-	 * @param outOfOrder Whther to allow out of order insertion.
+	 * @param outOfOrder Whether to allow out of order insertion.
 	 */
 	public static <E> Builder<E> builder(boolean outOfOrder) {
 		return new Builder<E>().setAllowOutOfOrder(outOfOrder);

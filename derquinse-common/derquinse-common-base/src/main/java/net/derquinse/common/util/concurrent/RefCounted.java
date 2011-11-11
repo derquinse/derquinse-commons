@@ -23,7 +23,9 @@ import net.derquinse.common.base.Disposable;
 import com.google.common.base.Supplier;
 
 /**
- * Interface for suppliers of reference counted disposable objects.
+ * Interface for suppliers of reference counted disposable objects. A strong reference may be kept
+ * to the destination objects, so the reference itself has to be unreachable for the destination
+ * object to be gc'd.
  * @param <T> the type of the disposable object.
  * @author Andres Rodriguez
  */
@@ -33,20 +35,21 @@ public interface RefCounted<T> extends Supplier<Disposable<T>> {
 	 * @throws IllegalStateException if the object has been shut down.
 	 */
 	Disposable<T> get();
-	
+
 	/**
 	 * Returns the current number of active references.
 	 */
 	int getCount();
-	
+
 	/**
 	 * Returns the maximum number of active references.
 	 */
 	int getMaxCount();
 
 	/**
-	 * Shuts the reference down. No more references will be provided and when the last one is disposed the shutdown hook will be submitted to the provided executor.
-	 * If the reference has been already shut down this method is a no-op.
+	 * Shuts the reference down. No more references will be provided and when the last one is disposed
+	 * the shutdown hook will be submitted to the provided executor. If the reference has been already
+	 * shut down this method is a no-op.
 	 * @param executor Executor to use for the shutdown hook.
 	 * @return A future which result is the shuwdown hook execution time.
 	 */

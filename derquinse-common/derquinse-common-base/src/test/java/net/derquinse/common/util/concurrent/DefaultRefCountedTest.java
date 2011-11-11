@@ -45,7 +45,7 @@ public class DefaultRefCountedTest {
 	@BeforeMethod
 	public void before() {
 		t = new Target();
-		ref = new DefaultRefCounted<DefaultRefCountedTest.Target>(t, t);
+		ref = Refs.counted(t, t);
 	}
 
 	@AfterMethod

@@ -167,6 +167,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	@Test
 	public void equality() {
 		final Hierarchy<Integer> h1 = create(5);
+		System.out.println(h1);
 		final Hierarchy<Integer> h2 = create(5);
 		final Hierarchy<Integer> hf = new ForwardingHierarchy<Integer>() {
 			@Override

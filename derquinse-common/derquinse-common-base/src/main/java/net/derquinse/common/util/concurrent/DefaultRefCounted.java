@@ -22,11 +22,13 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import net.derquinse.common.base.Disposable;
 import net.derquinse.common.base.IntegerWaterMark;
 
+import com.google.common.base.Objects;
 import com.google.common.util.concurrent.Atomics;
 import com.google.common.util.concurrent.MoreExecutors;
 
@@ -36,15 +38,18 @@ import com.google.common.util.concurrent.MoreExecutors;
  * @author Andres Rodriguez
  */
 final class DefaultRefCounted<T> implements RefCounted<T> {
+	/** Referenced value. */
+	private final T value;
 	/** State. */
-	private final AtomicReference<State<T>> state;
+	private final AtomicReference<State> state;
 	/** Shutdown task. */
 	private final FutureTask<Long> task;
 	/** Executor. */
 	private volatile Executor executor;
 
 	DefaultRefCounted(T value, Runnable hook) {
-		this.state = Atomics.newReference(new State<T>(checkNotNull(value, "The referenced value is mandatory")));
+		this.value = checkNotNull(value, "The referenced value is mandatory");
+		this.state = Atomics.newReference(new State());
 		this.task = new FutureTask<Long>(new Hook(hook));
 	}
 
@@ -54,10 +59,10 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	 */
 	public Disposable<T> get() {
 		while (true) {
-			final State<T> current = state.get();
-			final State<T> next = current.inc();
+			final State current = state.get();
+			final State next = current.inc();
 			if (state.compareAndSet(current, next)) {
-				return new RefDisposable(next.get());
+				return new RefDisposable(value);
 			}
 		}
 	}
@@ -85,8 +90,8 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	 */
 	private void dec() {
 		while (true) {
-			final State<T> current = state.get();
-			final State<T> next = current.dec();
+			final State current = state.get();
+			final State next = current.dec();
 			if (state.compareAndSet(current, next)) {
 				runHook();
 				return;
@@ -100,24 +105,25 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	@Override
 	public Future<Long> shutdown(Executor executor) {
 		checkNotNull(executor);
-		while (!tryShutdown(executor));
+		while (!tryShutdown(executor))
+			;
 		return task;
 	}
 
 	public boolean tryShutdown(Executor executor) {
-		final State<T> current = state.get();
+		final State current = state.get();
 		if (current.closed()) {
 			return true;
 		}
 		this.executor = executor;
-		final State<T> next = current.close();
+		final State next = current.close();
 		if (state.compareAndSet(current, next)) {
 			runHook();
 			return true;
 		}
 		return false;
 	}
-	
+
 	/*
 	 * @see net.derquinse.common.util.concurrent.RefCounted#shutdown()
 	 */
@@ -127,70 +133,76 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	}
 
 	private void runHook() {
-		State<T> s = state.get();
+		State s = state.get();
 		if (s.closed() && s.count() == 0) {
 			executor.execute(task);
 		}
 	}
 
+	@Override
+	public String toString() {
+		State s = state.get();
+		return Objects.toStringHelper(this).add("value", value).add("active", !s.closed()).add("count", s.count())
+				.add("max", s.max()).toString();
+	}
+
 	private final class RefDisposable implements Disposable<T> {
-		private final AtomicReference<T> ref;
+		private final AtomicBoolean disposed = new AtomicBoolean(false);
 
 		RefDisposable(T value) {
-			this.ref = Atomics.newReference(value);
 		}
 
 		@Override
 		public T get() {
-			T value = ref.get();
-			checkState(value != null, "Reference already disposed");
+			checkState(!disposed.get(), "Reference already disposed");
 			return value;
 		}
 
 		@Override
 		public void dispose() {
-			if (ref.get() != null) {
-				ref.set(null);
-				dec();
+			while (!disposed.get()) {
+				if (disposed.compareAndSet(false, true)) {
+					dec();
+				}
 			}
+		}
+
+		@Override
+		public String toString() {
+			return String.format("%s{%s}", disposed.get() ? "Disposed" : "Disposable", value);
 		}
 	}
 
 	/**
 	 * Reference state.
 	 */
-	private static class State<T> {
+	private static class State {
 		/** Reference count. */
 		private final IntegerWaterMark count;
-		/** Value to provide (null if closed). */
-		private final T value;
+		/** Whether is a closed state. */
+		private final boolean closed;
 
-		State(T value) {
-			count = IntegerWaterMark.of();
-			this.value = checkNotNull(value, "The referenced value is mandatory");
+		State() {
+			this.count = IntegerWaterMark.of();
+			this.closed = false;
 		}
 
-		State(IntegerWaterMark count, T value) {
+		State(IntegerWaterMark count, boolean closed) {
 			this.count = count;
-			this.value = value;
+			this.closed = closed;
 		}
 
-		private void checkOpen() {
-			checkState(value != null, "Already closed");
+		void checkOpen() {
+			checkState(!closed, "Already closed");
 		}
 
-		State<T> close() {
+		State close() {
 			checkOpen();
-			return new State<T>(count, null);
+			return new State(count, true);
 		}
 
 		boolean closed() {
-			return value == null;
-		}
-
-		T get() {
-			checkOpen();
-			return value;
+			return closed;
 		}
 
 		int count() {
@@ -201,15 +213,15 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 			return count.getMax();
 		}
 
-		State<T> inc() {
+		State inc() {
 			checkOpen();
-			return new State<T>(count.inc(), value);
+			return new State(count.inc(), false);
 		}
 
-		State<T> dec() {
+		State dec() {
 			int current = count.get();
 			checkState(current > 0, "No reference to remove");
-			return new State<T>(count.dec(), value);
+			return new State(count.dec(), closed);
 		}
 	}
 
