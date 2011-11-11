@@ -15,55 +15,19 @@
  */
 package net.derquinse.common.util.concurrent;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 import net.derquinse.common.base.Disposable;
 
 import com.google.common.base.Supplier;
 
 /**
- * A supplier of reference counted disposable objects.
+ * Interface for suppliers of reference counted disposable objects.
  * @param <T> the type of the disposable object.
  * @author Andres Rodriguez
  */
-public final class RefCounted<T> implements Supplier<Disposable<T>> {
-	/** Value to provide. */
-	private final T value;
-
-	private RefCounted(T value) {
-		this.value = checkNotNull(value, "The referenced value is mandatory");
-	}
-
+public interface RefCounted<T> extends Supplier<Disposable<T>> {
 	/**
 	 * Returns a new the disposabe reference. The return value will be valid until it is disposed.
 	 * @throws IllegalStateException if the object has been disposed.
 	 */
-	public Disposable<T> get() {
-		return new RefDisposable();
-	}
-
-	private final class RefDisposable implements Disposable<T> {
-		private boolean disposed = false;
-
-		RefDisposable() {
-		}
-
-		@Override
-		public synchronized T get() {
-			checkState(!disposed, "Reference already disposed");
-			return value;
-		}
-
-		@Override
-		public void dispose() {
-			synchronized (this) {
-				if (disposed) {
-					return;
-				}
-				disposed = true;
-			}
-			// TODO: notify parent object.
-		}
-	}
-
+	Disposable<T> get();
 }
