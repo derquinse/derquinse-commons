@@ -7,6 +7,10 @@
 	<version>10-SNAPSHOT</version>
 	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
+	<organization>
+		<name>Derquinse Projects.</name>
+		<url>http://blog.derquinse.net</url>
+	</organization>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -200,6 +204,11 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
+							<Implementation-Title>${project.name}</Implementation-Title>
+							<Implementation-Version>${project.version}</Implementation-Version>
+							<Implementation-Vendor>${project.organization.name} - ${project.organization.url}</Implementation-Vendor>
+							<Implementation-Description>${project.description}</Implementation-Description>
+							<Extension-Name>${project.artifactId}</Extension-Name>							
 							<Version>${project.version}</Version>
 						</manifestEntries>
 					</archive>
@@ -296,6 +305,12 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.6.1</version>
+			</dependency>
+			<!-- Hessian -->
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>4.0.7</version>
 			</dependency>
 			<!-- Spring Framework -->
 			<dependency>
@@ -410,7 +425,6 @@
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
 				<version>6.3</version>
-				<scope>test</scope>
 				<exclusions>
 					<exclusion>
 						<groupId>junit</groupId>
