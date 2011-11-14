@@ -41,7 +41,7 @@ public final class EqualityTests {
 	 * @param obj Object to test.
 	 */
 	public static void one(Object obj) {
-		assertNotNull(obj, "The provided value is null");
+		assertNotNull(obj, "The provided object is null");
 		assertTrue(obj.equals(obj), String.format("The object [%s] is not equal to itself", obj));
 		assertFalse(obj.equals(null), String.format("The object [%s] is equal to null", obj));
 	}

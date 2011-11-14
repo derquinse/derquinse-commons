@@ -15,9 +15,10 @@
  */
 package net.derquinse.common.base;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertNull;
+import net.derquinse.common.test.EqualityTests;
 
 import org.testng.annotations.Test;
 
@@ -37,16 +38,7 @@ public class CIStringTest {
 		CIString cis1 = CIString.valueOf(VALUE0);
 		CIString cis2 = CIString.valueOf(VALUE0.toLowerCase());
 		CIString cis3 = CIString.valueOf(VALUE0.toUpperCase());
-		assertEquals(cis1, cis1);
-		assertEquals(cis1, cis2);
-		assertEquals(cis2, cis1);
-		assertEquals(cis1, cis3);
-		assertEquals(cis3, cis1);
-		assertEquals(cis2, cis3);
-		assertEquals(cis3, cis2);
-		assertEquals(cis1.hashCode(), cis2.hashCode());
-		assertEquals(cis1.hashCode(), cis3.hashCode());
-		assertEquals(cis2.hashCode(), cis3.hashCode());
+		EqualityTests.many(cis1, cis2, cis3);
 	}
 
 	/**
@@ -58,6 +50,8 @@ public class CIStringTest {
 		CIString cis1 = CIString.valueOf(VALUE1);
 		assertNotSame(cis0, cis1);
 		assertNotSame(cis1, cis0);
+		assertNotEquals(cis0, cis1);
+		assertNotEquals(cis1, cis0);
 	}
 
 	/**

@@ -18,6 +18,7 @@ package net.derquinse.common.collect;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import net.derquinse.common.collect.ImmutableHierarchy.Builder;
+import net.derquinse.common.test.EqualityTests;
 
 import org.testng.annotations.Test;
 
@@ -175,9 +176,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 				return h1;
 			}
 		};
-		equality(h1, h2);
-		equality(h1, hf);
-		equality(h2, hf);
+		EqualityTests.many(h1, h2, hf);
 	}
 
 }

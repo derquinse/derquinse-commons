@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>10-SNAPSHOT</version>
+		<version>10</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.9-SNAPSHOT</version>
@@ -34,10 +34,6 @@
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
 		</dependency>
 	</dependencies>
 	

@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import net.derquinse.common.collect.ImmutableHierarchy.Builder;
+import net.derquinse.common.test.EqualityTests;
 
 import com.google.common.collect.Maps;
 
@@ -37,20 +38,14 @@ public class AbstractHierarchyTest {
 		if (o == null) {
 			return;
 		}
-		assertTrue(o.equals(o));
-		assertFalse(o.equals(null));
+		EqualityTests.one(o);
 	}
 
 	static void equality(Object o1, Object o2) {
 		if (o1 == null && o2 == null) {
 			return;
 		}
-		assertTrue(o1 != null && o2 != null);
-		self(o1);
-		self(o2);
-		assertTrue(o1.equals(o2));
-		assertTrue(o2.equals(o1));
-		assertTrue(o1.hashCode() == o2.hashCode());
+		EqualityTests.two(o1, o2);
 	}
 
 	static void empty(Collection<?> c) {

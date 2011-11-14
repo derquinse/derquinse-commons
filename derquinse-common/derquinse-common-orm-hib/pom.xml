@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-orm</artifactId>
-			<version>${project.version}</version>
+			<version>1.0.9-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -21,6 +21,12 @@
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-test-support</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

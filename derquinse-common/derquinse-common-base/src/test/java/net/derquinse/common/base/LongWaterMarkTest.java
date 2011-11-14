@@ -20,6 +20,8 @@ import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import net.derquinse.common.test.EqualityTests;
+
 import org.testng.annotations.Test;
 
 /**
@@ -39,11 +41,7 @@ public class LongWaterMarkTest {
 	}
 
 	private void equalTo(LongWaterMark other) {
-		assertNotNull(m);
-		assertNotNull(other);
-		assertEquals(other, m);
-		assertEquals(m, other);
-		assertEquals(other.hashCode(), m.hashCode());
+		EqualityTests.two(m, other);
 	}
 
 	/**
