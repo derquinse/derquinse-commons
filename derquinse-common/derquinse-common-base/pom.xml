@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.9-SNAPSHOT</version>
+		<version>1.0.9</version>
 	</parent>
 	<artifactId>derquinse-common-base</artifactId>
 	<name>Derquinse Common Libraries :: Java SE</name>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-support</artifactId>
-			<version>1.0.9-SNAPSHOT</version>
+			<version>1.0.9</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
