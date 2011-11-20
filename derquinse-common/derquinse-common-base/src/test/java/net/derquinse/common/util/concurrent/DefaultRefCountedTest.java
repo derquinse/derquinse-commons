@@ -138,7 +138,7 @@ public class DefaultRefCountedTest {
 				final Disposable<Target> d = ref.get();
 				c.getAndAdd(1);
 				try {
-					Thread.sleep(rnd.nextInt(50));
+					Thread.sleep(rnd.nextInt(20));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
