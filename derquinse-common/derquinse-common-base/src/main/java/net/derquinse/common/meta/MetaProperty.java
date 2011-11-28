@@ -19,6 +19,8 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
+import net.derquinse.common.base.MorePredicates;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
@@ -209,6 +211,14 @@ public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, 
 	 */
 	public final Predicate<C> equalTo(@Nullable T target) {
 		return compose(Predicates.equalTo(target));
+	}
+
+	/**
+	 * Returns a predicate that evaluates to {@code true} if the property value is the same (identity
+	 * equality) as the given target or both are null.
+	 */
+	public final Predicate<C> sameAs(@Nullable T target) {
+		return compose(MorePredicates.sameAs(target));
 	}
 
 	/**
