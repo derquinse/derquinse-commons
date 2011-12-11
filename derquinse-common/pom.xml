@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>14</version>
+		<version>15-SNAPSHOT</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.11-SNAPSHOT</version>
@@ -42,9 +42,9 @@
 	</dependencies>
 	
 	<modules>
+		<module>derquinse-common-test-support</module>
 		<module>derquinse-common-base</module>
 		<module>derquinse-common-orm</module>
 		<module>derquinse-common-orm-hib</module>
-		<module>derquinse-common-test-support</module>
 	</modules>
 </project>

@@ -1,5 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<groupId>net.derquinse</groupId>
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
@@ -23,9 +29,14 @@
 		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-pom</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-pom</url>
 	</scm>
+	<developers>
+		<developer>
+			<id>andresrc</id>
+			<name>Andres Rodriguez</name>
+		</developer>
+	</developers>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<releaseTagBase>https://derquinse-commons.googlecode.com/svn/tags/</releaseTagBase>
 		<releaseGoals>deploy</releaseGoals>
 		<org.springframework.version>3.0.6.RELEASE</org.springframework.version>
@@ -206,9 +217,10 @@
 						<manifestEntries>
 							<Implementation-Title>${project.name}</Implementation-Title>
 							<Implementation-Version>${project.version}</Implementation-Version>
-							<Implementation-Vendor>${project.organization.name} - ${project.organization.url}</Implementation-Vendor>
+							<Implementation-Vendor>${project.organization.name} -
+								${project.organization.url}</Implementation-Vendor>
 							<Implementation-Description>${project.description}</Implementation-Description>
-							<Extension-Name>${project.artifactId}</Extension-Name>							
+							<Extension-Name>${project.artifactId}</Extension-Name>
 							<Version>${project.version}</Version>
 						</manifestEntries>
 					</archive>
@@ -224,43 +236,6 @@
 		</extensions>
 	</build>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>Codehaus repository</id>
-			<url>https://nexus.codehaus.org/content/repositories/releases/</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>Maven Overview Plugin - Release Repository</id>
-			<name>Maven Overview Plugin - Release Repository</name>
-			<url>http://maven-overview-plugin.googlecode.com/svn/release-repository
-			</url>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<repositories>
-		<repository>
-			<id>derquinse-m2</id>
-			<name>Derquinse Maven 2 Repository</name>
-			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2</url>
-		</repository>
-		<repository>
-			<id>derquinse-m2-snapshots</id>
-			<name>Derquinse Maven 2 Snapshots Repository</name>
-			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2-snapshots/</url>
-		</repository>
-	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>derquinse-m2-dav</id>
-			<name>Derquinse Maven 2 Repository</name>
-			<url>dav:https://derquinse-m2.googlecode.com/svn/trunk/m2</url>
-		</repository>
-		<snapshotRepository>
-			<id>derquinse-m2-snapshots-dav</id>
-			<name>Derquinse Maven 2 Snapshots Repository</name>
-			<url>dav:https://derquinse-m2.googlecode.com/svn/trunk/m2-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -435,7 +410,7 @@
 			<dependency>
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
-				<version>6.3</version>
+				<version>6.3.1</version>
 				<exclusions>
 					<exclusion>
 						<groupId>junit</groupId>
