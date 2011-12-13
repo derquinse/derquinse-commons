@@ -25,7 +25,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
- * Tests for SerializabilityTests
+ * Tests for HessianSerializabilityTests
  * @author Andres Rodriguez
  */
 public class HessianSerializabilityTestsTest {
