@@ -46,5 +46,6 @@
 		<module>derquinse-common-base</module>
 		<module>derquinse-common-orm</module>
 		<module>derquinse-common-orm-hib</module>
+		<module>derquinse-common-jersey</module>
 	</modules>
 </project>
