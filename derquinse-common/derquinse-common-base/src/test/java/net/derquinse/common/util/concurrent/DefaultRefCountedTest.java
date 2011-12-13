@@ -138,7 +138,7 @@ public class DefaultRefCountedTest {
 				final Disposable<Target> d = ref.get();
 				c.getAndAdd(1);
 				try {
-					Thread.sleep(rnd.nextInt(20));
+					Thread.sleep(rnd.nextInt(10));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -146,7 +146,7 @@ public class DefaultRefCountedTest {
 			}
 		};
 		final ExecutorService e = Executors.newFixedThreadPool(20);
-		final int n = 1000;
+		final int n = 500;
 		for (int i = 0; i < n; i++) {
 			e.execute(r);
 		}
