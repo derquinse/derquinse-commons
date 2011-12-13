@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -10,7 +9,7 @@
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Derquinse Parent POM</name>
-	<version>15-SNAPSHOT</version>
+	<version>15</version>
 	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
 	<organization>
@@ -25,9 +24,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-pom</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-pom</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-pom</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-pom-15</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-pom-15</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-pom-15</url>
 	</scm>
 	<developers>
 		<developer>
