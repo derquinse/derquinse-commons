@@ -17,8 +17,6 @@ package net.derquinse.common.test;
 
 import static org.testng.Assert.assertNotNull;
 
-import java.io.Serializable;
-
 /**
  * Support class for serializability support methods.
  * @author Andres Rodriguez
@@ -39,8 +37,7 @@ class SerializabilitySupport {
 	 * @throws UnableToSerializeException if unable to cast the object
 	 * @see {@link EqualityTests#two(Object, Object)}
 	 */
-	static <T extends Serializable> T cast(T obj, Object deserialized, boolean equality)
-			throws UnableToSerializeException {
+	static <T> T cast(T obj, Object deserialized, boolean equality) throws UnableToSerializeException {
 		assertNotNull(obj, "The provided object to serialize is null");
 		try {
 			@SuppressWarnings("unchecked")
