@@ -18,7 +18,6 @@ package net.derquinse.common.test;
 import static net.derquinse.common.test.Support.required;
 import static org.testng.Assert.assertNotNull;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
@@ -109,7 +108,7 @@ public final class GsonSerializabilityTests {
 	 * @throws UnableToSerializeException
 	 * @see {@link EqualityTests#two(Object, Object)}
 	 */
-	public static <T extends Serializable> T check(T obj, Type type) throws UnableToSerializeException {
+	public static <T> T check(T obj, Type type) throws UnableToSerializeException {
 		return check(obj, type, true);
 	}
 
@@ -135,7 +134,7 @@ public final class GsonSerializabilityTests {
 	 * @throws UnableToSerializeException
 	 * @see {@link EqualityTests#two(Object, Object)}
 	 */
-	public static <T extends Serializable> T check(T obj) throws UnableToSerializeException {
+	public static <T> T check(T obj) throws UnableToSerializeException {
 		return check(obj, true);
 	}
 
