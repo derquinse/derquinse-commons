@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>16</version>
+		<version>17-SNAPSHOT</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.12-SNAPSHOT</version>

@@ -38,7 +38,6 @@
 	<properties>
 		<releaseTagBase>https://derquinse-commons.googlecode.com/svn/tags/</releaseTagBase>
 		<releaseGoals>deploy</releaseGoals>
-		<org.springframework.security.version>3.0.7.RELEASE</org.springframework.security.version>
 	</properties>
 
 	<build>
@@ -239,7 +238,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>10.0.1</version>
+				<version>11.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.code.findbugs</groupId>
@@ -472,6 +471,22 @@
 				<artifactId>gson</artifactId>
 				<version>2.0</version>
 			</dependency>
+			<!-- Lucene -->
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-core</artifactId>
+				<version>3.5.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-analyzers</artifactId>
+				<version>3.5.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-highlighter</artifactId>
+				<version>3.5.0</version>
+			</dependency>
 			<!-- TestNG -->
 			<dependency>
 				<groupId>org.testng</groupId>
@@ -486,4 +501,28 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>sonatype-oss-release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.8</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
