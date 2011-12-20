@@ -6,14 +6,14 @@
 		<version>17</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.12-SNAPSHOT</version>
+	<version>1.0.12</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Common Java Libraries</name>
 	<description>Derquinse Common Java Libraries</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-1.0.12</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-1.0.12</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-1.0.12</url>
 	</scm>
 	<issueManagement>
 		<system>Google Code</system>
