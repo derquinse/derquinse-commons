@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.12</version>
+		<version>1.0.13-SNAPSHOT</version>
 	</parent>
 	<artifactId>derquinse-common-orm-hib</artifactId>
 	<name>Derquinse Common Libraries :: ORM :: Hibernate</name>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-orm</artifactId>
-			<version>1.0.12</version>
+			<version>1.0.13-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-support</artifactId>
-			<version>1.0.12</version>
+			<version>1.0.13-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
