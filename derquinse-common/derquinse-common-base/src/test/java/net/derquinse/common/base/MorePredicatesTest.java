@@ -22,7 +22,6 @@ import static net.derquinse.common.base.MorePredicates.lessThan;
 import static net.derquinse.common.test.EqualityTests.two;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNull;
 
 import java.util.Set;
 
@@ -78,14 +77,6 @@ public class MorePredicatesTest {
 		assertNotEquals(greaterThan(1), lessOrEqual(1));
 		assertNotEquals(greaterOrEqual(1), lessThan(1));
 		assertNotEquals(lessThan(1), lessOrEqual(1));
-	}
-
-	/**
-	 * Test null value.
-	 */
-	@Test
-	public void nullValue() {
-		assertNull(CIString.valueOf(null));
 	}
 
 }
