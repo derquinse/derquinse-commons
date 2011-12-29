@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class LongMetaProperty<C> extends MetaProperty<C, Long> {
+public abstract class LongMetaProperty<C> extends ComparableMetaProperty<C, Long> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.

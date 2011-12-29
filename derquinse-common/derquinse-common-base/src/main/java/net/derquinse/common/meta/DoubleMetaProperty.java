@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class DoubleMetaProperty<C> extends MetaProperty<C, Double> {
+public abstract class DoubleMetaProperty<C> extends ComparableMetaProperty<C, Double> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.

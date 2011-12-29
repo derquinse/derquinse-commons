@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class FloatMetaProperty<C> extends MetaProperty<C, Float> {
+public abstract class FloatMetaProperty<C> extends ComparableMetaProperty<C, Float> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.

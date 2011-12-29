@@ -27,7 +27,7 @@ import com.google.common.base.Predicates;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class StringMetaProperty<C> extends MetaProperty<C, String> {
+public abstract class StringMetaProperty<C> extends ComparableMetaProperty<C, String> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.

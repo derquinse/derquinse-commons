@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class IntegerMetaProperty<C> extends MetaProperty<C, Integer> {
+public abstract class IntegerMetaProperty<C> extends ComparableMetaProperty<C, Integer> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.
