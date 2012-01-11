@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.13-SNAPSHOT</version>
+		<version>1.0.13</version>
 	</parent>
 	<artifactId>derquinse-common-orm</artifactId>
 	<name>Derquinse Common Libraries :: ORM</name>
@@ -12,12 +12,12 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.13-SNAPSHOT</version>
+			<version>1.0.13</version>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-support</artifactId>
-			<version>1.0.13-SNAPSHOT</version>
+			<version>1.0.13</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
