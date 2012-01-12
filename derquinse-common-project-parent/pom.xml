@@ -6,14 +6,14 @@
 		<version>18</version>
 	</parent>
 	<artifactId>derquinse-common-project-parent</artifactId>
-	<version>1.0.13-SNAPSHOT</version>
+	<version>1.0.13</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Commons :: Parent POM for projects based on it.</name>
 	<description>Derquinse Commons :: Parent POM for projects based on it.</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-project-parent</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-common-project-parent-1.0.13</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-common-project-parent-1.0.13</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-common-project-parent-1.0.13</url>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
