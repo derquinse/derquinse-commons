@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>17</version>
+		<version>18</version>
 	</parent>
 	<artifactId>derquinse-common-project-parent</artifactId>
 	<version>1.0.13-SNAPSHOT</version>
@@ -15,40 +15,33 @@
 		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common-project-parent</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common-project-parent</url>
 	</scm>
-	<repositories>
-		<repository>
-			<id>derquinse-m2</id>
-			<name>Derquinse Maven 2 Repository</name>
-			<url>http://derquinse-m2.googlecode.com/svn/trunk/m2</url>
-		</repository>
-	</repositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-test-support</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.13</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-base</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.13</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.13</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm-hib</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.13</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jersey</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.13</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
