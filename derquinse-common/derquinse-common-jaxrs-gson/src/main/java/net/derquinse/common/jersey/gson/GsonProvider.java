@@ -22,10 +22,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 
 import com.google.common.base.Charsets;
@@ -33,22 +33,31 @@ import com.google.common.base.Supplier;
 import com.google.gson.Gson;
 
 /**
- * Gson-based JSON JAX-RS Reader.
+ * Gson-based JSON JAX-RS Provider.
  * @author Andres Rodriguez.
  */
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
-public class GsonReader extends AbstractGsonProvider implements MessageBodyReader<Object> {
+@Produces(MediaType.APPLICATION_JSON)
+public class GsonProvider extends GenericGsonProvider<Object> {
 	/**
 	 * Constructor.
 	 * @param supplier Gson supplier to use.
 	 */
-	public GsonReader(Supplier<Gson> supplier) {
+	public GsonProvider(Supplier<Gson> supplier) {
 		super(supplier);
 	}
 
+	/**
+	 * Constructor.
+	 * @param gson Gson instance to use.
+	 */
+	public GsonProvider(Gson gson) {
+		super(gson);
+	}
+
 	/** Default constructor. */
-	public GsonReader() {
+	public GsonProvider() {
 	}
 
 	/*

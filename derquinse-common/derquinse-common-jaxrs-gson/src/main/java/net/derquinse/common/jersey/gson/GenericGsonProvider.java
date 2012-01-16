@@ -15,42 +15,81 @@
  */
 package net.derquinse.common.jersey.gson;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
-import javax.ws.rs.ext.Provider;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gson-based JSON JAX-RS Writer.
+ * Base class from Gson-based JSON JAX-RS providers.
  * @author Andres Rodriguez.
  */
-@Provider
-@Produces(MediaType.APPLICATION_JSON)
-public class GsonWriter extends AbstractGsonProvider implements MessageBodyWriter<Object> {
+public abstract class GenericGsonProvider<T> implements MessageBodyReader<T>, MessageBodyWriter<T> {
+	/** Gson supplier. */
+	private final Supplier<Gson> supplier;
+
 	/**
 	 * Constructor.
 	 * @param supplier Gson supplier to use.
 	 */
-	public GsonWriter(Supplier<Gson> supplier) {
-		super(supplier);
+	protected GenericGsonProvider(Supplier<Gson> supplier) {
+		this.supplier = checkNotNull(supplier, "The Gson supplier must be provided");
+	}
+
+	/**
+	 * Constructor.
+	 * @param gson Gson instance to use.
+	 */
+	protected GenericGsonProvider(Gson gson) {
+		this(Suppliers.ofInstance(checkNotNull(gson, "The Gson instance must be provided")));
 	}
 
 	/** Default constructor. */
-	public GsonWriter() {
+	protected GenericGsonProvider() {
+		this(new Gson());
+	}
+
+	/** Returns the Gson object to use. */
+	protected final Gson getGson() {
+		return checkNotNull(supplier.get(), "The provided Gson object is null");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see javax.ws.rs.ext.MessageBodyReader#isReadable(java.lang.Class, java.lang.reflect.Type,
+	 * java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType)
+	 */
+	public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see javax.ws.rs.ext.MessageBodyReader#readFrom(java.lang.Class, java.lang.reflect.Type,
+	 * java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType, javax.ws.rs.core.MultivaluedMap,
+	 * java.io.InputStream)
+	 */
+	public T readFrom(Class<T> type, Type genericType, Annotation[] annotations, MediaType mediaType,
+			MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
+		return getGson().fromJson(new InputStreamReader(entityStream, Charsets.UTF_8), type);
 	}
 
 	/*
@@ -67,7 +106,7 @@ public class GsonWriter extends AbstractGsonProvider implements MessageBodyWrite
 	 * @see javax.ws.rs.ext.MessageBodyWriter#getSize(java.lang.Object, java.lang.Class,
 	 * java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType)
 	 */
-	public long getSize(Object t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+	public long getSize(T t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return -1;
 	}
 
@@ -77,14 +116,13 @@ public class GsonWriter extends AbstractGsonProvider implements MessageBodyWrite
 	 * java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType,
 	 * javax.ws.rs.core.MultivaluedMap, java.io.OutputStream)
 	 */
-	public void writeTo(Object t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType,
+	public void writeTo(T t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType,
 			MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException,
 			WebApplicationException {
 
 		final Writer w = new OutputStreamWriter(entityStream, Charsets.UTF_8);
 		final JsonWriter jsw = new JsonWriter(w);
-		new Gson().toJson(t, type, jsw);
+		getGson().toJson(t, type, jsw);
 		jsw.close();
 	}
-
 }
