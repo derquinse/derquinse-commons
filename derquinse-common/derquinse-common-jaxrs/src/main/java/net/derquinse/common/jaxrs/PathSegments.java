@@ -20,6 +20,9 @@ import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
@@ -29,9 +32,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 /**
- * List of URI path segments.
+ * List of non-encoded URI path segments.
  * @author Andres Rodriguez.
  */
+@Immutable
 public final class PathSegments extends ForwardingList<String> {
 	private static final PathSegments EMPTY = new PathSegments(ImmutableList.<String> of());
 
@@ -49,7 +53,7 @@ public final class PathSegments extends ForwardingList<String> {
 	 * @param encoded If the segment is encoded.
 	 * @return The never {@code null} list of segments.
 	 */
-	public static PathSegments segment(String segment, boolean encoded) {
+	public static PathSegments segment(@Nullable String segment, boolean encoded) {
 		if (segment == null || segment.length() == 0) {
 			return EMPTY;
 		}
@@ -69,7 +73,7 @@ public final class PathSegments extends ForwardingList<String> {
 	 * @param encoded If the path is encoded.
 	 * @return The never {@code null} list of segments.
 	 */
-	public static PathSegments of(String path, boolean encoded) {
+	public static PathSegments of(@Nullable String path, boolean encoded) {
 		if (path == null || path.length() == 0) {
 			return EMPTY;
 		}
@@ -94,7 +98,7 @@ public final class PathSegments extends ForwardingList<String> {
 	 * @param segments String segments.
 	 * @return The never {@code null} list of segments.
 	 */
-	public static PathSegments of(boolean encoded, Iterable<String> segments) {
+	public static PathSegments of(boolean encoded, @Nullable Iterable<String> segments) {
 		if (segments == null) {
 			return EMPTY;
 		}
@@ -112,6 +116,10 @@ public final class PathSegments extends ForwardingList<String> {
 				}
 				builder.add(s);
 			}
+		}
+		ImmutableList<String> list = builder.build();
+		if (list.isEmpty()) {
+			return EMPTY;
 		}
 		return new PathSegments(builder.build());
 	}
@@ -132,7 +140,7 @@ public final class PathSegments extends ForwardingList<String> {
 	/**
 	 * Extracts the extension from a segment.
 	 * @param segment Segment.
-	 * @return The extension of {@code null} if no extension is found.
+	 * @return The extension or {@code null} if no extension is found.
 	 */
 	public static String getExtension(String segment) {
 		if (segment == null) {
@@ -163,52 +171,6 @@ public final class PathSegments extends ForwardingList<String> {
 	}
 
 	/**
-	 * Returns a new transformer that inserts segments at the beginning of the provided path.
-	 * @param segments Segments to add.
-	 * @return The requested transformer.
-	 */
-	public static Function<PathSegments, PathSegments> insert(final PathSegments segments) {
-		if (segments == null || segments.isEmpty()) {
-			return Functions.identity();
-		}
-		return new Function<PathSegments, PathSegments>() {
-			public PathSegments apply(PathSegments input) {
-				if (input == null || input.isEmpty()) {
-					return segments;
-				}
-				return segments.add(input);
-			}
-
-			public String toString() {
-				return String.format("Insert transformer: %s", segments);
-			};
-		};
-	}
-
-	/**
-	 * Returns a new transformer that appends segments to the provided path.
-	 * @param segments Segments to append.
-	 * @return The requested transformer.
-	 */
-	public static Function<PathSegments, PathSegments> append(final PathSegments segments) {
-		if (segments == null || segments.isEmpty()) {
-			return Functions.identity();
-		}
-		return new Function<PathSegments, PathSegments>() {
-			public PathSegments apply(PathSegments input) {
-				if (input == null || input.isEmpty()) {
-					return segments;
-				}
-				return input.add(segments);
-			}
-
-			public String toString() {
-				return String.format("Append transformer: %s", segments);
-			};
-		};
-	}
-
-	/**
 	 * Returns a new transformer that appends an extension to the last segment of the provided path.
 	 * @param extension Extension to append.
 	 * @return The requested transformer.
@@ -236,6 +198,7 @@ public final class PathSegments extends ForwardingList<String> {
 		};
 	}
 
+	/** Path segments. */
 	private final ImmutableList<String> segments;
 
 	/** Constructor. */
@@ -299,7 +262,12 @@ public final class PathSegments extends ForwardingList<String> {
 		return Joiner.on("/").skipNulls().join(this);
 	}
 
-	public PathSegments add(PathSegments other) {
+	/**
+	 * Appends some segments after this list.
+	 * @param other Segments to add.
+	 * @return The resulting segments.
+	 */
+	public PathSegments append(@Nullable PathSegments other) {
 		if (other == null || other.isEmpty()) {
 			return this;
 		}
@@ -307,6 +275,85 @@ public final class PathSegments extends ForwardingList<String> {
 			return other;
 		}
 		return new PathSegments(ImmutableList.copyOf(Iterables.concat(segments, other.segments)));
+	}
+
+	/**
+	 * Returns a new transformer that inserts this segments at the beginning of the provided path.
+	 * @return The requested transformer.
+	 */
+	public Function<PathSegments, PathSegments> inserter() {
+		if (isEmpty()) {
+			return Functions.identity();
+		}
+		return new Inserter();
+	}
+
+	/** Transformer. */
+	private abstract class Transformer implements Function<PathSegments, PathSegments> {
+		@Override
+		public int hashCode() {
+			return getClass().hashCode();
+		}
+
+		final ImmutableList<String> segments() {
+			return segments;
+		}
+	}
+
+	/** Inserter transformer. */
+	private class Inserter extends Transformer {
+		public PathSegments apply(PathSegments input) {
+			if (input == null || input.isEmpty()) {
+				return PathSegments.this;
+			}
+			return append(input);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof Inserter) {
+				return segments.equals(((Inserter) obj).segments());
+			}
+			return false;
+		}
+
+		public String toString() {
+			return String.format("Inserter transformer: %s", segments);
+		}
+	}
+
+	/**
+	 * Returns a new transformer that appends this segments to the provided path.
+	 * @param segments Segments to append.
+	 * @return The requested transformer.
+	 */
+	public Function<PathSegments, PathSegments> appender() {
+		if (isEmpty()) {
+			return Functions.identity();
+		}
+		return new Appender();
+	}
+
+	/** Appender transformer. */
+	private class Appender extends Transformer {
+		public PathSegments apply(PathSegments input) {
+			if (input == null || input.isEmpty()) {
+				return PathSegments.this;
+			}
+			return input.append(PathSegments.this);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof Appender) {
+				return segments.equals(((Inserter) obj).segments());
+			}
+			return false;
+		}
+
+		public String toString() {
+			return String.format("Appender transformer: %s", segments);
+		}
 	}
 
 	@Override
