@@ -40,5 +40,6 @@
 		<module>derquinse-common-orm</module>
 		<module>derquinse-common-orm-hib</module>
 		<module>derquinse-common-jersey</module>
+		<module>derquinse-common-jaxrs</module>
 	</modules>
 </project>
