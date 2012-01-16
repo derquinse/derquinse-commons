@@ -23,6 +23,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
@@ -142,7 +143,7 @@ public final class PathSegments extends ForwardingList<String> {
 	 * @param segment Segment.
 	 * @return The extension or {@code null} if no extension is found.
 	 */
-	public static String getExtension(String segment) {
+	public static String getSegmentExtension(String segment) {
 		if (segment == null) {
 			return null;
 		}
@@ -159,7 +160,7 @@ public final class PathSegments extends ForwardingList<String> {
 	 * @return The segment without the extension (and without the dot) or the same segment if no
 	 *         extension is found.
 	 */
-	public static String removeExtension(String segment) {
+	public static String removeSegmentExtension(String segment) {
 		if (segment == null) {
 			return null;
 		}
@@ -168,34 +169,6 @@ public final class PathSegments extends ForwardingList<String> {
 			return segment.substring(0, li);
 		}
 		return segment;
-	}
-
-	/**
-	 * Returns a new transformer that appends an extension to the last segment of the provided path.
-	 * @param extension Extension to append.
-	 * @return The requested transformer.
-	 */
-	public static Function<PathSegments, PathSegments> extension(final String extension) {
-		if (extension == null || extension.length() == 0) {
-			return Functions.identity();
-		}
-		return new Function<PathSegments, PathSegments>() {
-			public PathSegments apply(PathSegments input) {
-				if (input == null || input.isEmpty()) {
-					return input;
-				}
-				String last = input.last();
-				if (last == null || last.length() == 0) {
-					return input;
-				}
-				last = new StringBuilder(last).append('.').append(extension).toString();
-				return PathSegments.of(false, Iterables.concat(input.consumeLast(), ImmutableList.of(last)));
-			}
-
-			public String toString() {
-				return String.format("Extension transformer: %s", extension);
-			};
-		};
 	}
 
 	/** Path segments. */
@@ -242,6 +215,39 @@ public final class PathSegments extends ForwardingList<String> {
 	}
 
 	/**
+	 * Extracts the extension from the last segment.
+	 * @param segment Segment.
+	 * @return The extension or {@code null} if no extension is found or the object is empty.
+	 */
+	public String getExtension() {
+		if (isEmpty()) {
+			return null;
+		}
+		return getSegmentExtension(last());
+	}
+
+	/**
+	 * Appends an extension to the last segment. If this object is empty no operation is performed.
+	 * @param extension Extension to add. If {@code null} or only whitespace no operation is
+	 *          performed.
+	 * @return The modified segments.
+	 */
+	public PathSegments appendExtension(@Nullable String extension) {
+		if (isEmpty() || extension == null) {
+			return this;
+		}
+		extension = CharMatcher.WHITESPACE.trimFrom(extension);
+		if (extension.isEmpty()) {
+			return this;
+		}
+		String last = new StringBuilder(last()).append('.').append(extension).toString();
+		if (size() == 1) {
+			return segment(last, false);
+		}
+		return PathSegments.of(false, Iterables.concat(consumeLast(), ImmutableList.of(last)));
+	}
+
+	/**
 	 * Removes the extension from the last segment.
 	 * @return The modified segments.
 	 */
@@ -250,9 +256,12 @@ public final class PathSegments extends ForwardingList<String> {
 			return this;
 		}
 		final String last = last();
-		final String removed = removeExtension(last);
+		final String removed = removeSegmentExtension(last);
 		if (last.equals(removed)) {
 			return this;
+		}
+		if (size() == 1) {
+			return segment(removed, false);
 		}
 		return new PathSegments(ImmutableList.copyOf(Iterables.concat(segments.subList(0, segments.size() - 1),
 				ImmutableList.of(removed))));
