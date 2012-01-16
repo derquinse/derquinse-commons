@@ -24,6 +24,7 @@ import java.sql.Types;
 import net.derquinse.common.base.ByteString;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.UserType;
 
 import com.google.common.base.Objects;
@@ -60,14 +61,26 @@ public class ByteStringUserType implements UserType {
 		return x == null ? 0 : x.hashCode();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.hibernate.usertype.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[],
+	 * org.hibernate.engine.spi.SessionImplementor, java.lang.Object)
+	 */
 	@Override
-	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
+	public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner)
+			throws HibernateException, SQLException {
 		final byte[] bytes = rs.getBytes(names[0]);
 		return bytes == null ? null : ByteString.copyFrom(bytes);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object,
+	 * int, org.hibernate.engine.spi.SessionImplementor)
+	 */
 	@Override
-	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
+	public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session)
+			throws HibernateException, SQLException {
 		final byte[] bytes = (value == null) ? null : ((ByteString) value).toByteArray();
 		st.setBytes(index, bytes);
 	}
