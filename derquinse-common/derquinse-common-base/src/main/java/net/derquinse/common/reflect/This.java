@@ -17,6 +17,8 @@ package net.derquinse.common.reflect;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.lang.reflect.Type;
+
 /**
  * Base class for classes that make reference to themselves' types.
  * @author Andres Rodriguez
@@ -25,11 +27,14 @@ import static com.google.common.base.Preconditions.checkArgument;
 public abstract class This<T extends This<T>> {
 	/**
 	 * Constructor.
-	 * @throws IllegalArgumentException if the type argument is not the same as the actual type.
+	 * @throws IllegalArgumentException if the type argument is not the same (raw type) as the actual
+	 *           class.
 	 */
 	public This() {
-		final Class<?> type = getClass();
-		checkArgument(type.equals(Types.getSuperclassTypeArgument(type)));
+		final Class<?> thisClass = getClass();
+		final Type argument = Types.getSuperclassTypeArgument(thisClass);
+		final Class<?> raw = MoreTypes.getRawType(argument);
+		checkArgument(thisClass.equals(raw));
 	}
 
 	/**

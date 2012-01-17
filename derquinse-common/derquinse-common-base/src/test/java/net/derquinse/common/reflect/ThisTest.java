@@ -42,6 +42,14 @@ public class ThisTest {
 	}
 
 	/**
+	 * Test Ok 3.
+	 */
+	@Test
+	public void test3() {
+		assertTrue(new Outer().inner().thisValue() instanceof ParametrizedOuter.Inner);
+	}
+
+	/**
 	 * Test error.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
@@ -63,5 +71,18 @@ public class ThisTest {
 
 	private static class Concrete3 extends This<Concrete1> {
 	}
+	
+	private static class ParametrizedOuter<T extends ParametrizedOuter<T>> extends This<T> {
+		
+		Inner inner() {
+			return new Inner();
+		}
+		
+		class Inner extends This<Inner> {
+		}
+	}
 
+	private static class Outer extends ParametrizedOuter<Outer> {
+	}
+	
 }
