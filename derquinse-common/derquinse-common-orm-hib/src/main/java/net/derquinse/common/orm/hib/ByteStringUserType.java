@@ -37,6 +37,11 @@ public class ByteStringUserType implements UserType {
 	/** SQL Types. */
 	private static final int[] TYPES = { Types.BINARY };
 
+	/** Get the names under which this type should be registered in the type registry. */
+	public static String[] getRegistrationKeys() {
+		return new String[] { ByteStringUserType.class.getName() };
+	}
+
 	/** Default constructor. */
 	public ByteStringUserType() {
 	}

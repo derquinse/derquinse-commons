@@ -39,6 +39,15 @@ public final class Digests {
 	/** Algorithm: SHA-512. */
 	public static final String SHA512 = "SHA-512";
 
+	/** Digest length for algorithm: MD5. */
+	public static final int MD5_LENGTH_BYTES = 16;
+	/** Digest length for algorithm: SHA-1. */
+	public static final int SHA1_LENGTH_BYTES = 20;
+	/** Digest length for algorithm: SHA-256. */
+	public static final int SHA256_LENGTH_BYTES = 32;
+	/** Digest length for algorithm: SHA-512. */
+	public static final int SHA512_LENGTH_BYTES = 64;
+
 	/**
 	 * Creates a new instance.
 	 * @param algorithm Digest algorithm.
