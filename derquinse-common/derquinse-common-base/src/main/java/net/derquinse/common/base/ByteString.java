@@ -32,14 +32,17 @@ import java.nio.ReadOnlyBufferException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import com.google.common.annotations.Beta;
 import com.google.common.base.Charsets;
 
 /**
- * Immutable array of bytes. Based on Google's code in Protocol Buffers.
+ * Immutable array of bytes. Based on Google's code in Protocol Buffers. A version of this class is
+ * expected to appear in Guava. This implementation will be removed once that happens.
  * @author crazybob@google.com Bob Lee
  * @author kenton@google.com Kenton Varda
  * @author Andres Rodriguez
  */
+@Beta
 public final class ByteString implements Serializable {
 	/** Serial UID. */
 	private static final long serialVersionUID = 5380545035055097521L;

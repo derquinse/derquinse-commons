@@ -34,10 +34,7 @@ class TestConfigurations {
 
 	/** Creates a configuration with types. */
 	static Configuration types() {
-		Configuration configuration = basic();
-		configuration.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
-		configuration.registerTypeOverride(new ByteStringUserType(), ByteStringUserType.getRegistrationKeys());
-		return configuration;
+		return Configurations.registerTypes(basic());
 	}
 
 	/** Decorates a configuration with H2 database information. */
@@ -47,6 +44,7 @@ class TestConfigurations {
 		c.setProperty("hibernate.connection.username", "sa");
 		c.setProperty("hibernate.connection.password", "sa");
 		c.setProperty("hibernate.connection.pool_size", "1");
+		c.setProperty("hibernate.hbm2ddl.auto", "update");
 		c.setProperty("hibernate.dialect", H2Dialect.class.getName());
 		return c;
 	}

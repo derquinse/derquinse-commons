@@ -32,18 +32,10 @@ import org.joda.time.DateTime;
 @Table(name = "TEST_UUID")
 public class TestUUIDEntity extends MappedUUIDVersionedEntity {
 	/** Date time. */
-	@SuppressWarnings("unused")
 	@Column(name = "TEST_DATETIME", nullable = false)
-	private DateTime dateTime;
+	DateTime dateTime;
 
 	/** SHA-1. */
-	@SuppressWarnings("unused")
 	@Column(name = "TEST_SHA1", nullable = true, length = Digests.SHA1_LENGTH_BYTES)
-	private ByteString sha1;
-
-	/** SHA-256. */
-	@SuppressWarnings("unused")
-	@Column(name = "TEST_SHA256", nullable = true, length = Digests.SHA256_LENGTH_BYTES)
-	private ByteString sha256;
-
+	ByteString sha1;
 }
