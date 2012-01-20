@@ -28,6 +28,11 @@
 			<artifactId>usertype.core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-support</artifactId>
 			<version>1.0.16-SNAPSHOT</version>

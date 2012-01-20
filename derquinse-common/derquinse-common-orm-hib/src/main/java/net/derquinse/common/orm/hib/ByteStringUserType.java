@@ -35,7 +35,7 @@ import com.google.common.base.Objects;
  */
 public class ByteStringUserType implements UserType {
 	/** SQL Types. */
-	private static final int[] TYPES = { Types.BINARY };
+	private static final int[] TYPES = { Types.VARBINARY };
 
 	/** Get the names under which this type should be registered in the type registry. */
 	public static String[] getRegistrationKeys() {

@@ -27,13 +27,9 @@ import org.testng.annotations.Test;
  * @author Andres Rodriguez
  */
 public class SchemaTest {
-	private void showSchema(Dialect dialect) {
-		// Build configuration.
-		Configuration configuration = new Configuration().addAnnotatedClass(TestUUIDEntity.class).setProperty(
-				"jadira.usertype.autoRegisterUserTypes", "true");
-		configuration.registerTypeOverride(new ByteStringUserType(), ByteStringUserType.getRegistrationKeys());
+	private void showSchema(String name, Configuration configuration, Dialect dialect) {
 		// Generate schema
-		String prefix = "\n\n***** " + dialect.getClass().getSimpleName() + " ***: ";
+		String prefix = "\n\n***** " + name + " - " + dialect.getClass().getSimpleName() + " ***: ";
 		System.out.println(prefix + "START");
 		String[] script = configuration.generateSchemaCreationScript(dialect);
 		for (String s : script) {
@@ -43,10 +39,16 @@ public class SchemaTest {
 	}
 
 	@Test
-	public void schemas() {
-		showSchema(new MySQL5InnoDBDialect());
-		showSchema(new H2Dialect());
-		showSchema(new Oracle10gDialect());
+	public void basic() {
+		showSchema("Basic", TestConfigurations.basic(), new MySQL5InnoDBDialect());
+		showSchema("Basic", TestConfigurations.basic(), new H2Dialect());
+		showSchema("Basic", TestConfigurations.basic(), new Oracle10gDialect());
 	}
 
+	@Test
+	public void types() {
+		showSchema("Types", TestConfigurations.types(), new MySQL5InnoDBDialect());
+		showSchema("Types", TestConfigurations.types(), new H2Dialect());
+		showSchema("Types", TestConfigurations.types(), new Oracle10gDialect());
+	}
 }
