@@ -19,16 +19,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
+import net.derquinse.common.base.NotInstantiable;
+
 import com.google.common.base.Objects;
 
 /**
  * Support methods for property and flag descriptors.
  * @author Andres Rodriguez
  */
-public final class Metas {
+public final class Metas extends NotInstantiable {
 	/** Not instantiable. */
 	private Metas() {
-		throw new AssertionError();
 	}
 
 	/**

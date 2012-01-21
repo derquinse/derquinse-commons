@@ -16,6 +16,7 @@
 package net.derquinse.common.orm.hib;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import net.derquinse.common.base.NotInstantiable;
 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.usertype.CompositeUserType;
@@ -35,10 +36,9 @@ import org.jadira.usertype.dateandtime.joda.PersistentYears;
  * Hibernate configurations support class.
  * @author Andres Rodriguez
  */
-public class Configurations {
+public class Configurations extends NotInstantiable {
 	/** Not instantiable. */
 	private Configurations() {
-		throw new AssertionError();
 	}
 
 	/**

@@ -17,6 +17,8 @@ package net.derquinse.common.i18n;
 
 import java.util.Locale;
 
+import net.derquinse.common.base.NotInstantiable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
@@ -24,12 +26,9 @@ import com.google.common.base.Preconditions;
  * Utility methods for Locales.
  * @author Andres Rodriguez
  */
-public final class Locales {
-	/**
-	 * Not instantiable.
-	 */
+public final class Locales extends NotInstantiable {
+	/** Not instantiable. */
 	private Locales() {
-		throw new AssertionError();
 	}
 
 	private static String clean(String string) {

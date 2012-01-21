@@ -31,10 +31,9 @@ import com.google.common.base.Predicates;
  * All methods returns serializable predicates as long as they're given serializable parameters.
  * @author Andres Rodriguez
  */
-public final class MorePredicates {
+public final class MorePredicates extends NotInstantiable {
 	/** Not instantiable. */
 	private MorePredicates() {
-		throw new AssertionError();
 	}
 
 	/**

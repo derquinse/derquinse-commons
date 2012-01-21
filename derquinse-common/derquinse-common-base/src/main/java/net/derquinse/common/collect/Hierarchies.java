@@ -20,6 +20,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
+import net.derquinse.common.base.NotInstantiable;
+
 import com.google.common.annotations.Beta;
 
 /**
@@ -27,10 +29,9 @@ import com.google.common.annotations.Beta;
  * @author Andres Rodriguez
  */
 @Beta
-public final class Hierarchies {
+public final class Hierarchies extends NotInstantiable {
 	/** Not instantiable. */
 	private Hierarchies() {
-		throw new AssertionError();
 	}
 
 	private static <E> Hierarchy<E> check(Hierarchy<E> hierarchy) {

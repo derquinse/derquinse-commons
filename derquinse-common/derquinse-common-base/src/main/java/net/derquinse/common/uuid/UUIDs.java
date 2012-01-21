@@ -17,16 +17,17 @@ package net.derquinse.common.uuid;
 
 import java.util.UUID;
 
+import net.derquinse.common.base.NotInstantiable;
+
 import com.google.common.base.Function;
 
 /**
  * Static utility methods pertaining to {@code UUID} objects.
  * @author Andres Rodriguez
  */
-public final class UUIDs {
+public final class UUIDs extends NotInstantiable {
 	/** Not instantiable. */
 	private UUIDs() {
-		throw new AssertionError();
 	}
 
 	/**

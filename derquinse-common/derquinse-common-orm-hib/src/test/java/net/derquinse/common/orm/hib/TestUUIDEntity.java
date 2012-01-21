@@ -20,7 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import net.derquinse.common.base.ByteString;
-import net.derquinse.common.base.Digests;
+import net.derquinse.common.orm.PropertyLengths;
 
 import org.joda.time.DateTime;
 
@@ -36,6 +36,6 @@ public class TestUUIDEntity extends MappedUUIDVersionedEntity {
 	DateTime dateTime;
 
 	/** SHA-1. */
-	@Column(name = "TEST_SHA1", nullable = true, length = Digests.SHA1_LENGTH_BYTES)
+	@Column(name = "TEST_SHA1", nullable = true, length = PropertyLengths.SHA1_BYTES)
 	ByteString sha1;
 }

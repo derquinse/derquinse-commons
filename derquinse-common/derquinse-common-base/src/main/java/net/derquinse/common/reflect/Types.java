@@ -27,12 +27,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.derquinse.common.base.NotInstantiable;
+
 /**
  * Static methods for working with types.
  * @author crazybob@google.com (Bob Lee)
  * @author Andres Rodriguez
  */
-public final class Types {
+public final class Types extends NotInstantiable {
 	private Types() {
 	}
 

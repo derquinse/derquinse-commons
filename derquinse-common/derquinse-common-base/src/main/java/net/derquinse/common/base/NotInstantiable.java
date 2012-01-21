@@ -13,26 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.util.concurrent;
-
-import net.derquinse.common.base.NotInstantiable;
+package net.derquinse.common.base;
 
 /**
- * Interruptions support class.
+ * Marker class for not instantiable objects. Subclasses are recommended to have private
+ * constructors an be final.
  * @author Andres Rodriguez
  */
-public final class Interruptions extends NotInstantiable {
-	/** Not instantiable. */
-	private Interruptions() {
-	}
-
+public abstract class NotInstantiable {
 	/**
-	 * Throws {@link InterruptedException} if the current thread has been interrupted. If so, the
-	 * interrupted flag is cleared.
+	 * Constructor.
+	 * @throws AssertionError if called.
 	 */
-	public static void throwIfInterrupted() throws InterruptedException {
-		if (Thread.interrupted()) {
-			throw new InterruptedException();
-		}
+	protected NotInstantiable() {
+		throw new AssertionError(String.format("Class %s is not instantiable"));
 	}
 }

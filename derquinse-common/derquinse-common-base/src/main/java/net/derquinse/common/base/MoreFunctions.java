@@ -30,10 +30,9 @@ import com.google.common.base.Optional;
  * All methods returns serializable functions as long as they're given serializable parameters.
  * @author Andres Rodriguez
  */
-public final class MoreFunctions {
+public final class MoreFunctions extends NotInstantiable {
 	/** Not instantiable. */
 	private MoreFunctions() {
-		throw new AssertionError();
 	}
 
 	/**

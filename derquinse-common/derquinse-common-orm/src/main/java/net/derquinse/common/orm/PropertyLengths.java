@@ -15,14 +15,15 @@
  */
 package net.derquinse.common.orm;
 
+import net.derquinse.common.base.NotInstantiable;
+
 /**
  * Common lengths values used for properties in ORM mappings.
  * @author Andres Rodriguez
  */
-public final class PropertyLengths {
+public final class PropertyLengths extends NotInstantiable {
 	/** Not instantiable. */
 	private PropertyLengths() {
-		throw new AssertionError();
 	}
 
 	/** UUID in bytes. */

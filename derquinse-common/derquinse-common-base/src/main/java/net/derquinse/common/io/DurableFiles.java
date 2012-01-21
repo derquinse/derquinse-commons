@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
+import net.derquinse.common.base.NotInstantiable;
+
 import com.google.common.annotations.Beta;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
@@ -31,15 +33,14 @@ import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
 /**
- * Provides utility methods for working with durable files.
- * All method parameters must be non-null unless documented otherwise.
+ * Provides utility methods for working with durable files. All method parameters must be non-null
+ * unless documented otherwise.
  * @author Andres Rodriguez
  */
 @Beta
-public final class DurableFiles {
+public final class DurableFiles extends NotInstantiable {
 	/** Not instantiable. */
 	private DurableFiles() {
-		throw new AssertionError();
 	}
 
 	/**

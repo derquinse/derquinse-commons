@@ -24,10 +24,9 @@ import java.security.NoSuchAlgorithmException;
  * Utility class for dealing with message digests.
  * @author Andres Rodriguez
  */
-public final class Digests {
+public final class Digests extends NotInstantiable {
 	/** Not instantiable. */
 	private Digests() {
-		throw new AssertionError();
 	}
 
 	/** Algorithm: MD5. */
@@ -38,15 +37,6 @@ public final class Digests {
 	public static final String SHA256 = "SHA-256";
 	/** Algorithm: SHA-512. */
 	public static final String SHA512 = "SHA-512";
-
-	/** Digest length for algorithm: MD5. */
-	public static final int MD5_LENGTH_BYTES = 16;
-	/** Digest length for algorithm: SHA-1. */
-	public static final int SHA1_LENGTH_BYTES = 20;
-	/** Digest length for algorithm: SHA-256. */
-	public static final int SHA256_LENGTH_BYTES = 32;
-	/** Digest length for algorithm: SHA-512. */
-	public static final int SHA512_LENGTH_BYTES = 64;
 
 	/**
 	 * Creates a new instance.
