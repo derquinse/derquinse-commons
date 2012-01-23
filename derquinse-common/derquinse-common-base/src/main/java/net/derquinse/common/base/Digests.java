@@ -17,8 +17,13 @@ package net.derquinse.common.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import com.google.common.io.ByteStreams;
+import com.google.common.io.InputSupplier;
 
 /**
  * Utility class for dealing with message digests.
@@ -64,11 +69,34 @@ public final class Digests extends NotInstantiable {
 		}
 	}
 
+	/** Computes and returns as a byte string the digest of the provided data. */
+	public static ByteString getDigest(byte[] data, MessageDigest md) {
+		return ByteString.copyFrom(md.digest(data));
+	}
+
+	/**
+	 * Computes and returns as a byte string the digest of the provided data.
+	 */
+	public static ByteString getDigest(InputSupplier<? extends InputStream> supplier, MessageDigest md)
+			throws IOException {
+		return ByteString.copyFrom(ByteStreams.getDigest(supplier, md));
+	}
+
 	/**
 	 * Returns a Digest object that implements the MD5 algorithm.
 	 */
 	public static MessageDigest md5() {
 		return getInstanceUnchecked(MD5);
+	}
+
+	/** Computes and returns as a byte string the MD5 digest of the provided data. */
+	public static ByteString md5(byte[] data) {
+		return getDigest(data, md5());
+	}
+
+	/** Computes and returns as a byte string the MD5 digest of the provided data. */
+	public static ByteString md5(InputSupplier<? extends InputStream> supplier) throws IOException {
+		return getDigest(supplier, md5());
 	}
 
 	/**
@@ -78,11 +106,31 @@ public final class Digests extends NotInstantiable {
 		return getInstanceUnchecked(SHA1);
 	}
 
+	/** Computes and returns as a byte string the SHA-1 digest of the provided data. */
+	public static ByteString sha1(byte[] data) {
+		return getDigest(data, sha1());
+	}
+
+	/** Computes and returns as a byte string the SHA-1 digest of the provided data. */
+	public static ByteString sha1(InputSupplier<? extends InputStream> supplier) throws IOException {
+		return getDigest(supplier, sha1());
+	}
+
 	/**
 	 * Returns a Digest object that implements the SHA-256 algorithm.
 	 */
 	public static MessageDigest sha256() {
 		return getInstanceUnchecked(SHA256);
+	}
+
+	/** Computes and returns as a byte string the SHA-256 digest of the provided data. */
+	public static ByteString sha256(byte[] data) {
+		return getDigest(data, sha256());
+	}
+
+	/** Computes and returns as a byte string the SHA-256 digest of the provided data. */
+	public static ByteString sha256(InputSupplier<? extends InputStream> supplier) throws IOException {
+		return getDigest(supplier, sha256());
 	}
 
 	/**
@@ -91,4 +139,15 @@ public final class Digests extends NotInstantiable {
 	public static MessageDigest sha512() {
 		return getInstanceUnchecked(SHA512);
 	}
+
+	/** Computes and returns as a byte string the SHA-512 digest of the provided data. */
+	public static ByteString sha512(byte[] data) {
+		return getDigest(data, sha512());
+	}
+
+	/** Computes and returns as a byte string the SHA-512 digest of the provided data. */
+	public static ByteString sha512(InputSupplier<? extends InputStream> supplier) throws IOException {
+		return getDigest(supplier, sha512());
+	}
+
 }
