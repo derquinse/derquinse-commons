@@ -20,33 +20,38 @@
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-test-support</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-base</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm-hib</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>net.derquinse</groupId>
+				<artifactId>derquinse-common-gson</artifactId>
+				<version>1.0.17-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs-gson</artifactId>
-				<version>1.0.16</version>
+				<version>1.0.17-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
