@@ -41,5 +41,6 @@
 		<module>derquinse-common-orm-hib</module>
 		<module>derquinse-common-jaxrs</module>
 		<module>derquinse-common-jaxrs-gson</module>
+		<module>derquinse-common-gson</module>
 	</modules>
 </project>
