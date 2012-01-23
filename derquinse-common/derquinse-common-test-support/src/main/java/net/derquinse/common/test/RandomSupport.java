@@ -33,24 +33,41 @@ public final class RandomSupport {
 		throw new AssertionError();
 	}
 
+	/**
+	 * Returns a pseudorandom, uniformly distributed {@code int}.
+	 */
 	public static int nextInt() {
 		return RANDOM.nextInt();
 	}
 
+	/**
+	 * Returns a pseudorandom, uniformly distributed {@code int} value between 0 (inclusive) and the
+	 * specified value (exclusive).
+	 */
 	public static int nextInt(int max) {
 		return RANDOM.nextInt(max);
 	}
 
+	/**
+	 * Returns a pseudorandom, uniformly distributed {@code int} value between the {@code min}
+	 * argument (inclusive) and the {@code max} argument (exclusive).
+	 */
 	public static int nextInt(int min, int max) {
 		return min + nextInt(max - min);
 	}
 
+	/**
+	 * Generates a user-specified number of random bytes.
+	 */
 	public static byte[] getBytes(int amount) {
 		byte[] data = new byte[amount];
 		RANDOM.nextBytes(data);
 		return data;
 	}
 
+	/**
+	 * Generates a user-specified number of random bytes, returning them as an input supplier.
+	 */
 	public static InputSupplier<ByteArrayInputStream> getSupplier(int amount) {
 		return ByteStreams.newInputStreamSupplier(getBytes(amount));
 	}
