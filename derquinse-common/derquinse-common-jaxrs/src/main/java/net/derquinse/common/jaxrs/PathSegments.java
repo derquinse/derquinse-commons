@@ -16,6 +16,7 @@
 package net.derquinse.common.jaxrs;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
@@ -137,6 +138,19 @@ public final class PathSegments extends ForwardingList<String> {
 		}
 		return of(encoded, Arrays.asList(segments));
 	}
+	
+	/**
+	 * Extracts the path from an URI.
+	 * @param uri URI.
+	 * @return The never {@code null} list of segments.
+	 */
+	public static PathSegments segment(@Nullable URI uri) {
+		if (uri == null) {
+			return EMPTY;
+		}
+		return PathSegments.of(uri.getPath(), false);
+	}
+	
 
 	/**
 	 * Extracts the extension from a segment.
