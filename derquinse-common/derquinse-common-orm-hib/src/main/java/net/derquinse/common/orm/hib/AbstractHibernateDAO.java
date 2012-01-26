@@ -18,17 +18,25 @@ package net.derquinse.common.orm.hib;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import net.derquinse.common.orm.DAO;
+import net.derquinse.common.orm.Entity;
 
+import org.hibernate.Criteria;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.testng.collections.Maps;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Abstract implementation for general and generic DAO.
@@ -317,6 +325,27 @@ public abstract class AbstractHibernateDAO implements DAO {
 	 */
 	protected <T> T unique(Class<T> type, String queryName, Map<String, ?> parameters) {
 		return unique(type, getNamedQuery(queryName, parameters));
+	}
+
+	/**
+	 * Finds a set of entities by ID.
+	 * @param criteria Criteria to use. It must be over the requested type.
+	 * @param ids IDs to find.
+	 * @return The requested entity or {@code null} if it is not found.
+	 */
+	protected final <T extends Entity<ID>, ID extends Serializable> Map<ID, T> findByIds(Criteria criteria,
+			Iterable<? extends ID> ids) {
+		checkNotNull(criteria, "The criteria must be provided");
+		checkNotNull(ids, "The id's to find must be provided");
+		final Set<ID> set = ImmutableSet.copyOf(ids);
+		criteria.add(Restrictions.in("id", set));
+		@SuppressWarnings("unchecked")
+		final List<T> list = criteria.list();
+		final Map<ID, T> map = Maps.newHashMap();
+		for (T result : list) {
+			map.put(result.getId(), result);
+		}
+		return map;
 	}
 
 }

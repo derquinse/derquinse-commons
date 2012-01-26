@@ -17,6 +17,7 @@ package net.derquinse.common.orm;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * General DAO interface.
@@ -31,6 +32,14 @@ public interface GeneralDAO extends DAO {
 	 * @return The requested entity or {@code null} if it is not found.
 	 */
 	<T> T findById(Class<T> type, Serializable id, boolean lock);
+
+	/**
+	 * Finds a set of entities by ID.
+	 * @param type Entity type.
+	 * @param ids IDs to find.
+	 * @return The requested entity or {@code null} if it is not found.
+	 */
+	<T extends Entity<ID>, ID extends Serializable> Map<ID, T> findByIds(Class<T> type, Iterable<? extends ID> ids);
 
 	/**
 	 * Returns all entities of the persistent type.

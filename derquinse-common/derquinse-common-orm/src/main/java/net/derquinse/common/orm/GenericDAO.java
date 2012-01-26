@@ -17,6 +17,7 @@ package net.derquinse.common.orm;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generic DAO interface.
@@ -24,7 +25,7 @@ import java.util.List;
  * @param <T> Persistent type.
  * @param <ID> Primary Key type.
  */
-public interface GenericDAO<T, ID extends Serializable> extends DAO {
+public interface GenericDAO<T extends Entity<ID>, ID extends Serializable> extends DAO {
 	/**
 	 * Finds an entity by ID.
 	 * @param id ID
@@ -32,6 +33,13 @@ public interface GenericDAO<T, ID extends Serializable> extends DAO {
 	 * @return The requested entity or {@code null} if it is not found.
 	 */
 	T findById(ID id, boolean lock);
+
+	/**
+	 * Finds a set of entities by ID.
+	 * @param ids IDs to find.
+	 * @return The requested entity or {@code null} if it is not found.
+	 */
+	Map<ID, T> findByIds(Iterable<? extends ID> ids);
 
 	/**
 	 * Returns all entities of the persistent type.
@@ -54,8 +62,7 @@ public interface GenericDAO<T, ID extends Serializable> extends DAO {
 	T update(T entity);
 
 	/**
-	 * Saves or updates an entity, depending upon resolution of the
-	 * unsaved-value checks.
+	 * Saves or updates an entity, depending upon resolution of the unsaved-value checks.
 	 * @param entity Entity to persist.
 	 * @return The persisted entity.
 	 */

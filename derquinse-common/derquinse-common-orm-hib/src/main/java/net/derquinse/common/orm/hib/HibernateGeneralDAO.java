@@ -17,7 +17,9 @@ package net.derquinse.common.orm.hib;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
+import net.derquinse.common.orm.Entity;
 import net.derquinse.common.orm.GeneralDAO;
 
 import org.hibernate.Criteria;
@@ -131,6 +133,15 @@ public class HibernateGeneralDAO extends AbstractHibernateDAO implements General
 	 */
 	public void update(Object entity) {
 		getSession().update(entity);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.orm.GeneralDAO#findByIds(java.lang.Class, java.lang.Iterable)
+	 */
+	@Override
+	public <T extends Entity<ID>, ID extends Serializable> Map<ID, T> findByIds(Class<T> type, Iterable<? extends ID> ids) {
+		return findByIds(newCriteria(type), ids);
 	}
 
 }

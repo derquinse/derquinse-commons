@@ -20,7 +20,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
 
+import net.derquinse.common.orm.Entity;
 import net.derquinse.common.orm.GenericDAO;
 
 import org.hibernate.Criteria;
@@ -36,7 +38,7 @@ import com.google.common.base.Preconditions;
  * Implementation of the Generic DAO.
  * @author Andres Rodriguez
  */
-public abstract class HibernateGenericDAO<T, ID extends Serializable> extends AbstractHibernateDAO implements
+public abstract class HibernateGenericDAO<T extends Entity<ID>, ID extends Serializable> extends AbstractHibernateDAO implements
 		GenericDAO<T, ID> {
 	/** Persistent class. */
 	private Class<T> persistentClass;
@@ -92,7 +94,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> extends Ab
 	 * @see net.derquinse.common.orm.GenericDAO#delete(java.lang.Object)
 	 */
 	public void delete(T entity) {
-		Preconditions.checkNotNull(entity);
+		checkNotNull(entity);
 		getSession().delete(entity);
 	}
 
@@ -101,7 +103,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> extends Ab
 	 * @see net.derquinse.common.orm.GenericDAO#deleteById(java.io.Serializable)
 	 */
 	public void deleteById(ID id) {
-		Preconditions.checkNotNull(id);
+		checkNotNull(id);
 		T entity = findById(id, true);
 		if (entity != null) {
 			delete(entity);
@@ -126,6 +128,11 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> extends Ab
 			return (T) getSession().get(persistentClass, id, LockOptions.UPGRADE);
 		}
 		return (T) getSession().get(persistentClass, id);
+	}
+	
+	@Override
+	public Map<ID, T> findByIds(Iterable<? extends ID> ids) {
+		return findByIds(newCriteria(), ids);
 	}
 
 	/*
