@@ -21,14 +21,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import net.derquinse.common.orm.Entity;
+import net.derquinse.common.orm.UUIDEntity;
 
 /**
  * Abstract superclass for model entities with an UUID primary key, stored in binary form.
  * @author Andres Rodriguez
  */
 @MappedSuperclass
-public abstract class MappedUUIDEntity implements Entity<UUID> {
+public abstract class MappedUUIDEntity implements UUIDEntity {
 	/** Entity ID. */
 	@Id
 	@Column(name = "META_ID", length = HibLengths.UUID_BINARY, nullable = false)

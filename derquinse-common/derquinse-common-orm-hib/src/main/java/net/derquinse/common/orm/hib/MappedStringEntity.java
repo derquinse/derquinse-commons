@@ -19,14 +19,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import net.derquinse.common.orm.Entity;
+import net.derquinse.common.orm.StringEntity;
 
 /**
  * Abstract superclass for model entities with an string primary key.
  * @author Andres Rodriguez
  */
 @MappedSuperclass
-public abstract class MappedStringEntity implements Entity<String> {
+public abstract class MappedStringEntity implements StringEntity {
 	/** Entity ID. */
 	@Id
 	@Column(name = "META_ID", nullable = false)

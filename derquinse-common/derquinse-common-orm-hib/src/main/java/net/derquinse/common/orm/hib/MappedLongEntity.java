@@ -19,14 +19,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import net.derquinse.common.orm.Entity;
+import net.derquinse.common.orm.LongEntity;
 
 /**
  * Abstract superclass for model entities with an long primary key.
  * @author Andres Rodriguez
  */
 @MappedSuperclass
-public abstract class MappedLongEntity implements Entity<Long> {
+public abstract class MappedLongEntity implements LongEntity {
 	/** Entity ID. */
 	@Id
 	@Column(name = "META_ID", nullable = false)
