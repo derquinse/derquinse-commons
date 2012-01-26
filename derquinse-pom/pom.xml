@@ -173,12 +173,6 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>enforce-plugin-versions</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-					</execution>
-					<execution>
 						<id>enforce-java</id>
 						<goals>
 							<goal>enforce</goal>
