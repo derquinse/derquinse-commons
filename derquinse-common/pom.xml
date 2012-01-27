@@ -8,7 +8,7 @@
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.18-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Derquinse Common Java Libraries</name>
+	<name>Derquinse Commons</name>
 	<description>Derquinse Common Java Libraries</description>
 	<scm>
 		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</connection>
@@ -42,5 +42,6 @@
 		<module>derquinse-common-gson</module>
 		<module>derquinse-common-jaxrs</module>
 		<module>derquinse-common-jaxrs-gson</module>
+		<module>derquinse-common-spring</module>
 	</modules>
 </project>

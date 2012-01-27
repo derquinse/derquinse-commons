@@ -7,8 +7,8 @@
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>derquinse-common-test-support</artifactId>
-	<name>Derquinse Common Libraries :: Test Support</name>
-	<description>Derquinse Common Libraries :: Test Support</description>
+	<name>Derquinse Commons :: Test Support</name>
+	<description>Module containing support classes for writing tests.</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.testng</groupId>

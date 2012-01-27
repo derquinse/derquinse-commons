@@ -7,8 +7,8 @@
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>derquinse-common-gson</artifactId>
-	<name>Derquinse Common Libraries :: Gson Support</name>
-	<description>Derquinse Common Libraries :: Gson Support</description>
+	<name>Derquinse Commons :: Gson Support</name>
+	<description>Module containing Gson Support classes</description>
 	<dependencies>
 		<dependency>
 			<groupId>net.derquinse</groupId>

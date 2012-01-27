@@ -7,8 +7,8 @@
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>derquinse-common-jaxrs-gson</artifactId>
-	<name>Derquinse Common Libraries :: Jersey Support</name>
-	<description>Derquinse Common Libraries :: Jersey Support</description>
+	<name>Derquinse Commons :: JAX-RS and Gson</name>
+	<description>Module containing JAX-RS 1.1 and Gson Support classes</description>
 	<dependencies>
 		<dependency>
 			<groupId>net.derquinse</groupId>
