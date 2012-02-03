@@ -1,0 +1,48 @@
+/*
+ * Copyright (C) the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.derquinse.common.orm;
+
+import java.io.Serializable;
+
+/**
+ * Abstract class for entities with a primary identifier.
+ * @author Andres Rodriguez
+ * @param <ID> Primary Key type.
+ */
+public abstract class AbstractEntity<ID extends Serializable> implements Entity<ID> {
+	/** Contructor. */
+	protected AbstractEntity() {
+	}
+
+	/**
+	 * Checks if an object is an instance of an entity type and its id is equals to this entity id.
+	 * @param type Entity type.
+	 * @param obj Object to check.
+	 * @return The object casts to type if the object is an instance of type and the object and this
+	 *         entity have the same id (even if the id is null). Null otherwise.
+	 */
+	protected final <T extends Entity<ID>> T idEquals(Class<? extends T> type, Object obj) {
+		return Entities.idEquals(this, type, obj);
+	}
+
+	/**
+	 * Returns the hash code of the id of the entity. If the id is null a constant number is returned.
+	 */
+	protected final int idHashCode() {
+		return Entities.idHashCode(this);
+	}
+
+}

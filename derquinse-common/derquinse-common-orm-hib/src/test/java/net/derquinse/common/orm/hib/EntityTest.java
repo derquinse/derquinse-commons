@@ -46,11 +46,12 @@ public class EntityTest {
 		InputSupplier<ByteArrayInputStream> is = ByteStreams.newInputStreamSupplier(bytes);
 		ByteString sha1 = ByteString.copyFrom(ByteStreams.getDigest(is, Digests.sha1()));
 		DateTime t = DateTime.now().minusMonths(3);
-		UUID id = UUID.randomUUID();
+		final UUID id = UUID.randomUUID();
 		TestUUIDEntity e1 = new TestUUIDEntity();
 		e1.setId(id);
 		e1.dateTime = t;
 		e1.sha1 = sha1;
+		@SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = TestConfigurations.h2(TestConfigurations.types()).buildSessionFactory();
 		Session s1 = sessionFactory.openSession();
 		Transaction tx = s1.beginTransaction();
@@ -65,5 +66,15 @@ public class EntityTest {
 		EqualityTests.many(sha1, e1.sha1, e2.sha1);
 		Assert.assertNotSame(e1.dateTime, e2.dateTime);
 		Assert.assertNotSame(e1.sha1, e2.sha1);
+		EqualityTests.two(e1, e2);
+		Assert.assertEquals(e1.hashCode(), id.hashCode());
+		Assert.assertEquals(e2.hashCode(), id.hashCode());
+		UUID id2 = id;
+		while (id.equals(id2)) {
+			id2 = UUID.randomUUID();
+		}
+		e2.setId(id2);
+		Assert.assertTrue(!e2.equals(e1));
+		Assert.assertEquals(e2.hashCode(), id2.hashCode());
 	}
 }

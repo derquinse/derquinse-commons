@@ -19,6 +19,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import net.derquinse.common.orm.AbstractEntity;
 import net.derquinse.common.orm.LongEntity;
 
 /**
@@ -26,7 +27,7 @@ import net.derquinse.common.orm.LongEntity;
  * @author Andres Rodriguez
  */
 @MappedSuperclass
-public abstract class MappedLongEntity implements LongEntity {
+public abstract class MappedLongEntity extends AbstractEntity<Long> implements LongEntity {
 	/** Entity ID. */
 	@Id
 	@Column(name = "META_ID", nullable = false)

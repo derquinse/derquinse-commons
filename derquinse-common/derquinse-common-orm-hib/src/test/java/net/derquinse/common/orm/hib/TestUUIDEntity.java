@@ -38,4 +38,14 @@ public class TestUUIDEntity extends MappedUUIDVersionedEntity {
 	/** SHA-1. */
 	@Column(name = "TEST_SHA1", nullable = true, length = PropertyLengths.SHA1_BYTES)
 	ByteString sha1;
+
+	@Override
+	public int hashCode() {
+		return idHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return idEquals(TestUUIDEntity.class, obj) != null;
+	}
 }
