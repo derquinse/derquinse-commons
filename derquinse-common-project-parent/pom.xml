@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
@@ -20,38 +21,38 @@
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-test-support</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-base</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm-hib</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-gson</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs-gson</artifactId>
-				<version>1.0.18</version>
+				<version>1.0.19</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
