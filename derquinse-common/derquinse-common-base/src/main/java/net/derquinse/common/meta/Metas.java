@@ -33,8 +33,8 @@ public final class Metas extends NotInstantiable {
 	}
 
 	/**
-	 * Creates an instance of {@link ToStringHelper}, which is an enriched
-	 * {@link Objects.ToStringHelper} with support for properties and flags.
+	 * Creates an instance of ToStringHelper, which is an enriched Objects.ToStringHelper with support
+	 * for properties and flags.
 	 * @see Objects#toStringHelper(Object)
 	 * @param self The object to generate the string for.
 	 */

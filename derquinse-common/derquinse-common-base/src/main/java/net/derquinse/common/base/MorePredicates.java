@@ -149,7 +149,7 @@ public final class MorePredicates extends NotInstantiable {
 		private static final long serialVersionUID = 0;
 	}
 
-	/** @see MorePredicates#greaterThan(Object) */
+	/** @see MorePredicates#greaterThan(Comparable) */
 	private static class GreaterThan<T extends Comparable<T>> extends ComparisonPredicate<T> {
 		private GreaterThan(T value) {
 			super(value);
@@ -163,7 +163,7 @@ public final class MorePredicates extends NotInstantiable {
 		private static final long serialVersionUID = 0;
 	}
 
-	/** @see MorePredicates#lessThan(Object) */
+	/** @see MorePredicates#lessThan(Comparable) */
 	private static class LessThan<T extends Comparable<T>> extends ComparisonPredicate<T> {
 		private LessThan(T value) {
 			super(value);
@@ -177,7 +177,7 @@ public final class MorePredicates extends NotInstantiable {
 		private static final long serialVersionUID = 0;
 	}
 
-	/** @see MorePredicates#greaterOrEqual(Object) */
+	/** @see MorePredicates#greaterOrEqual(Comparable) */
 	private static class GreaterOrEqual<T extends Comparable<T>> extends ComparisonPredicate<T> {
 		private GreaterOrEqual(T value) {
 			super(value);
@@ -191,7 +191,7 @@ public final class MorePredicates extends NotInstantiable {
 		private static final long serialVersionUID = 0;
 	}
 
-	/** @see MorePredicates#lessOrEqual(Object) */
+	/** @see MorePredicates#lessOrEqual(Comparable) */
 	private static class LessOrEqual<T extends Comparable<T>> extends ComparisonPredicate<T> {
 		private LessOrEqual(T value) {
 			super(value);

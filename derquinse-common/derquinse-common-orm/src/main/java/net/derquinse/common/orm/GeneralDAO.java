@@ -63,7 +63,6 @@ public interface GeneralDAO extends DAO {
 	/**
 	 * Saves or updates an entity, depending upon resolution of the unsaved-value checks.
 	 * @param entity Entity to persist.
-	 * @return The persisted entity.
 	 */
 	void saveOrUpdate(Object entity);
 

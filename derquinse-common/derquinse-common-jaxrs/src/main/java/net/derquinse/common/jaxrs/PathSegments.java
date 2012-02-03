@@ -138,7 +138,7 @@ public final class PathSegments extends ForwardingList<String> {
 		}
 		return of(encoded, Arrays.asList(segments));
 	}
-	
+
 	/**
 	 * Extracts the path from an URI.
 	 * @param uri URI.
@@ -150,7 +150,6 @@ public final class PathSegments extends ForwardingList<String> {
 		}
 		return PathSegments.of(uri.getPath(), false);
 	}
-	
 
 	/**
 	 * Extracts the extension from a segment.
@@ -230,7 +229,6 @@ public final class PathSegments extends ForwardingList<String> {
 
 	/**
 	 * Extracts the extension from the last segment.
-	 * @param segment Segment.
 	 * @return The extension or {@code null} if no extension is found or the object is empty.
 	 */
 	public String getExtension() {
@@ -347,7 +345,6 @@ public final class PathSegments extends ForwardingList<String> {
 
 	/**
 	 * Returns a new transformer that appends this segments to the provided path.
-	 * @param segments Segments to append.
 	 * @return The requested transformer.
 	 */
 	public Function<PathSegments, PathSegments> appender() {

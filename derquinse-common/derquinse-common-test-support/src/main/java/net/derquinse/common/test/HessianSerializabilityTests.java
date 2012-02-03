@@ -43,7 +43,7 @@ public final class HessianSerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T hessian1(T obj, boolean equality) throws UnableToSerializeException {
 		assertNotNull(obj, "The provided serializable object is null");
@@ -68,7 +68,7 @@ public final class HessianSerializabilityTests {
 	 * @param obj Object to test.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T hessian1(T obj) throws UnableToSerializeException {
 		return hessian1(obj, true);
@@ -81,7 +81,7 @@ public final class HessianSerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T hessian2(T obj, boolean equality) throws UnableToSerializeException {
 		assertNotNull(obj, "The provided serializable object is null");
@@ -106,7 +106,7 @@ public final class HessianSerializabilityTests {
 	 * @param obj Object to test.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T hessian2(T obj) throws UnableToSerializeException {
 		return hessian2(obj, true);
@@ -118,7 +118,7 @@ public final class HessianSerializabilityTests {
 	 * @param obj Object to test.
 	 * @param equality Whether to test for equality.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static void both(Serializable obj, boolean equality) throws UnableToSerializeException {
 		hessian1(obj, equality);
@@ -130,7 +130,7 @@ public final class HessianSerializabilityTests {
 	 * one using both Hessian 1 and 2.
 	 * @param obj Object to test.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static void both(Serializable obj) throws UnableToSerializeException {
 		hessian1(obj);

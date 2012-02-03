@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
@@ -33,6 +34,25 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<minmemory>256m</minmemory>
+					<maxmemory>512m</maxmemory>
+					<links>
+						<link>http://docs.guava-libraries.googlecode.com/git-history/v11.0.1/javadoc</link>
+					</links>
+					<version>false</version>
+					<doctitle>Derquinse Commons API (version ${project.version})</doctitle>
+					<windowtitle>Derquinse Commons API</windowtitle>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 
 	<modules>
 		<module>derquinse-common-test-support</module>

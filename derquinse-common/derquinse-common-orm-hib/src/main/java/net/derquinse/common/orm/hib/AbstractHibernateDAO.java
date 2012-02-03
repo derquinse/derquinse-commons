@@ -182,7 +182,7 @@ public abstract class AbstractHibernateDAO implements DAO {
 
 	/**
 	 * Sets the parameters of a query to a list of non-null values.
-	 * @param queryName Query name.
+	 * @param query Query to use.
 	 * @param parameters The parameters to supply.
 	 * @return The provided query for method chaining.
 	 */
@@ -199,7 +199,7 @@ public abstract class AbstractHibernateDAO implements DAO {
 
 	/**
 	 * Sets the parameters of a query to a list of non-null values.
-	 * @param queryName Query name.
+	 * @param query Query to use.
 	 * @param parameters The parameters to set.
 	 * @return The provided query for method chaining.
 	 */
@@ -209,7 +209,7 @@ public abstract class AbstractHibernateDAO implements DAO {
 
 	/**
 	 * Sets named parameters of a query.
-	 * @param queryName Query name.
+	 * @param query Query to use.
 	 * @param parameters The parameters to set.
 	 * @return The provided query for method chaining.
 	 */

@@ -61,7 +61,7 @@ public final class EqualityTests {
 	 * Checks equality for two objects. The objects are checked for single object equality (@see
 	 * #one(Object)} that their hash codes are the same (the relation is symmetric).
 	 * @param obj1 First object to test.
-	 * @param obj1 Second object to test.
+	 * @param obj2 Second object to test.
 	 */
 	public static void two(Object obj1, Object obj2) {
 		one(obj1);

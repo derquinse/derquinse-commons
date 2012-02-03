@@ -91,8 +91,8 @@ public final class Locales extends NotInstantiable {
 	}
 
 	/**
-	 * Returns a function encapsulating the {@link #fromString(Locale) fromString} method.
-	 * @return The {@link #fromString(Locale) fromString} function.
+	 * Returns a function encapsulating the {@link #fromString(String) fromString} method.
+	 * @return The {@link #fromString(String) fromString} function.
 	 */
 	public static Function<String, Locale> fromString() {
 		return FromString.INSTANCE;
@@ -117,9 +117,9 @@ public final class Locales extends NotInstantiable {
 
 	/**
 	 * Returns a locale parsed from a string.
-	 * @see fromString.
 	 * @param localeString String to parse.
 	 * @return The parsed locale or {@code null} if the argument is {@code null} or unparseable.
+	 * @see #fromString(String).
 	 */
 	public static Locale safeFromString(String localeString) {
 		if (localeString == null) {
@@ -133,8 +133,8 @@ public final class Locales extends NotInstantiable {
 	}
 
 	/**
-	 * Returns a function encapsulating the {@link #safeFromString(Locale) safeFromString} method.
-	 * @return The {@link #safeFromString(Locale) safeFromString} function.
+	 * Returns a function encapsulating the {@link #safeFromString(String) safeFromString} method.
+	 * @return The {@link #safeFromString(String) safeFromString} function.
 	 */
 	public static Function<String, Locale> safeFromString() {
 		return SafeFromString.INSTANCE;

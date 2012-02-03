@@ -41,7 +41,7 @@ public final class GsonSerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(Gson gson, T obj, Type type, boolean equality) throws UnableToSerializeException {
 		required(obj);
@@ -65,7 +65,7 @@ public final class GsonSerializabilityTests {
 	 * @param type Type to use for deserialization.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(Gson gson, T obj, Type type) throws UnableToSerializeException {
 		return check(gson, obj, type, true);
@@ -76,10 +76,9 @@ public final class GsonSerializabilityTests {
 	 * one.
 	 * @param gson Gson instance to use.
 	 * @param obj Object to test.
-	 * @param type Type to use for deserialization.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(Gson gson, T obj) throws UnableToSerializeException {
 		return check(gson, required(obj), obj.getClass());
@@ -93,7 +92,7 @@ public final class GsonSerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(T obj, Type type, boolean equality) throws UnableToSerializeException {
 		return check(new Gson(), obj, type, equality);
@@ -106,7 +105,7 @@ public final class GsonSerializabilityTests {
 	 * @param type Type to use for deserialization.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(T obj, Type type) throws UnableToSerializeException {
 		return check(obj, type, true);
@@ -119,7 +118,7 @@ public final class GsonSerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(T obj, boolean equality) throws UnableToSerializeException {
 		assertNotNull(obj, "The provided object is null");
@@ -132,7 +131,7 @@ public final class GsonSerializabilityTests {
 	 * @param obj Object to test.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T> T check(T obj) throws UnableToSerializeException {
 		return check(obj, true);

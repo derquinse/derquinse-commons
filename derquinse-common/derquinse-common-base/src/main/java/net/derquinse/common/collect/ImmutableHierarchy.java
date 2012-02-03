@@ -219,8 +219,8 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 			}
 		}
 
-		public <F> Builder<E> addHierarchy(E parent, Hierarchy<F> hierarchy, @Nullable F root,
-				boolean includeRoot, Function<? super F, E> function) {
+		public <F> Builder<E> addHierarchy(E parent, Hierarchy<F> hierarchy, @Nullable F root, boolean includeRoot,
+				Function<? super F, E> function) {
 			final Hierarchy<F> h = check(hierarchy);
 			checkNotNull(hierarchy, "The transformation function is required");
 			checkArgument(root == null || hierarchy.elementSet().contains(root));
@@ -249,7 +249,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 
 		/**
 		 * Builds and returns an immutable hierarchy with the nodes added up to the method call.
-		 * @returns An immutable hierarchy.
+		 * @return An immutable hierarchy.
 		 * @throws IllegalStateException if there are referenced parents that are not part of the
 		 *           hierarchy yet.
 		 */

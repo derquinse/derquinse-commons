@@ -43,7 +43,7 @@ public final class ZipFiles extends NotInstantiable {
 	/**
 	 * Reads a zip file into memory.
 	 * @param input Input data.
-	 * @returns A map from zip entry nada to entry data.
+	 * @return A map from zip entry nada to entry data.
 	 * @throws IOException if an I/O error occurs
 	 */
 	public static Map<String, byte[]> loadZip(InputStream input) throws IOException {
@@ -62,7 +62,7 @@ public final class ZipFiles extends NotInstantiable {
 	/**
 	 * Reads a zip file into memory.
 	 * @param input Input data.
-	 * @returns A map from zip entry nada to entry data.
+	 * @return A map from zip entry nada to entry data.
 	 * @throws IOException if an I/O error occurs
 	 */
 	public static Map<String, byte[]> loadZip(InputSupplier<? extends InputStream> input) throws IOException {
@@ -77,7 +77,7 @@ public final class ZipFiles extends NotInstantiable {
 	/**
 	 * Reads a zip file into memory.
 	 * @param file Input file.
-	 * @returns A map from zip entry nada to entry data.
+	 * @return A map from zip entry nada to entry data.
 	 * @throws IOException if an I/O error occurs
 	 */
 	public static Map<String, byte[]> loadZip(File file) throws IOException {

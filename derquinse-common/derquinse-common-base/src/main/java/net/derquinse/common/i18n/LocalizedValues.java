@@ -109,11 +109,11 @@ public final class LocalizedValues {
 
 	/**
 	 * Parses a {@link L7dString} annotation.
-	 * @param values Collection. {@code null} elements are filtered out.
+	 * @param value Annotation to parse.
 	 * @return The parsed localized string or {@code null} if the argument is {@code null}.
 	 * @throws IllegalArgumentException if unable to parse any of the locales.
 	 */
-	public static Localized<String> parse(L7dString value) {
+	public static Localized<String> parse(@Nullable L7dString value) {
 		if (value == null) {
 			return null;
 		}

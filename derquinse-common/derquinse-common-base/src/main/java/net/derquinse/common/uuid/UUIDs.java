@@ -58,9 +58,9 @@ public final class UUIDs extends NotInstantiable {
 
 	/**
 	 * Returns an UUID parsed from a string.
-	 * @see UUID#fromString.
 	 * @param uuidString String to parse.
 	 * @return The parsed UUID or {@code null} if the argument is {@code null} or unparseable.
+	 * @see UUID#fromString(String).
 	 */
 	public static UUID safeFromString(String uuidString) {
 		if (uuidString == null) {
@@ -74,8 +74,8 @@ public final class UUIDs extends NotInstantiable {
 	}
 
 	/**
-	 * Returns a function encapsulating the {@link #safeFromString(UUID) safeFromString} method.
-	 * @return The {@link #safeFromString(UUID) safeFromString} function.
+	 * Returns a function encapsulating the {@link #safeFromString(String) safeFromString} method.
+	 * @return The {@link #safeFromString(String) safeFromString} function.
 	 */
 	public static Function<String, UUID> safeFromString() {
 		return SafeFromString.INSTANCE;

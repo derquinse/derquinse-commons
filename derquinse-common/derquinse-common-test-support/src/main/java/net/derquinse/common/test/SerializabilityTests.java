@@ -40,7 +40,7 @@ public final class SerializabilityTests {
 	 * @param equality Whether to test for equality.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T check(T obj, boolean equality) throws UnableToSerializeException {
 		assertNotNull(obj, "The provided serializable object is null");
@@ -65,7 +65,7 @@ public final class SerializabilityTests {
 	 * @param obj Object to test.
 	 * @return The deserialized instance.
 	 * @throws UnableToSerializeException
-	 * @see {@link EqualityTests#two(Object, Object)}
+	 * @see EqualityTests#two(Object, Object)
 	 */
 	public static <T extends Serializable> T check(T obj) throws UnableToSerializeException {
 		return check(obj, true);
