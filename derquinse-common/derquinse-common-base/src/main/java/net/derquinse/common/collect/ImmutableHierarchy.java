@@ -26,7 +26,6 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
-import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -65,7 +64,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 			return of();
 		}
 		final Builder<E> builder = builder();
-		return builder.addHierarchy(null, hierarchy, null, true).get();
+		return builder.addHierarchy(null, hierarchy, null, true).build();
 	}
 
 	/**
@@ -98,7 +97,7 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 	 * @author Andres Rodriguez
 	 * @param <E> Type of the elements.
 	 */
-	public static final class Builder<E> implements Supplier<ImmutableHierarchy<E>> {
+	public static final class Builder<E> implements net.derquinse.common.base.Builder<ImmutableHierarchy<E>> {
 		private final Set<E> elements = Sets.newHashSet();
 		private final Set<E> unaddedParents = Sets.newHashSet();
 		private final List<E> firstLevel = Lists.newLinkedList();
@@ -253,7 +252,8 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 		 * @throws IllegalStateException if there are referenced parents that are not part of the
 		 *           hierarchy yet.
 		 */
-		public ImmutableHierarchy<E> get() {
+		@Override
+		public ImmutableHierarchy<E> build() {
 			checkReady();
 			if (elements.isEmpty()) {
 				return of();

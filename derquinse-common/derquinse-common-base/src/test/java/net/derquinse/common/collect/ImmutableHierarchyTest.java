@@ -41,7 +41,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	@Test
 	public void empty() {
 		empty(ImmutableHierarchy.of());
-		empty(builder().get());
+		empty(builder().build());
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test
 	public void nullContains() {
-		assertFalse(builder().get().elementSet().contains(null));
+		assertFalse(builder().build().elementSet().contains(null));
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void notFound1() {
-		builder().get().getChildren(1);
+		builder().build().getChildren(1);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void notFound2() {
-		builder().get().getParent(1);
+		builder().build().getParent(1);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test
 	public void one() {
-		Hierarchy<Integer> h = builder().add(null, 1).get();
+		Hierarchy<Integer> h = builder().add(null, 1).build();
 		self(h);
 		check(h, 1, 1, 2);
 		check(h.getFirstLevel(), 1, 1, 2);
@@ -105,7 +105,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	}
 
 	private void checkTwo(ImmutableHierarchy.Builder<Integer> builder) {
-		final Hierarchy<Integer> h = builder.get();
+		final Hierarchy<Integer> h = builder.build();
 		self(h);
 		check(h, 2, 1, 3);
 		check(h, 2, 2, 3);
@@ -143,7 +143,7 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 	 */
 	@Test(expectedExceptions = IllegalStateException.class)
 	public void unadded() {
-		builder(true).add(1, 2).get();
+		builder(true).add(1, 2).build();
 	}
 
 	/**

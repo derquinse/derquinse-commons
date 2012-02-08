@@ -108,7 +108,7 @@ public class AbstractHierarchyTest {
 				b.add(i, i * d + j);
 			}
 		}
-		return b.get();
+		return b.build();
 	}
 
 	static <K> Map<K, String> createStringMap(Iterable<K> keys) {
