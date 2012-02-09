@@ -15,10 +15,14 @@
  */
 package net.derquinse.common.util.zip;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -82,6 +86,64 @@ public final class ZipFiles extends NotInstantiable {
 	 */
 	public static Map<String, byte[]> loadZip(File file) throws IOException {
 		return loadZip(Files.newInputStreamSupplier(file));
+	}
+
+	/**
+	 * Reads a zip file into memory. Individual entries are Gzipped, and those smaller than the
+	 * original will be kepts in compressed form.
+	 * @param input Input data.
+	 * @return A map from zip entry nada to entry data, which may be compressed.
+	 * @throws IOException if an I/O error occurs
+	 */
+	public static Map<String, MaybeCompressed<byte[]>> loadZipAndGZip(InputStream input) throws IOException {
+		Map<String, byte[]> loaded = loadZip(input);
+		ImmutableMap.Builder<String, MaybeCompressed<byte[]>> b = ImmutableMap.builder();
+		for (Entry<String, byte[]> e : loaded.entrySet()) {
+			byte[] data = e.getValue();
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(data.length);
+			GZIPOutputStream zos = new GZIPOutputStream(bos);
+			ByteArrayInputStream is = new ByteArrayInputStream(data);
+			ByteStreams.copy(is, zos);
+			Closeables.closeQuietly(is);
+			Closeables.closeQuietly(zos);
+			byte[] compressed = bos.toByteArray();
+			final MaybeCompressed<byte[]> v;
+			if (compressed.length < data.length) {
+				v = MaybeCompressed.of(true, compressed);
+			} else {
+				v = MaybeCompressed.of(false, data);
+			}
+			b.put(e.getKey(), v);
+		}
+		return b.build();
+	}
+
+	/**
+	 * Reads a zip file into memory. Individual entries are Gzipped, and those smaller than the
+	 * original will be kepts in compressed form.
+	 * @param input Input data.
+	 * @return A map from zip entry nada to entry data, which may be compressed.
+	 * @throws IOException if an I/O error occurs
+	 */
+	public static Map<String, MaybeCompressed<byte[]>> loadZipAndGZip(InputSupplier<? extends InputStream> input)
+			throws IOException {
+		InputStream is = input.getInput();
+		try {
+			return loadZipAndGZip(is);
+		} finally {
+			Closeables.closeQuietly(is);
+		}
+	}
+
+	/**
+	 * Reads a zip file into memory. Individual entries are Gzipped, and those smaller than the
+	 * original will be kepts in compressed form.
+	 * @param input Input data.
+	 * @return A map from zip entry nada to entry data, which may be compressed.
+	 * @throws IOException if an I/O error occurs
+	 */
+	public static Map<String, MaybeCompressed<byte[]>> loadZipAndGZip(File file) throws IOException {
+		return loadZipAndGZip(Files.newInputStreamSupplier(file));
 	}
 
 }
