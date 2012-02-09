@@ -78,6 +78,22 @@ public final class ZipFiles extends NotInstantiable {
 		}
 	}
 
+	static byte[] gzip(byte[] input) throws IOException {
+		ByteArrayInputStream is = new ByteArrayInputStream(input);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(input.length);
+		try {
+			GZIPOutputStream zos = new GZIPOutputStream(bos);
+			try {
+				ByteStreams.copy(is, zos);
+			} finally {
+				Closeables.closeQuietly(zos);
+			}
+		} finally {
+			Closeables.closeQuietly(is);
+		}
+		return bos.toByteArray();
+	}
+
 	/**
 	 * Reads a zip file into memory.
 	 * @param file Input file.

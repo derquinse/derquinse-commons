@@ -22,6 +22,8 @@ import static org.testng.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Map;
 
+import net.derquinse.common.test.RandomSupport;
+
 import org.testng.annotations.Test;
 
 /**
@@ -39,4 +41,13 @@ public class ZipFilesTest {
 		assertTrue(map.get("folder/loren3.txt").length > 10);
 		assertNull(map.get("loren.kk"));
 	}
+
+	@Test
+	public void size() throws IOException {
+		byte[] input = RandomSupport.getBytes(1);
+		byte[] output = ZipFiles.gzip(input);
+		System.out.println(output.length);
+	}
+
+
 }
