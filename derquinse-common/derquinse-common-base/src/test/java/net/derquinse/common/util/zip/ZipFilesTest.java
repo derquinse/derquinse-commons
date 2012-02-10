@@ -31,15 +31,36 @@ import org.testng.annotations.Test;
  * @author Andres Rodriguez
  */
 public class ZipFilesTest {
+	private Map<String, byte[]> items;
 
 	@Test
 	public void loren() throws IOException {
-		Map<String, byte[]> map = ZipFiles.loadZip(getClass().getResourceAsStream("loren.zip"));
-		assertEquals(3, map.size());
-		assertTrue(map.get("loren1.txt").length > 10);
-		assertTrue(map.get("loren2.txt").length > 10);
-		assertTrue(map.get("folder/loren3.txt").length > 10);
-		assertNull(map.get("loren.kk"));
+		items = ZipFiles.loadZip(getClass().getResourceAsStream("loren.zip"));
+		assertEquals(3, items.size());
+		assertTrue(items.get("loren1.txt").length > 10);
+		assertTrue(items.get("loren2.txt").length > 10);
+		assertTrue(items.get("folder/loren3.txt").length > 10);
+		assertNull(items.get("loren.kk"));
+	}
+
+	@Test(dependsOnMethods = "loren")
+	public void maybe() throws IOException {
+		Map<String, MaybeCompressed<byte[]>> maybe = ZipFiles.loadZipAndGZip(getClass().getResourceAsStream("loren.zip"));
+		assertEquals(maybe.size(), items.size());
+		for (String k : items.keySet()) {
+			byte[] orig = items.get(k);
+			MaybeCompressed<byte[]> m = maybe.get(k);
+			byte[] payload = m.getPayload();
+			byte[] cmp;
+			if (m.isCompressed()) {
+				assertTrue(payload.length < orig.length);
+				System.out.printf("%s reduced from %d to %d\n", k, orig.length, payload.length);
+				cmp = ZipFiles.gunzip(payload);
+			} else {
+				cmp = payload;
+			}
+			assertEquals(cmp, orig);
+		}
 	}
 
 	@Test
@@ -48,6 +69,5 @@ public class ZipFilesTest {
 		byte[] output = ZipFiles.gzip(input);
 		System.out.println(output.length);
 	}
-
 
 }
