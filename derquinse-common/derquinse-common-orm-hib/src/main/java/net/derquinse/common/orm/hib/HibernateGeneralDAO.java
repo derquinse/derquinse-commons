@@ -56,19 +56,62 @@ public class HibernateGeneralDAO extends AbstractHibernateDAO implements General
 	}
 
 	/**
-	 * Returns the list of entity instances that matches the provided crtieria.
+	 * Apply some criteria.
+	 */
+	private Criteria apply(Criteria criteria, Criterion... criterion) {
+		for (Criterion c : criterion) {
+			criteria.add(c);
+		}
+		return criteria;
+	}
+
+	/**
+	 * Returns the list of entity instances that matches the provided criteria.
+	 * @param type Entity type.
+	 * @param criteria Base criteria.
+	 * @param criterion Additional criteria.
+	 * @return The results.
+	 */
+	protected final <T> List<T> findByCriteria(Class<T> type, Criteria criteria, Criterion... criterion) {
+		@SuppressWarnings("unchecked")
+		final List<T> list = apply(criteria, criterion).list();
+		return list;
+	}
+
+	/**
+	 * Returns the list of entity instances that matches the provided criteria.
 	 * @param type Entity type.
 	 * @param criterion Search criteria.
 	 * @return The results.
 	 */
 	protected final <T> List<T> findByCriteria(Class<T> type, Criterion... criterion) {
-		final Criteria criteria = newCriteria(type);
-		for (Criterion c : criterion) {
-			criteria.add(c);
-		}
+		return findByCriteria(type, newCriteria(type), criterion);
+	}
+
+	/**
+	 * Returns the unique entity instance that matches the provided criteria.
+	 * @param type Entity type.
+	 * @param criteria Base criteria.
+	 * @param criterion Additional criteria.
+	 * @return The result of {@code null} if no entity matches.
+	 */
+	protected final <T> T unique(Class<T> type, Criteria criteria, Criterion... criterion) {
 		@SuppressWarnings("unchecked")
-		final List<T> list = criteria.list();
-		return list;
+		final T result = (T) apply(criteria, criterion).uniqueResult();
+		return result;
+	}
+
+	/**
+	 * Returns the unique entity instance that matches the provided criteria.
+	 * @param type Entity type.
+	 * @param criteria Base criteria.
+	 * @param criterion Search criteria.
+	 * @return The result of {@code null} if no entity matches.
+	 */
+	protected final <T> T unique(Class<T> type, Criterion... criterion) {
+		@SuppressWarnings("unchecked")
+		final T result = (T) apply(newCriteria(type), criterion).uniqueResult();
+		return result;
 	}
 
 	/*
