@@ -38,7 +38,7 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 	public void builder() {
 		builder.setDefault(HELLO);
 		builder.put(ES, HOLA);
-		final Localized<String> s = builder.get();
+		final Localized<String> s = builder.build();
 		assertEquals(s.get(), HELLO);
 		assertEquals(s.apply(ES), HOLA);
 		assertEquals(s.apply(Locale.CANADA), HELLO);
@@ -56,7 +56,7 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 
 	@Test(expectedExceptions = IllegalStateException.class)
 	public void noDefault() {
-		builder.get();
+		builder.build();
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)

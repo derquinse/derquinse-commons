@@ -22,7 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.common.base.Supplier;
+import net.derquinse.common.base.Builder;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
@@ -31,7 +32,7 @@ import com.google.common.collect.Maps;
  * @author Andres Rodriguez
  * @param <T> Localized object type.
  */
-public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
+public final class LocalizedBuilder<T> implements Builder<Localized<T>> {
 	/** Null default error. */
 	private static final String NULL_DEFAULT = "Default value can't be null";
 	/** Null locale error. */
@@ -114,7 +115,7 @@ public final class LocalizedBuilder<T> implements Supplier<Localized<T>> {
 	 * @return The localized value.
 	 * @throws IllegalStateException if the default value is null.
 	 */
-	public Localized<T> get() {
+	public Localized<T> build() {
 		checkState(defaultValue != null, NULL_DEFAULT);
 		if (values.isEmpty()) {
 			return Unlocalized.of(defaultValue);

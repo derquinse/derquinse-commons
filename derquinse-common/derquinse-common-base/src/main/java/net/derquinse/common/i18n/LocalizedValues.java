@@ -55,7 +55,7 @@ public final class LocalizedValues {
 		if (values == null || values.isEmpty()) {
 			return Unlocalized.of(defaultValue);
 		}
-		return LocalizedBuilder.create(defaultValue).putAll(values).get();
+		return LocalizedBuilder.create(defaultValue).putAll(values).build();
 	}
 
 	/**
@@ -74,7 +74,7 @@ public final class LocalizedValues {
 		for (Entry<String, ? extends T> entry : values.entrySet()) {
 			builder.put(fromString(entry.getKey()), entry.getValue());
 		}
-		return builder.get();
+		return builder.build();
 	}
 
 	/**
