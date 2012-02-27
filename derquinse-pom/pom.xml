@@ -236,24 +236,13 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>4.0.1.Final</version>
+				<version>3.6.10.Final</version>
 			</dependency>
 			<!-- Javassist -->
 			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>3.15.0-GA</version>
-			</dependency>
-			<!-- Jadira Usertype. -->
-			<dependency>
-				<groupId>org.jadira.usertype</groupId>
-				<artifactId>usertype.core</artifactId>
-				<version>3.0.0.CR1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jadira.usertype</groupId>
-				<artifactId>usertype.spi</artifactId>
-				<version>3.0.0.CR1</version>
 			</dependency>
 			<!-- SLF4J -->
 			<dependency>
