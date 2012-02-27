@@ -9,7 +9,7 @@
 	<artifactId>derquinse-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>Derquinse Parent POM</name>
-	<version>23-SNAPSHOT</version>
+	<version>23</version>
 	<description>Parent POM file for Derquinse Projects.</description>
 	<url>http://code.google.com/p/derquinse-commons/</url>
 	<organization>
@@ -24,9 +24,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-pom</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-pom</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-pom</url>
+		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/tags/derquinse-pom-23</connection>
+		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/tags/derquinse-pom-23</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/tags/derquinse-pom-23</url>
 	</scm>
 	<developers>
 		<developer>
