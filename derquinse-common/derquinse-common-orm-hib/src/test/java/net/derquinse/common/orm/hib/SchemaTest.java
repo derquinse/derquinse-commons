@@ -15,11 +15,11 @@
  */
 package net.derquinse.common.orm.hib;
 
+import net.derquinse.common.orm.hib.dialect.DerquinseMySQL5InnoDBDialect;
+
 import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
-import org.hibernate.dialect.MySQL5InnoDBDialect;
-import org.hibernate.dialect.Oracle10gDialect;
 import org.testng.annotations.Test;
 
 /**
@@ -40,15 +40,17 @@ public class SchemaTest {
 
 	@Test
 	public void basic() {
-		showSchema("Basic", TestConfigurations.basic(), new MySQL5InnoDBDialect());
+		showSchema("Basic", TestConfigurations.basic(), new DerquinseMySQL5InnoDBDialect());
+		//showSchema("Basic", TestConfigurations.basic(), new MySQL5InnoDBDialect());
 		showSchema("Basic", TestConfigurations.basic(), new H2Dialect());
-		showSchema("Basic", TestConfigurations.basic(), new Oracle10gDialect());
+		//showSchema("Basic", TestConfigurations.basic(), new Oracle10gDialect());
 	}
 
 	@Test
 	public void types() {
-		showSchema("Types", TestConfigurations.types(), new MySQL5InnoDBDialect());
+		showSchema("Types", TestConfigurations.types(), new DerquinseMySQL5InnoDBDialect());
+		//showSchema("Types", TestConfigurations.types(), new MySQL5InnoDBDialect());
 		showSchema("Types", TestConfigurations.types(), new H2Dialect());
-		showSchema("Types", TestConfigurations.types(), new Oracle10gDialect());
+		//showSchema("Types", TestConfigurations.types(), new Oracle10gDialect());
 	}
 }

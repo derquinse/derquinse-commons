@@ -17,6 +17,7 @@ package net.derquinse.common.orm.hib;
 
 import java.io.ByteArrayInputStream;
 import java.security.SecureRandom;
+import java.util.Locale;
 import java.util.UUID;
 
 import net.derquinse.common.base.ByteString;
@@ -26,7 +27,6 @@ import net.derquinse.common.test.EqualityTests;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.joda.time.DateTime;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -45,13 +45,15 @@ public class EntityTest {
 		new SecureRandom().nextBytes(bytes);
 		InputSupplier<ByteArrayInputStream> is = ByteStreams.newInputStreamSupplier(bytes);
 		ByteString sha1 = ByteString.copyFrom(ByteStreams.getDigest(is, Digests.sha1()));
-		DateTime t = DateTime.now().minusMonths(3);
+		// DateTime t = DateTime.now().minusMonths(3);
+		Locale locale = Locale.CANADA_FRENCH;
 		final UUID id = UUID.randomUUID();
 		TestUUIDEntity e1 = new TestUUIDEntity();
 		e1.setId(id);
-		e1.dateTime = t;
+		e1.locale = locale;
+		// e1.dateTime = t;
 		e1.sha1 = sha1;
-		@SuppressWarnings("deprecation")
+		// @SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = TestConfigurations.h2(TestConfigurations.types()).buildSessionFactory();
 		Session s1 = sessionFactory.openSession();
 		Transaction tx = s1.beginTransaction();
@@ -62,9 +64,11 @@ public class EntityTest {
 		TestUUIDEntity e2 = (TestUUIDEntity) s2.get(TestUUIDEntity.class, id);
 		s2.close();
 		EqualityTests.many(id, e1.getId(), e2.getId());
-		EqualityTests.many(t, e1.dateTime, e2.dateTime);
+		// EqualityTests.many(t, e1.dateTime, e2.dateTime);
+		EqualityTests.many(locale, e1.locale, e2.locale);
 		EqualityTests.many(sha1, e1.sha1, e2.sha1);
-		Assert.assertNotSame(e1.dateTime, e2.dateTime);
+		// Assert.assertNotSame(e1.dateTime, e2.dateTime);
+		Assert.assertNotSame(e1.locale, e2.locale);
 		Assert.assertNotSame(e1.sha1, e2.sha1);
 		EqualityTests.two(e1, e2);
 		Assert.assertEquals(e1.hashCode(), id.hashCode());

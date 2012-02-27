@@ -15,14 +15,14 @@
  */
 package net.derquinse.common.orm.hib;
 
+import java.util.Locale;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import net.derquinse.common.base.ByteString;
 import net.derquinse.common.orm.PropertyLengths;
-
-import org.joda.time.DateTime;
 
 /**
  * Test UUID entity.
@@ -32,13 +32,18 @@ import org.joda.time.DateTime;
 @Table(name = "TEST_UUID")
 public class TestUUIDEntity extends MappedUUIDVersionedEntity {
 	/** Date time. */
-	@Column(name = "TEST_DATETIME", nullable = false)
-	DateTime dateTime;
+	// @Column(name = "TEST_DATETIME", nullable = false)
+	// DateTime dateTime;
 
 	/** SHA-1. */
 	@Column(name = "TEST_SHA1", nullable = true, length = PropertyLengths.SHA1_BYTES)
 	ByteString sha1;
 
+	/** Locale. */
+	@Column(name = "TEST_LOCALE", nullable = false, length = PropertyLengths.LOCALE_CHARS)
+	Locale locale;
+
+	
 	@Override
 	public int hashCode() {
 		return idHashCode();

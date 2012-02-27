@@ -13,25 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.orm.hib;
+package net.derquinse.common.orm.hib.dialect;
 
-import static java.util.UUID.randomUUID;
-import static net.derquinse.common.orm.hib.HibLengths.UUID_CHAR;
-import static org.testng.Assert.assertEquals;
+import java.sql.Types;
 
-import org.testng.annotations.Test;
+import org.hibernate.dialect.MySQL5Dialect;
 
 /**
- * Tests for HibLengths
+ * MySQL 5 Dialect.
  * @author Andres Rodriguez
  */
-public class HibLengthsTest {
-	/**
-	 * UUID char.
-	 */
-	@Test
-	public void uuidChar() {
-		assertEquals(randomUUID().toString().length(), UUID_CHAR);
-	}
+public class DerquinseMySQL5Dialect extends MySQL5Dialect {
 
+	/**
+	 * Constructor.
+	 */
+	public DerquinseMySQL5Dialect() {
+		registerColumnType(Types.BINARY, 255, "binary($l)");
+	}
 }

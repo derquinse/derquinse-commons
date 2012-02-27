@@ -20,8 +20,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Locale;
 
-import net.derquinse.common.base.ByteString;
+import net.derquinse.common.i18n.Locales;
 
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
@@ -29,20 +30,20 @@ import org.hibernate.usertype.UserType;
 import com.google.common.base.Objects;
 
 /**
- * An hibernate user type representing a ByteString as a byte array.
+ * An hibernate user type representing a Locale as string.
  * @author Andres Rodriguez
  */
-public class ByteStringUserType implements UserType {
+public class LocaleUserType implements UserType {
 	/** SQL Types. */
-	private static final int[] TYPES = { Types.BINARY };
+	private static final int[] TYPES = { Types.VARCHAR };
 
 	/** Get the names under which this type should be registered in the type registry. */
 	public static String[] getRegistrationKeys() {
-		return new String[] { ByteStringUserType.class.getName() };
+		return new String[] { LocaleUserType.class.getName() };
 	}
 
 	/** Default constructor. */
-	public ByteStringUserType() {
+	public LocaleUserType() {
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class ByteStringUserType implements UserType {
 
 	@Override
 	public Class<?> returnedClass() {
-		return ByteString.class;
+		return Locale.class;
 	}
 
 	@Override
@@ -72,8 +73,8 @@ public class ByteStringUserType implements UserType {
 	 */
 	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
-		final byte[] bytes = rs.getBytes(names[0]);
-		return bytes == null ? null : ByteString.copyFrom(bytes);
+		final String s = rs.getString(names[0]);
+		return Locales.safeFromString(s);
 	}
 
 	/*
@@ -83,11 +84,11 @@ public class ByteStringUserType implements UserType {
 	 */
 	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
-		final byte[] bytes = (value == null) ? null : ((ByteString) value).toByteArray();
-		st.setBytes(index, bytes);
+		final String s = (value == null) ? null : ((Locale) value).toString();
+		st.setString(index, s);
 	}
 
-	/* ByteStrings are immutable. */
+	/* Locales are immutable. */
 	@Override
 	public Object deepCopy(Object value) throws HibernateException {
 		return value;
@@ -98,13 +99,13 @@ public class ByteStringUserType implements UserType {
 		return false;
 	}
 
-	/* ByteStrings are serializable and immutable, so they are their own cached image. */
+	/* Locales are serializable and immutable, so they are their own cached image. */
 	@Override
 	public Serializable disassemble(Object value) throws HibernateException {
 		return (Serializable) value;
 	}
 
-	/* ByteStrings are serializable and immutable, so they are their own cached image. */
+	/* Locales are serializable and immutable, so they are their own cached image. */
 	@Override
 	public Object assemble(Serializable cached, Object owner) throws HibernateException {
 		return cached;

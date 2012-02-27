@@ -42,4 +42,6 @@ public final class PropertyLengths extends NotInstantiable {
 	public static final int SHA384_BYTES = 48;
 	/** SHA-512 hash in bytes. */
 	public static final int SHA512_BYTES = 64;
+	/** Locale in chars. */
+	public static final int LOCALE_CHARS = 100;
 }

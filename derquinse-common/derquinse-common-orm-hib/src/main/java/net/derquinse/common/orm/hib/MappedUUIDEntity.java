@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import net.derquinse.common.orm.AbstractEntity;
+import net.derquinse.common.orm.PropertyLengths;
 import net.derquinse.common.orm.UUIDEntity;
 
 /**
@@ -32,7 +33,7 @@ import net.derquinse.common.orm.UUIDEntity;
 public abstract class MappedUUIDEntity extends AbstractEntity<UUID> implements UUIDEntity {
 	/** Entity ID. */
 	@Id
-	@Column(name = "META_ID", length = HibLengths.UUID_BINARY, nullable = false)
+	@Column(name = "META_ID", length = PropertyLengths.UUID_BYTES, nullable = false)
 	private UUID id;
 
 	/** Default constructor. */
