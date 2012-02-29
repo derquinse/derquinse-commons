@@ -16,10 +16,14 @@
 package net.derquinse.common.orm;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import net.derquinse.common.base.NotInstantiable;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Maps;
 
 /**
  * Support methods for entities.
@@ -27,6 +31,21 @@ import com.google.common.base.Objects;
  */
 public final class Entities extends NotInstantiable {
 	private Entities() {
+	}
+	
+	/** Returns the id of the provided entity or {@code null } if the argument is {@code null}. */
+	public static <ID extends Serializable, T extends Entity<ID>> ID entityId(Entity<ID> entity) {
+		if (entity == null) {
+			return null;
+		}
+		return entity.getId();
+	}
+
+	/**
+	 * Checks if two entities are both {@code null} or have the same id (that can be {@code null}.
+	 */
+	public static <ID extends Serializable, T extends Entity<ID>> boolean idEquals(Entity<ID> entity1, Entity<ID> entity2) {
+		return Objects.equal(entityId(entity1), entityId(entity2));
 	}
 
 	/**
@@ -64,5 +83,16 @@ public final class Entities extends NotInstantiable {
 		}
 		return 1046;
 	}
+	
+	/** Clears the target map and inserts every non-null element from the source one. */
+	public static <K, V> void pushMap(Map<K, V> target, Map<? extends K, ? extends V> source) {
+		Preconditions.checkNotNull(target);
+		target.clear();
+		if (source != null) {
+			target.putAll(Maps.filterKeys(Maps.filterValues(source, Predicates.notNull()), Predicates.notNull()));
+		}
+	}
+
+	
 
 }
