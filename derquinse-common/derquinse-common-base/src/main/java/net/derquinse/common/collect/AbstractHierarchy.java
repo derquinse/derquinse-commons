@@ -111,7 +111,7 @@ public abstract class AbstractHierarchy<E> implements Hierarchy<E> {
 	 */
 	public List<E> getSiblings(E element) {
 		final E parent = getParent(element);
-		return parent == null ? getFirstLevel() : getChildren(element);
+		return parent == null ? getFirstLevel() : getChildren(parent);
 	}
 
 	/*
