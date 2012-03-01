@@ -15,14 +15,17 @@
  */
 package net.derquinse.common.orm;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Set;
 
 import net.derquinse.common.base.NotInstantiable;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
 /**
@@ -32,7 +35,7 @@ import com.google.common.collect.Maps;
 public final class Entities extends NotInstantiable {
 	private Entities() {
 	}
-	
+
 	/** Returns the id of the provided entity or {@code null } if the argument is {@code null}. */
 	public static <ID extends Serializable, T extends Entity<ID>> ID entityId(Entity<ID> entity) {
 		if (entity == null) {
@@ -58,7 +61,8 @@ public final class Entities extends NotInstantiable {
 	 *         instance of type and the object and the entity have the same id (even if the id is
 	 *         null). Null otherwise.
 	 */
-	public static <ID extends Serializable, T extends Entity<ID>> T idEquals(Entity<ID> entity, Class<? extends T> type, Object obj) {
+	public static <ID extends Serializable, T extends Entity<ID>> T idEquals(Entity<ID> entity, Class<? extends T> type,
+			Object obj) {
 		if (entity == null || obj == null) {
 			return null;
 		}
@@ -72,7 +76,8 @@ public final class Entities extends NotInstantiable {
 	}
 
 	/**
-	 * Returns the hash code of the id of the entity. If either the entity or its id are null a constant number is returned.
+	 * Returns the hash code of the id of the entity. If either the entity or its id are null a
+	 * constant number is returned.
 	 */
 	public static int idHashCode(Entity<?> entity) {
 		if (entity != null) {
@@ -83,16 +88,23 @@ public final class Entities extends NotInstantiable {
 		}
 		return 1046;
 	}
-	
+
 	/** Clears the target map and inserts every non-null element from the source one. */
 	public static <K, V> void pushMap(Map<K, V> target, Map<? extends K, ? extends V> source) {
-		Preconditions.checkNotNull(target);
+		checkNotNull(target);
 		target.clear();
 		if (source != null) {
 			target.putAll(Maps.filterKeys(Maps.filterValues(source, Predicates.notNull()), Predicates.notNull()));
 		}
 	}
 
-	
+	/** Clears the target set and inserts every non-null element from the source iterable. */
+	public static <T> void pushSet(Set<T> target, Iterable<? extends T> source) {
+		checkNotNull(target);
+		target.clear();
+		if (source != null) {
+			Iterables.addAll(target, Iterables.filter(source, Predicates.notNull()));
+		}
+	}
 
 }
