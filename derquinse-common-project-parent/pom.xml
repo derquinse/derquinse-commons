@@ -6,7 +6,7 @@
 		<version>27</version>
 	</parent>
 	<artifactId>derquinse-common-project-parent</artifactId>
-	<version>1.0.24</version>
+	<version>1.0.25-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Commons :: Parent POM for projects based on it.</name>
 	<description>Derquinse Commons :: Parent POM for projects based on it.</description>
@@ -14,7 +14,7 @@
 		<connection>scm:git:https://code.google.com/p/derquinse-commons/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/derquinse-commons/</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/</url>
-	  <tag>derquinse-common-project-parent-1.0.24</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<dependencyManagement>
 		<dependencies>
