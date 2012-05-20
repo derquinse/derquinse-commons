@@ -71,7 +71,7 @@ final class EmptyImmutableHierarchy extends ImmutableHierarchy<Object> {
 	 * @see net.derquinse.common.collect.ImmutableHierarchy#getDescendants(java.lang.Object)
 	 */
 	@Override
-	public ImmutableSet<Object> getDescendants(Object element) {
+	ImmutableSet<Object> getMemberDescendants(Object element) {
 		checkMember(element);
 		return ImmutableSet.of();
 	}

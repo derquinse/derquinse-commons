@@ -89,7 +89,7 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.collect.ImmutableHierarchy#getDescendants(java.lang.Object)
 	 */
-	public ImmutableSet<E> getDescendants(E element) {
+	ImmutableSet<E> getMemberDescendants(E element) {
 		checkMember(element);
 		ImmutableSet<E> set = descendants.get(element);
 		if (set != null) {

@@ -118,11 +118,11 @@ public interface Hierarchy<E> {
 
 	/**
 	 * Returns the descendants of the specified element.
-	 * @param element Element which descendants are requested.
+	 * @param element Element which descendants are requested. If {@code null} the element set is returned.
 	 * @return The set of descendants. Iteration order is unspecified.
 	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
 	 */
-	Set<E> getDescendants(E element);
+	Set<E> getDescendants(@Nullable E element);
 
 	/**
 	 * Compares the specified object with this hierarchy for equality. Returns <tt>true</tt> if the

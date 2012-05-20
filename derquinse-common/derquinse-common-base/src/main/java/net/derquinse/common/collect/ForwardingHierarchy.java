@@ -151,7 +151,7 @@ public abstract class ForwardingHierarchy<E> extends ForwardingObject implements
 	 * @see net.derquinse.common.collect.Hierarchy#getDescendants(java.lang.Object)
 	 */
 	@Override
-	public Set<E> getDescendants(E element) {
+	public Set<E> getDescendants(@Nullable E element) {
 		return delegate().getDescendants(element);
 	}
 
