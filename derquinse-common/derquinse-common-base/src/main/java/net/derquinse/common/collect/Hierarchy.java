@@ -117,6 +117,14 @@ public interface Hierarchy<E> {
 	Iterable<E> getAncestors(E element);
 
 	/**
+	 * Returns the descendants of the specified element.
+	 * @param element Element which descendants are requested.
+	 * @return The set of descendants. Iteration order is unspecified.
+	 * @throws IllegalArgumentException if the specified element is not part of the hierarchy.
+	 */
+	Set<E> getDescendants(E element);
+
+	/**
 	 * Compares the specified object with this hierarchy for equality. Returns <tt>true</tt> if the
 	 * specified object is also a hierarchy, the two hierarchies have the same size, and both contain
 	 * the same elements in the same coordinates. This definition ensures that the equals method works

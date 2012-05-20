@@ -18,6 +18,7 @@ package net.derquinse.common.collect;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.annotation.Nullable;
 
@@ -25,9 +26,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.MapMaker;
 
 /**
- * Implementation of {@link ImmutableHierarchy} with tow or more levels.
+ * Implementation of {@link ImmutableHierarchy} with two or more levels.
  * @author Andres Rodriguez
  * @param <E> Type of the elements in the hierarchy.
  */
@@ -36,6 +38,8 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 	private final ImmutableList<E> firstLevel;
 	private transient final ImmutableMap<E, E> parents;
 	private final ImmutableListMultimap<E, E> children;
+	/** Computed descendants. */
+	private transient final ConcurrentMap<E, ImmutableSet<E>> descendants;
 
 	RegularImmutableHierarchy(ImmutableHierarchy.Builder<E> builder) {
 		this.elements = ImmutableSet.copyOf(builder.getElements());
@@ -44,6 +48,7 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 		this.children = ImmutableListMultimap.copyOf(builder.getChildren());
 		// Incomplete integrity check
 		checkArgument(elements.size() == firstLevel.size() + children.size(), "Inconsistent hierarchy.");
+		this.descendants = new MapMaker().initialCapacity(this.elements.size()).makeMap();
 	}
 
 	@Override
@@ -79,4 +84,25 @@ final class RegularImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 		checkMember(element);
 		return parents.get(element);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.ImmutableHierarchy#getDescendants(java.lang.Object)
+	 */
+	public ImmutableSet<E> getDescendants(E element) {
+		checkMember(element);
+		ImmutableSet<E> set = descendants.get(element);
+		if (set != null) {
+			return set;
+		}
+		ImmutableSet.Builder<E> b = ImmutableSet.builder();
+		for (E e : getChildren(element)) {
+			b.add(e);
+			b.addAll(getDescendants(e));
+		}
+		set = b.build();
+		descendants.put(element, set);
+		return set;
+	}
+
 }

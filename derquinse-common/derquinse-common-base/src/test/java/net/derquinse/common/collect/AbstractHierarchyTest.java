@@ -27,6 +27,7 @@ import java.util.Map;
 import net.derquinse.common.collect.ImmutableHierarchy.Builder;
 import net.derquinse.common.test.EqualityTests;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
 /**
@@ -109,6 +110,10 @@ public class AbstractHierarchyTest {
 			}
 		}
 		return b.build();
+	}
+	
+	static <E> void descendants(Hierarchy<E> h, E pivot, E... descendants) {
+		assertEquals(h.getDescendants(pivot), ImmutableSet.copyOf(descendants));
 	}
 
 	static <K> Map<K, String> createStringMap(Iterable<K> keys) {

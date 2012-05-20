@@ -67,4 +67,16 @@ final class FlatImmutableHierarchy<E> extends ImmutableHierarchy<E> {
 		checkMember(element);
 		return null;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.ImmutableHierarchy#getDescendants(java.lang.Object)
+	 */
+	@Override
+	public ImmutableSet<E> getDescendants(E element) {
+		checkMember(element);
+		return ImmutableSet.of();
+	}
+	
+	
 }

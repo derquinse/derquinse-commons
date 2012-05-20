@@ -91,6 +91,12 @@ public abstract class ImmutableHierarchy<E> extends AbstractHierarchy<E> {
 	 * @see net.derquinse.common.collect.Hierarchy#elementSet()()
 	 */
 	public abstract ImmutableSet<E> elementSet();
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.Hierarchy#getDescendants(java.lang.Object)
+	 */
+	public abstract ImmutableSet<E> getDescendants(E element);
 
 	/**
 	 * Builder for immutable hierarchies.

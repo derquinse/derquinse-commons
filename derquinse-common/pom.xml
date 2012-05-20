@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>27-SNAPSHOT</version>
+		<version>27</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.24-SNAPSHOT</version>
@@ -11,9 +11,9 @@
 	<name>Derquinse Commons</name>
 	<description>Derquinse Common Java Libraries</description>
 	<scm>
-		<connection>scm:svn:http://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</connection>
-		<developerConnection>scm:svn:https://derquinse-commons.googlecode.com/svn/trunk/derquinse-common</developerConnection>
-		<url>http://code.google.com/p/derquinse-commons/source/browse/#svn/trunk/derquinse-common</url>
+		<connection>scm:git:https://code.google.com/p/derquinse-commons/</connection>
+		<developerConnection>scm:git:https://code.google.com/p/derquinse-commons/</developerConnection>
+		<url>http://code.google.com/p/derquinse-commons/source/browse/</url>
 	</scm>
 	<issueManagement>
 		<system>Google Code</system>

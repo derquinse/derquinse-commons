@@ -145,6 +145,15 @@ public abstract class ForwardingHierarchy<E> extends ForwardingObject implements
 	public Iterable<E> getAncestors(E element) {
 		return delegate().getAncestors(element);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.collect.Hierarchy#getDescendants(java.lang.Object)
+	 */
+	@Override
+	public Set<E> getDescendants(E element) {
+		return delegate().getDescendants(element);
+	}
 
 	/*
 	 * (non-Javadoc)

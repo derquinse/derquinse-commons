@@ -178,5 +178,17 @@ public class ImmutableHierarchyTest extends AbstractHierarchyTest {
 		};
 		EqualityTests.many(h1, h2, hf);
 	}
+	
+	/**
+	 * Descendants.
+	 */
+	@Test
+	public void descendants() {
+		Hierarchy<Integer> h = builder().add(null, 1).add(1, 11).add(1, 12).add(11, 111).add(null, 2).add(2, 21).add(2, 22).build();
+		descendants(h, 1, 11, 12, 111);
+		descendants(h, 11, 111);
+		descendants(h, 2, 21, 22);
+	}
+	
 
 }
