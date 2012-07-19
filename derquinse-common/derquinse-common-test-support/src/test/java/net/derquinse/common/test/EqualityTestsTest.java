@@ -19,6 +19,8 @@ import java.util.UUID;
 
 import org.testng.annotations.Test;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 /**
  * Tests for EqualityTests
  * @author Andres Rodriguez
@@ -39,6 +41,7 @@ public class EqualityTestsTest {
 	public void badOne() {
 		EqualityTests.one(new Object() {
 			@Override
+			@SuppressWarnings(value = "EQ_ALWAYS_TRUE", justification = "Intended for test purposes")
 			public boolean equals(Object obj) {
 				return true;
 			}
@@ -50,7 +53,7 @@ public class EqualityTestsTest {
 	 */
 	@Test
 	public void two() {
-		EqualityTests.two(1+1, 3-1);
+		EqualityTests.two(1 + 1, 3 - 1);
 	}
 
 	/**
@@ -78,5 +81,5 @@ public class EqualityTestsTest {
 		String s = UUID.randomUUID().toString();
 		EqualityTests.many(new String(s), new String(s), new String(s), 3);
 	}
-	
+
 }

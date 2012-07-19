@@ -24,6 +24,8 @@ import org.testng.annotations.Test;
 
 import com.google.common.collect.ImmutableMap;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 /**
  * Tests for LocalizedValues
  * @author Andres Rodriguez
@@ -48,21 +50,25 @@ public class LocalizedValuesTest extends AbstractLocaleTest {
 	}
 	
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NONNULL_PARAM_VIOLATION", justification = "Intended for test purposes")
 	public void checkNullLocaleKey() {
 		check(LocalizedValues.fromMap(HELLO, ImmutableMap.of((Locale)null, HOLA)));
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NONNULL_PARAM_VIOLATION", justification = "Intended for test purposes")
 	public void checkNullStringKey() {
 		check(LocalizedValues.fromStringMap(HELLO, ImmutableMap.of((String)null, HOLA)));
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NONNULL_PARAM_VIOLATION", justification = "Intended for test purposes")
 	public void checkNullLocaleValue() {
 		check(LocalizedValues.fromMap(HELLO, ImmutableMap.of(ES, (String)null)));
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NONNULL_PARAM_VIOLATION", justification = "Intended for test purposes")
 	public void checkNullStringValue() {
 		check(LocalizedValues.fromStringMap(HELLO, ImmutableMap.of(ES.toString(), (String)null)));
 	}

@@ -366,7 +366,7 @@ public final class PathSegments extends ForwardingList<String> {
 		@Override
 		public boolean equals(Object obj) {
 			if (obj instanceof Appender) {
-				return segments.equals(((Inserter) obj).segments());
+				return segments.equals(((Appender) obj).segments());
 			}
 			return false;
 		}

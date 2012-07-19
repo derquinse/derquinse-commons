@@ -26,6 +26,6 @@ public abstract class NotInstantiable {
 	 * @throws AssertionError if called.
 	 */
 	protected NotInstantiable() {
-		throw new AssertionError(String.format("Class %s is not instantiable"));
+		throw new AssertionError(String.format("Class %s is not instantiable", getClass()));
 	}
 }

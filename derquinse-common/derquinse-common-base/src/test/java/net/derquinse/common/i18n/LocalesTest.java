@@ -25,6 +25,8 @@ import java.util.Locale;
 
 import org.testng.annotations.Test;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 /**
  * Tests for Locales
  * @author Andres Rodriguez
@@ -44,6 +46,7 @@ public class LocalesTest {
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_NONVIRTUAL", justification = "Intended for test purposes")
 	public void checkNullValue() {
 		fromString(null);
 	}

@@ -25,6 +25,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 /**
  * Equality tests support methods.
  * @author Andres Rodriguez
@@ -40,6 +42,7 @@ public final class EqualityTests {
 	 * reflexive), not equal to null.
 	 * @param obj Object to test.
 	 */
+	@SuppressWarnings(value = "EC_NULL_ARG", justification = "Intended for test purposes")
 	public static void one(Object obj) {
 		assertNotNull(obj, "The provided object is null");
 		assertTrue(obj.equals(obj), String.format("The object [%s] is not equal to itself", obj));

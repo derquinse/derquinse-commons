@@ -156,15 +156,15 @@ public class DefaultRefCountedTest {
 	}
 
 	private static final class Target implements Runnable {
-		private volatile int closed = 0;
+		private final AtomicInteger closed = new AtomicInteger();
 
 		public int getClosed() {
-			return closed;
+			return closed.get();
 		}
 
 		@Override
 		public void run() {
-			closed++;
+			closed.incrementAndGet();
 		}
 	}
 

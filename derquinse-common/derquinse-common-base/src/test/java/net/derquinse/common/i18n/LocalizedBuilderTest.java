@@ -22,6 +22,8 @@ import java.util.Locale;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 /**
  * Tests for LocalizedBuilder
  * @author Andres Rodriguez
@@ -45,11 +47,13 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", justification = "Intended for test purposes")
 	public void checkNullKey() {
 		builder.put((Locale) null, "hello");
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", justification = "Intended for test purposes")
 	public void checkNullValue() {
 		builder.put(Locale.CANADA, null);
 	}
@@ -60,18 +64,21 @@ public class LocalizedBuilderTest extends AbstractLocaleTest {
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_NONVIRTUAL", justification = "Intended for test purposes")
 	public void nullDefault1() {
 		LocalizedBuilder.create(null);
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", justification = "Intended for test purposes")
 	public void nullDefault2() {
 		LocalizedBuilder.create().setDefault(null);
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
+	@SuppressWarnings(value = "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", justification = "Intended for test purposes")
 	public void nullDefault3() {
 		LocalizedBuilder.create().setDefault(new Object()).setDefault(null);
 	}
-	
+
 }
