@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-common</artifactId>
@@ -7,6 +8,7 @@
 	</parent>
 	<artifactId>derquinse-common-base</artifactId>
 	<name>Derquinse Commons :: Java SE</name>
+	<description>Support classes depending on Java SE 6, Guava 12 and Joda-Time 2.1</description>
 	<dependencies>
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -19,5 +21,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<description>Module containing support classes depending on Java SE 6, Guava 11 and Joda-Time 2.0</description>
 </project>
