@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
@@ -7,7 +6,7 @@
 		<version>30</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.25-SNAPSHOT</version>
+	<version>1.0.25</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Commons</name>
 	<description>Derquinse Common Java Libraries</description>
@@ -15,7 +14,7 @@
 		<connection>scm:git:https://code.google.com/p/derquinse-commons/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/derquinse-commons/</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/</url>
-		<tag>HEAD</tag>
+		<tag>derquinse-common-1.0.25</tag>
 	</scm>
 	<issueManagement>
 		<system>Google Code</system>
