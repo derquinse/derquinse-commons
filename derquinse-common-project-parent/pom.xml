@@ -1,59 +1,81 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>30-SNAPSHOT</version>
+		<version>30</version>
 	</parent>
 	<artifactId>derquinse-common-project-parent</artifactId>
 	<version>1.0.25-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Derquinse Commons :: Parent POM for projects based on it.</name>
-	<description>Derquinse Commons :: Parent POM for projects based on it.</description>
+	<name>Derquinse Commons :: Parent POM for projects based on it</name>
+	<description>Parent POM for projects based on Derquinse Commons</description>
 	<scm>
 		<connection>scm:git:https://code.google.com/p/derquinse-commons/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/derquinse-commons/</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-test-support</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-base</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-orm-hib</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-gson</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 			<dependency>
 				<groupId>net.derquinse</groupId>
 				<artifactId>derquinse-common-jaxrs-gson</artifactId>
-				<version>1.0.25-SNAPSHOT</version>
+				<version>1.0.25</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<links>
+						<link>http://docs.guava-libraries.googlecode.com/git-history/v12.0/javadoc</link>
+						<link>http://joda-time.sourceforge.net/api-release</link>
+						<link>http://jsr311.java.net/nonav/releases/1.1</link>
+						<link>http://jersey.java.net/nonav/apidocs/1.13/jersey</link>
+						<link>http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs</link>
+						<link>http://docs.jboss.org/hibernate/core/3.6/javadocs</link>
+						<link>http://docs.oracle.com/javaee/6/api</link>
+						<link>http://static.springsource.org/spring/docs/3.1.x/javadoc-api</link>
+						<link>http://static.springsource.org/spring-security/site/docs/3.1.x/apidocs</link>
+						<link>http://apis.derquinse.net/derquinse-common/1.0.25</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
