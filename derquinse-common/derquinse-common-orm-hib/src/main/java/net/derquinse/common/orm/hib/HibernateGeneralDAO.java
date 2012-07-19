@@ -104,7 +104,6 @@ public class HibernateGeneralDAO extends AbstractHibernateDAO implements General
 	/**
 	 * Returns the unique entity instance that matches the provided criteria.
 	 * @param type Entity type.
-	 * @param criteria Base criteria.
 	 * @param criterion Search criteria.
 	 * @return The result of {@code null} if no entity matches.
 	 */

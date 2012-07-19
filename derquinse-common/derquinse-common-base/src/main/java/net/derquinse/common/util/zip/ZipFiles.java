@@ -224,7 +224,7 @@ public final class ZipFiles extends NotInstantiable {
 	/**
 	 * Reads a zip file into memory. Individual entries are Gzipped, and those smaller than the
 	 * original will be kept in compressed form.
-	 * @param input Input data.
+	 * @param file Input file.
 	 * @return A map from zip entry nada to entry data, which may be compressed.
 	 * @throws IOException if an I/O error occurs
 	 */
