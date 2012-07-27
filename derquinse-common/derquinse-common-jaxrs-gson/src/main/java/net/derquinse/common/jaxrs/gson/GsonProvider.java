@@ -15,20 +15,11 @@
  */
 package net.derquinse.common.jaxrs.gson;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.Provider;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Supplier;
 import com.google.gson.Gson;
 
@@ -58,26 +49,6 @@ public class GsonProvider extends GenericGsonProvider<Object> {
 
 	/** Default constructor. */
 	public GsonProvider() {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see javax.ws.rs.ext.MessageBodyReader#isReadable(java.lang.Class, java.lang.reflect.Type,
-	 * java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType)
-	 */
-	public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see javax.ws.rs.ext.MessageBodyReader#readFrom(java.lang.Class, java.lang.reflect.Type,
-	 * java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType, javax.ws.rs.core.MultivaluedMap,
-	 * java.io.InputStream)
-	 */
-	public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType,
-			MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
-		return new Gson().fromJson(new InputStreamReader(entityStream, Charsets.UTF_8), type);
 	}
 
 }
