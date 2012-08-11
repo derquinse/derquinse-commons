@@ -44,7 +44,7 @@ public class EntityTest {
 		byte[] bytes = new byte[1024];
 		new SecureRandom().nextBytes(bytes);
 		InputSupplier<ByteArrayInputStream> is = ByteStreams.newInputStreamSupplier(bytes);
-		ByteString sha1 = ByteString.copyFrom(ByteStreams.getDigest(is, Digests.sha1()));
+		ByteString sha1 = Digests.sha1(is);
 		// DateTime t = DateTime.now().minusMonths(3);
 		Locale locale = Locale.CANADA_FRENCH;
 		final UUID id = UUID.randomUUID();

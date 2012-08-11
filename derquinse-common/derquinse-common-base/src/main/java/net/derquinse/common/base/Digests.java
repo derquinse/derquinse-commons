@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.google.common.io.ByteProcessor;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
@@ -77,9 +78,21 @@ public final class Digests extends NotInstantiable {
 	/**
 	 * Computes and returns as a byte string the digest of the provided data.
 	 */
-	public static ByteString getDigest(InputSupplier<? extends InputStream> supplier, MessageDigest md)
+	public static ByteString getDigest(InputSupplier<? extends InputStream> supplier, final MessageDigest md)
 			throws IOException {
-		return ByteString.copyFrom(ByteStreams.getDigest(supplier, md));
+		final byte[] digest = ByteStreams.readBytes(supplier, new ByteProcessor<byte[]>() {
+			@Override
+			public boolean processBytes(byte[] buf, int off, int len) {
+				md.update(buf, off, len);
+				return true;
+			}
+
+			@Override
+			public byte[] getResult() {
+				return md.digest();
+			}
+		});
+		return ByteString.copyFrom(digest);
 	}
 
 	/**
