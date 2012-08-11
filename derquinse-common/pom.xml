@@ -6,7 +6,7 @@
 		<version>31</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.26</version>
+	<version>1.0.27-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Commons</name>
 	<description>Derquinse Common Java Libraries</description>
@@ -14,7 +14,7 @@
 		<connection>scm:git:https://code.google.com/p/derquinse-commons/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/derquinse-commons/</developerConnection>
 		<url>http://code.google.com/p/derquinse-commons/source/browse/</url>
-		<tag>derquinse-common-1.0.26</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>Google Code</system>
