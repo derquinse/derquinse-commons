@@ -211,7 +211,7 @@
 					<minmemory>256m</minmemory>
 					<maxmemory>640m</maxmemory>
 					<links>
-						<link>http://docs.guava-libraries.googlecode.com/git-history/v12.0/javadoc</link>
+						<link>http://docs.guava-libraries.googlecode.com/git-history/v13.0/javadoc</link>
 						<link>http://joda-time.sourceforge.net/api-release</link>
 						<link>http://jsr311.java.net/nonav/releases/1.1</link>
 						<link>http://jersey.java.net/nonav/apidocs/1.13/jersey</link>
@@ -239,7 +239,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>12.0.1</version>
+				<version>13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -250,12 +250,12 @@
 			<dependency>
 				<groupId>com.google.code.findbugs</groupId>
 				<artifactId>jsr305</artifactId>
-				<version>2.0.0</version>
+				<version>2.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.code.findbugs</groupId>
 				<artifactId>annotations</artifactId>
-				<version>2.0.0</version>
+				<version>2.0.1</version>
 			</dependency>
 			<!-- Hibernate -->
 			<dependency>
@@ -388,17 +388,17 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-acl</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-aspects</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.springframework</groupId>
@@ -413,12 +413,12 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-cas</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.springframework</groupId>
@@ -429,32 +429,32 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-crypto</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-ldap</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-remoting</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-openid</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-taglibs</artifactId>
-				<version>3.1.1.RELEASE</version>
+				<version>3.1.2.RELEASE</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.springframework</groupId>
@@ -552,22 +552,22 @@
 			<dependency>
 				<groupId>org.apache.lucene</groupId>
 				<artifactId>lucene-core</artifactId>
-				<version>3.6.0</version>
+				<version>3.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.lucene</groupId>
 				<artifactId>lucene-analyzers</artifactId>
-				<version>3.6.0</version>
+				<version>3.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.lucene</groupId>
 				<artifactId>lucene-highlighter</artifactId>
-				<version>3.6.0</version>
+				<version>3.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.lucene</groupId>
 				<artifactId>lucene-queries</artifactId>
-				<version>3.6.0</version>
+				<version>3.6.1</version>
 			</dependency>
 			<!-- H2 Database -->
 			<dependency>
