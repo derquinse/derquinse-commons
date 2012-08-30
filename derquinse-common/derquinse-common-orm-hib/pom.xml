@@ -33,8 +33,9 @@
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
-			<artifactId>derquinse-common-test-support</artifactId>
+			<artifactId>derquinse-common-base</artifactId>
 			<version>1.0.27-SNAPSHOT</version>
+			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

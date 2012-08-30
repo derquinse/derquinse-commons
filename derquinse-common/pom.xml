@@ -38,6 +38,11 @@
 			<artifactId>annotations</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -54,7 +59,6 @@
 
 
 	<modules>
-		<module>derquinse-common-test-support</module>
 		<module>derquinse-common-base</module>
 		<module>derquinse-common-orm</module>
 		<module>derquinse-common-orm-hib</module>

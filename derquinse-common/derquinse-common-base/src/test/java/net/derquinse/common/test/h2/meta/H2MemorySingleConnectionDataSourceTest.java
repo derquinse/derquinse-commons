@@ -13,39 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.test;
+package net.derquinse.common.test.h2.meta;
 
-import java.util.UUID;
+import java.sql.SQLException;
+
+import net.derquinse.common.test.h2.H2MemorySingleConnectionDataSource;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for GsonSerializabilityTests
+ * Tests for H2MemorySingleConnectionDataSource
  * @author Andres Rodriguez
  */
-public class GsonSerializabilityTestsTest {
+public class H2MemorySingleConnectionDataSourceTest {
 	/**
-	 * String.
+	 * Open.
 	 */
 	@Test
-	public void string() {
-		GsonSerializabilityTests.check(UUID.randomUUID().toString());
+	public void open() throws SQLException {
+		new H2MemorySingleConnectionDataSource().getConnection();
 	}
-
-	/**
-	 * Integer.
-	 */
-	@Test
-	public void integer() {
-		GsonSerializabilityTests.check(1);
-	}
-
-	/**
-	 * UUID.
-	 */
-	@Test
-	public void uuid() {
-		GsonSerializabilityTests.check(UUID.randomUUID());
-	}
-
 }

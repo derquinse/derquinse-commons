@@ -13,22 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.test.h2;
+package net.derquinse.common.test.meta;
 
-import java.sql.SQLException;
+import java.util.UUID;
+
+import net.derquinse.common.test.SerializabilityTests;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for H2MemorySingleConnectionDataSource
+ * Tests for SerializabilityTests
  * @author Andres Rodriguez
  */
-public class H2MemorySingleConnectionDataSourceTest {
+public class SerializabilityTestsTest {
 	/**
-	 * Open.
+	 * String.
 	 */
 	@Test
-	public void open() throws SQLException {
-		new H2MemorySingleConnectionDataSource().getConnection();
+	public void string() {
+		SerializabilityTests.check(UUID.randomUUID().toString());
 	}
+
+	/**
+	 * UUID.
+	 */
+	@Test
+	public void uuid() {
+		SerializabilityTests.check(UUID.randomUUID());
+	}
+
 }

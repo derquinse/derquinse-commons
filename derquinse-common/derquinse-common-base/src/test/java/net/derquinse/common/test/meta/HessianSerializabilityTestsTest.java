@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.test;
+package net.derquinse.common.test.meta;
 
 import java.util.UUID;
+
+import net.derquinse.common.test.HessianSerializabilityTests;
 
 import org.testng.annotations.Test;
 

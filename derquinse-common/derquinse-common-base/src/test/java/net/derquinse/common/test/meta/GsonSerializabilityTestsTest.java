@@ -13,23 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.derquinse.common.test;
+package net.derquinse.common.test.meta;
 
 import java.util.UUID;
+
+import net.derquinse.common.test.GsonSerializabilityTests;
 
 import org.testng.annotations.Test;
 
 /**
- * Tests for SerializabilityTests
+ * Tests for GsonSerializabilityTests
  * @author Andres Rodriguez
  */
-public class SerializabilityTestsTest {
+public class GsonSerializabilityTestsTest {
 	/**
 	 * String.
 	 */
 	@Test
 	public void string() {
-		SerializabilityTests.check(UUID.randomUUID().toString());
+		GsonSerializabilityTests.check(UUID.randomUUID().toString());
+	}
+
+	/**
+	 * Integer.
+	 */
+	@Test
+	public void integer() {
+		GsonSerializabilityTests.check(1);
 	}
 
 	/**
@@ -37,7 +47,7 @@ public class SerializabilityTestsTest {
 	 */
 	@Test
 	public void uuid() {
-		SerializabilityTests.check(UUID.randomUUID());
+		GsonSerializabilityTests.check(UUID.randomUUID());
 	}
 
 }
