@@ -43,7 +43,7 @@ public class AbstractHierarchyTest {
 	}
 
 	static void equality(Object o1, Object o2) {
-		if (o1 == null && o2 == null) {
+		if (o1 == null || o2 == null) {
 			return;
 		}
 		EqualityTests.two(o1, o2);
