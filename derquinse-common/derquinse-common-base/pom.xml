@@ -8,38 +8,27 @@
 	</parent>
 	<artifactId>derquinse-common-base</artifactId>
 	<name>Derquinse Commons :: Java SE</name>
-	<description>Support classes depending on Java SE 6, Guava 12 and Joda-Time 2.1</description>
+	<description>Support classes depending on Java SE 6, Guava 13 and Joda-Time 2.1</description>
 	<dependencies>
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.caucho</groupId>
-			<artifactId>hessian</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<scope>test</scope>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-test-deps</artifactId>
+			<version>1.0.27-SNAPSHOT</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<scope>test</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
