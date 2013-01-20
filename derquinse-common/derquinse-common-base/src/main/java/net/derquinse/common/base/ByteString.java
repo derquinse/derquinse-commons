@@ -324,6 +324,27 @@ public final class ByteString implements Serializable {
 		return b.toString();
 	}
 
+	private String toHexString(char[] toDigits, int maxBytes) {
+		final int nBytes = Math.min(maxBytes, bytes.length);
+		final int length = 2 * nBytes;
+		final StringBuilder b = new StringBuilder(length);
+		for (int i = 0; i < nBytes; i++) {
+			b.append(toDigits[(0xF0 & bytes[i]) >>> 4]);
+			b.append(toDigits[0x0F & bytes[i]]);
+		}
+		return b.toString();
+	}
+
+	/**
+	 * Default toString = toHexString (max 32 chars)
+	 */
+	public String toString() {
+		if (bytes.length <= 16) {
+			return toHexString();
+		}
+		return toHexString(DIGITS_LOWER, 14) + "...";
+	}
+
 	// =================================================================
 	// equals() and hashCode()
 
