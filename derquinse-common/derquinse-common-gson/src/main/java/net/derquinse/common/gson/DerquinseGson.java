@@ -34,7 +34,7 @@ public final class DerquinseGson {
 
 	/** Shared instance. */
 	private static volatile Gson instance = null;
-
+	
 	/**
 	 * Decorates a {@link GsonBuilder} with conquiris clases.
 	 * @param builder Builder to decorate.
