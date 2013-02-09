@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class BooleanMetaProperty<C> extends MetaProperty<C, Boolean> {
+public abstract class BooleanMetaProperty<C> extends ComparableMetaProperty<C, Boolean> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.
