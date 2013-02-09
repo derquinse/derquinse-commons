@@ -20,11 +20,12 @@ import javax.annotation.Nullable;
 import com.google.common.base.Predicate;
 
 /**
- * Class for integer-valued property descriptor.
+ * Class for comparable number-valued property descriptor.
  * @author Andres Rodriguez
  * @param <C> Containing type.
+ * @param <T> Property type.
  */
-public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaProperty<C, Integer> {
+public abstract class ComparableNumberMetaProperty<C, T extends Number & Comparable<T>> extends ComparableMetaProperty<C, T> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.
@@ -32,8 +33,8 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param validity Validity predicate.
 	 * @param defaultValue Default value for the property.
 	 */
-	protected IntegerMetaProperty(String name, boolean required, @Nullable Predicate<? super Integer> validity,
-			@Nullable Integer defaultValue) {
+	protected ComparableNumberMetaProperty(String name, boolean required, @Nullable Predicate<? super T> validity,
+			@Nullable T defaultValue) {
 		super(name, required, validity, defaultValue);
 	}
 
@@ -43,7 +44,7 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param required True if the property is required.
 	 * @param validity Validity predicate.
 	 */
-	protected IntegerMetaProperty(String name, boolean required, @Nullable Predicate<? super Integer> validity) {
+	protected ComparableNumberMetaProperty(String name, boolean required, @Nullable Predicate<? super T> validity) {
 		super(name, required, validity);
 	}
 
@@ -52,7 +53,7 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param name Property name.
 	 * @param required True if the property is required.
 	 */
-	protected IntegerMetaProperty(String name, boolean required) {
+	protected ComparableNumberMetaProperty(String name, boolean required) {
 		super(name, required);
 	}
 }

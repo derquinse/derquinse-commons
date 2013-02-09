@@ -15,36 +15,20 @@
  */
 package net.derquinse.common.meta;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Base class for property and flag descriptors.
+ * Property required flag.
  * @author Andres Rodriguez
- * @param <C> Containing type.
  */
-public abstract class Meta<C> implements NameProperty {
-	/** Property name. */
-	private final String name;
+public interface RequiredFlag {
+	/** Descriptor for required flag. */
+	MetaFlag<RequiredFlag> REQUIRED = new MetaFlag<RequiredFlag>("required") {
+		public boolean apply(RequiredFlag input) {
+			return input.isRequired();
+		}
+	};
 
 	/**
-	 * Default constructor.
-	 * @param name Property name.
+	 * Returns whether the property is required.
 	 */
-	Meta(String name) {
-		this.name = checkNotNull(name, "The name property must be provided");
-	}
-
-	/**
-	 * Returns the property name.
-	 * @return The property name.
-	 */
-	@Override
-	public final String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
-		return Metas.toStringHelper(this).add(NAME).toString();
-	}
+	boolean isRequired();
 }

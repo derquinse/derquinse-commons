@@ -15,36 +15,22 @@
  */
 package net.derquinse.common.meta;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Base class for property and flag descriptors.
+ * Property name property.
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class Meta<C> implements NameProperty {
-	/** Property name. */
-	private final String name;
-
-	/**
-	 * Default constructor.
-	 * @param name Property name.
-	 */
-	Meta(String name) {
-		this.name = checkNotNull(name, "The name property must be provided");
-	}
+public interface NameProperty {
+	/** Descriptor for name property. */
+	StringMetaProperty<NameProperty> NAME = new StringMetaProperty<NameProperty>("name", true) {
+		public String apply(NameProperty input) {
+			return input.getName();
+		}
+	};
 
 	/**
 	 * Returns the property name.
 	 * @return The property name.
 	 */
-	@Override
-	public final String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
-		return Metas.toStringHelper(this).add(NAME).toString();
-	}
+	String getName();
 }

@@ -32,14 +32,7 @@ import com.google.common.base.Predicates;
  * @param <C> Containing type.
  * @param <T> Property type.
  */
-public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, T> {
-	/** Descriptor for required flag. */
-	public static final MetaFlag<MetaProperty<?, ?>> REQUIRED = new MetaFlag<MetaProperty<?, ?>>("required") {
-		public boolean apply(MetaProperty<?, ?> input) {
-			return input.isRequired();
-		}
-	};
-
+public abstract class MetaProperty<C, T> extends Meta<C> implements RequiredFlag, Function<C, T> {
 	/** Whether the property is required. */
 	private final boolean required;
 	/** Validity predicate. */
@@ -88,6 +81,7 @@ public abstract class MetaProperty<C, T> extends Meta<C> implements Function<C, 
 	/**
 	 * Returns whether the property is required.
 	 */
+	@Override
 	public final boolean isRequired() {
 		return required;
 	}

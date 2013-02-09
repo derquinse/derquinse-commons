@@ -24,7 +24,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class ByteMetaProperty<C> extends MetaProperty<C, Byte> {
+public abstract class ByteMetaProperty<C> extends ComparableNumberMetaProperty<C, Byte> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.

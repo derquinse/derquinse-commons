@@ -15,16 +15,18 @@
  */
 package net.derquinse.common.meta;
 
+import java.math.BigDecimal;
+
 import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
 /**
- * Class for integer-valued property descriptor.
+ * Class for {@link BigDecimal}-valued property descriptor.
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaProperty<C, Integer> {
+public abstract class BigDecimalMetaProperty<C> extends ComparableNumberMetaProperty<C, BigDecimal> {
 	/**
 	 * Default constructor.
 	 * @param name Property name.
@@ -32,8 +34,8 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param validity Validity predicate.
 	 * @param defaultValue Default value for the property.
 	 */
-	protected IntegerMetaProperty(String name, boolean required, @Nullable Predicate<? super Integer> validity,
-			@Nullable Integer defaultValue) {
+	protected BigDecimalMetaProperty(String name, boolean required, @Nullable Predicate<? super BigDecimal> validity,
+			@Nullable BigDecimal defaultValue) {
 		super(name, required, validity, defaultValue);
 	}
 
@@ -43,7 +45,7 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param required True if the property is required.
 	 * @param validity Validity predicate.
 	 */
-	protected IntegerMetaProperty(String name, boolean required, @Nullable Predicate<? super Integer> validity) {
+	protected BigDecimalMetaProperty(String name, boolean required, @Nullable Predicate<? super BigDecimal> validity) {
 		super(name, required, validity);
 	}
 
@@ -52,7 +54,7 @@ public abstract class IntegerMetaProperty<C> extends ComparableNumberMetaPropert
 	 * @param name Property name.
 	 * @param required True if the property is required.
 	 */
-	protected IntegerMetaProperty(String name, boolean required) {
+	protected BigDecimalMetaProperty(String name, boolean required) {
 		super(name, required);
 	}
 }
