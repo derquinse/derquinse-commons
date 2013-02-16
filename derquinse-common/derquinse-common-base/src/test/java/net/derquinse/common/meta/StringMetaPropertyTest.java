@@ -53,6 +53,15 @@ public class StringMetaPropertyTest {
 		assertEquals(VALUE0.toLowerCase(), TestObject.SAMPLE.compose(lower).apply(obj));
 		//System.out.println(obj);
 	}
+
+	/**
+	 * Sample property types.
+	 */
+	@Test
+	public void types() {
+		assertEquals(TestObject.SAMPLE.getEnclosingType().getType(), TestObject.class);
+		assertEquals(TestObject.SAMPLE.getPropertyType().getType(), String.class);
+	}
 	
 	private static final class TestObject {
 		/** Descriptor for sample property. */

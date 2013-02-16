@@ -17,12 +17,17 @@ package net.derquinse.common.meta;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.reflect.TypeToken;
+
 /**
  * Base class for property and flag descriptors.
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
 public abstract class Meta<C> implements NameProperty {
+	/** Enclosing type. */
+	@SuppressWarnings("serial")
+	private final transient TypeToken<C> enclosingType = new TypeToken<C>(getClass()) {};
 	/** Property name. */
 	private final String name;
 
@@ -32,6 +37,11 @@ public abstract class Meta<C> implements NameProperty {
 	 */
 	Meta(String name) {
 		this.name = checkNotNull(name, "The name property must be provided");
+	}
+
+	/** Returns the enclosing type. */
+	public final TypeToken<C> getEnclosingType() {
+		return enclosingType;
 	}
 
 	/**
