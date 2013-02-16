@@ -19,6 +19,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.lang.reflect.Type;
 
+import com.google.common.reflect.TypeToken;
+
 /**
  * Base class for classes that make reference to themselves' types.
  * @author Andres Rodriguez
@@ -32,8 +34,9 @@ public abstract class This<T extends This<T>> {
 	 */
 	public This() {
 		final Class<?> thisClass = getClass();
-		final Type argument = Types.getSuperclassTypeArgument(thisClass);
-		final Class<?> raw = MoreTypes.getRawType(argument);
+		@SuppressWarnings("serial")
+		final TypeToken<T> token = new TypeToken<T>(thisClass) {};
+		Type raw = token.getRawType();
 		checkArgument(thisClass.equals(raw));
 	}
 

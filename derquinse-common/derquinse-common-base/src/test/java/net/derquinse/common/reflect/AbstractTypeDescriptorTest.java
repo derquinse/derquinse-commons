@@ -31,8 +31,7 @@ public class AbstractTypeDescriptorTest {
 	 */
 	@Test
 	public void string() {
-		TypeDescriptor<String> d = new AbstractTypeDescriptor<String>() {
-		};
+		TypeDescriptor<String> d = new AbstractTypeDescriptor<String>() {};
 		assertTrue(d.getType().equals(String.class));
 		assertTrue(d.getRawType().equals(String.class));
 	}
@@ -42,9 +41,8 @@ public class AbstractTypeDescriptorTest {
 	 */
 	@Test
 	public void generic() {
-		TypeDescriptor<List<String>> d = new AbstractTypeDescriptor<List<String>>() {
-		};
-		assertTrue(d.getType().equals(Types.listOf(String.class)));
+		TypeDescriptor<List<String>> d = new AbstractTypeDescriptor<List<String>>() {};
+		assertTrue(d.getType().equals(Types.listOf(String.class).getType()));
 		assertTrue(d.getRawType().equals(List.class));
 	}
 

@@ -16,21 +16,22 @@
 package net.derquinse.common.reflect;
 
 import com.google.common.base.Function;
+import com.google.common.reflect.TypeToken;
 
 /**
- * Interface for the "raw type" property.
+ * Interface for the "type token" property.
  * @author Andres Rodriguez
  */
-public interface WithRawTypeProperty<T> {
-	Function<WithRawTypeProperty<?>, Class<?>> RAW_TYPE = new Function<WithRawTypeProperty<?>, Class<?>>() {
-		public Class<?> apply(WithRawTypeProperty<?> from) {
-			return from.getRawType();
+public interface WithTypeTokenProperty<T> {
+	Function<WithTypeTokenProperty<?>, TypeToken<?>> TYPE_TOKEN = new Function<WithTypeTokenProperty<?>, TypeToken<?>>() {
+		public TypeToken<?> apply(WithTypeTokenProperty<?> from) {
+			return from.getTypeToken();
 		}
 	};
 
 	/**
-	 * Returns the raw type.
-	 * @return The raw type.
+	 * Returns the type token.
+	 * @return The type token.
 	 */
-	Class<? super T> getRawType();
+	TypeToken<T> getTypeToken();
 }

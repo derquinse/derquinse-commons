@@ -15,11 +15,9 @@
  */
 package net.derquinse.common.reflect;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.derquinse.common.reflect.Types.getSuperclassTypeArgument;
-
 import java.lang.reflect.Type;
 
+import com.google.common.reflect.TypeToken;
 
 /**
  * Skeletal implementation of a type descriptors.
@@ -27,16 +25,13 @@ import java.lang.reflect.Type;
  * @param <T> Described type.
  */
 public class AbstractTypeDescriptor<T> implements TypeDescriptor<T> {
-	/** The type. */
-	private final Type type;
-	/** The raw type. */
-	private final Class<? super T> rawType;
+	/** Type token. */
+	@SuppressWarnings("serial")
+	private final TypeToken<T> typeToken = new TypeToken<T>(getClass()) {
+	};
 
 	/** Constructor. */
-	@SuppressWarnings("unchecked")
 	protected AbstractTypeDescriptor() {
-		this.type = getSuperclassTypeArgument(getClass());
-		this.rawType = (Class<? super T>) Types.getRawType(this.type);
 	}
 
 	/**
@@ -44,31 +39,41 @@ public class AbstractTypeDescriptor<T> implements TypeDescriptor<T> {
 	 * @param type Raw type.
 	 */
 	protected AbstractTypeDescriptor(Class<T> type) {
-		this.type = checkNotNull(type, "The type must be provided");
-		this.rawType = type;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.derquinse.common.reflect.WithTypeTokenProperty#getTypeToken()
+	 */
+	@Override
+	public final TypeToken<T> getTypeToken() {
+		return typeToken;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.reflect.WithTypeProperty#getType()
 	 */
+	@Override
 	public final Type getType() {
-		return type;
+		return typeToken.getType();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.reflect.AboutType#getRawType()
 	 */
+	@Override
 	public Class<? super T> getRawType() {
-		return rawType;
+		return typeToken.getRawType();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.derquinse.common.reflect.AboutType#isRawType()
 	 */
+	@Override
 	public final boolean isRawType() {
-		return type == rawType;
+		return getType() == getRawType();
 	}
 }

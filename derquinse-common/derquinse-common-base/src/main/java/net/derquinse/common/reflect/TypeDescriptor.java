@@ -22,13 +22,7 @@ import com.google.common.base.Predicate;
  * @author Andres Rodriguez
  * @param <T> Described type.
  */
-public interface TypeDescriptor<T> extends WithTypeProperty, WithRawTypeProperty {
-	/**
-	 * Returns the raw type.
-	 * @return The raw type.
-	 */
-	Class<? super T> getRawType();
-
+public interface TypeDescriptor<T> extends WithTypeTokenProperty<T>, WithTypeProperty, WithRawTypeProperty<T> {
 	/** Is raw type predicate. */
 	Predicate<TypeDescriptor<?>> IS_RAW_TYPE = new Predicate<TypeDescriptor<?>>() {
 		public boolean apply(TypeDescriptor<?> input) {
