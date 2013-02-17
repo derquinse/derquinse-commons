@@ -32,7 +32,7 @@ public abstract class This<T extends This<T>> {
 	 * @throws IllegalArgumentException if the type argument is not the same (raw type) as the actual
 	 *           class.
 	 */
-	public This() {
+	protected This() {
 		final Class<?> thisClass = getClass();
 		@SuppressWarnings("serial")
 		final TypeToken<T> token = new TypeToken<T>(thisClass) {};

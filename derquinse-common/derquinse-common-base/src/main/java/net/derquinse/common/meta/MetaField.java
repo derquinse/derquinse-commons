@@ -24,7 +24,7 @@ import com.google.common.reflect.TypeToken;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class Meta<C> implements NameProperty {
+public abstract class MetaField<C> implements NameProperty {
 	/** Enclosing type. */
 	@SuppressWarnings("serial")
 	private final transient TypeToken<C> enclosingType = new TypeToken<C>(getClass()) {};
@@ -35,7 +35,7 @@ public abstract class Meta<C> implements NameProperty {
 	 * Default constructor.
 	 * @param name Property name.
 	 */
-	Meta(String name) {
+	MetaField(String name) {
 		this.name = checkNotNull(name, "The name property must be provided");
 	}
 

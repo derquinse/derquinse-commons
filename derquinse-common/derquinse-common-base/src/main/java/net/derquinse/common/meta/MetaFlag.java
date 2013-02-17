@@ -27,7 +27,7 @@ import com.google.common.collect.Iterables;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class MetaFlag<C> extends Meta<C> implements Predicate<C> {
+public abstract class MetaFlag<C> extends MetaField<C> implements Predicate<C> {
 	/** Default value. */
 	private final boolean defaultValue;
 
