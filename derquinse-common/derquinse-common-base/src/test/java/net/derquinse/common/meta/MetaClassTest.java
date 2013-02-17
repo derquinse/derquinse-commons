@@ -24,6 +24,9 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+
 /**
  * Tests for {@link MetaClass}
  * @author Andres Rodriguez
@@ -78,7 +81,30 @@ public class MetaClassTest {
 		assertEquals(mc.getDeclaredFields().size(), 1);
 		assertEquals(mc.getFields().size(), 1);
 	}
-	
+
+	@Test
+	public void metaField() {
+		@SuppressWarnings("rawtypes")
+		MetaClass<MetaField> mc = MetaClass.of(MetaField.class);
+		assertFalse(mc.isRoot());
+		assertEquals(mc.getSuperclass(), ROOT);
+		assertEquals(mc.getSuperinterfaces(), ImmutableList.of(MetaClass.of(WithNameProperty.class)));
+		assertTrue(mc.getDeclaredFields().isEmpty());
+		assertEquals(mc.getFields(), ImmutableMap.of(WithNameProperty.NAME.getName(), WithNameProperty.NAME));
+	}
+
+	@Test
+	public void metaProperty() {
+		@SuppressWarnings("rawtypes")
+		MetaClass<MetaProperty> mc = MetaClass.of(MetaProperty.class);
+		assertFalse(mc.isRoot());
+		assertEquals(mc.getSuperclass(), MetaClass.of(MetaField.class));
+		assertEquals(mc.getSuperinterfaces(), ImmutableList.of(MetaClass.of(WithRequiredFlag.class)));
+		assertTrue(mc.getDeclaredFields().isEmpty());
+		assertEquals(mc.getFields(), ImmutableMap.of(WithNameProperty.NAME.getName(), WithNameProperty.NAME,
+				WithRequiredFlag.REQUIRED.getName(), WithRequiredFlag.REQUIRED));
+	}
+
 	interface I1 {
 	}
 

@@ -24,7 +24,7 @@ import com.google.common.reflect.TypeToken;
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
-public abstract class MetaField<C> implements NameProperty {
+public abstract class MetaField<C> implements WithNameProperty {
 	/** Enclosing type. */
 	@SuppressWarnings("serial")
 	private final transient TypeToken<C> enclosingType = new TypeToken<C>(getClass()) {};

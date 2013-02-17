@@ -33,7 +33,7 @@ import com.google.common.reflect.TypeToken;
  * @param <C> Containing type.
  * @param <T> Property type.
  */
-public abstract class MetaProperty<C, T> extends MetaField<C> implements RequiredFlag, Function<C, T> {
+public abstract class MetaProperty<C, T> extends MetaField<C> implements WithRequiredFlag, Function<C, T> {
 	/** Property type. */
 	@SuppressWarnings("serial")
 	private final transient TypeToken<T> propertyType = new TypeToken<T>(getClass()) {};

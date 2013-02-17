@@ -16,19 +16,20 @@
 package net.derquinse.common.meta;
 
 /**
- * Property required flag.
+ * Property name property.
  * @author Andres Rodriguez
  */
-public interface RequiredFlag {
-	/** Descriptor for required flag. */
-	MetaFlag<RequiredFlag> REQUIRED = new MetaFlag<RequiredFlag>("required") {
-		public boolean apply(RequiredFlag input) {
-			return input.isRequired();
+public interface WithNameProperty extends WithMetaClass {
+	/** Descriptor for name property. */
+	StringMetaProperty<WithNameProperty> NAME = new StringMetaProperty<WithNameProperty>("name", true) {
+		public String apply(WithNameProperty input) {
+			return input.getName();
 		}
 	};
 
 	/**
-	 * Returns whether the property is required.
+	 * Returns the property name.
+	 * @return The property name.
 	 */
-	boolean isRequired();
+	String getName();
 }
