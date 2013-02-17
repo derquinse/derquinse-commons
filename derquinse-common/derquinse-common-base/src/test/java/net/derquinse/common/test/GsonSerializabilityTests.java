@@ -20,6 +20,7 @@ import static org.testng.Assert.assertNotNull;
 
 import java.lang.reflect.Type;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 /**
@@ -58,6 +59,21 @@ public final class GsonSerializabilityTests {
 	}
 
 	/**
+	 * Checks serializability of one object and (if desired) equality of the provided instance and the
+	 * deserialized one.
+	 * @param gson Gson instance to use.
+	 * @param obj Object to test.
+	 * @param type Type to use for deserialization.
+	 * @param equality Whether to test for equality.
+	 * @return The deserialized instance.
+	 * @throws UnableToSerializeException
+	 * @see EqualityTests#two(Object, Object)
+	 */
+	public static <T> T check(Gson gson, T obj, TypeToken<T> type, boolean equality) throws UnableToSerializeException {
+		return check(gson, obj, type.getType(), equality);
+	}
+
+	/**
 	 * Checks serializability of one object and equality of the provided instance and the deserialized
 	 * one.
 	 * @param gson Gson instance to use.
@@ -69,6 +85,20 @@ public final class GsonSerializabilityTests {
 	 */
 	public static <T> T check(Gson gson, T obj, Type type) throws UnableToSerializeException {
 		return check(gson, obj, type, true);
+	}
+
+	/**
+	 * Checks serializability of one object and equality of the provided instance and the deserialized
+	 * one.
+	 * @param gson Gson instance to use.
+	 * @param obj Object to test.
+	 * @param type Type to use for deserialization.
+	 * @return The deserialized instance.
+	 * @throws UnableToSerializeException
+	 * @see EqualityTests#two(Object, Object)
+	 */
+	public static <T> T check(Gson gson, T obj, TypeToken<T> type) throws UnableToSerializeException {
+		return check(gson, obj, type.getType(), true);
 	}
 
 	/**
@@ -99,6 +129,20 @@ public final class GsonSerializabilityTests {
 	}
 
 	/**
+	 * Checks serializability of one object and (if desired) equality of the provided instance and the
+	 * deserialized one.
+	 * @param obj Object to test.
+	 * @param type Type to use for deserialization.
+	 * @param equality Whether to test for equality.
+	 * @return The deserialized instance.
+	 * @throws UnableToSerializeException
+	 * @see EqualityTests#two(Object, Object)
+	 */
+	public static <T> T check(T obj, TypeToken<T> type, boolean equality) throws UnableToSerializeException {
+		return check(new Gson(), obj, type.getType(), equality);
+	}
+
+	/**
 	 * Checks serializability of one object and equality of the provided instance and the deserialized
 	 * one.
 	 * @param obj Object to test.
@@ -109,6 +153,19 @@ public final class GsonSerializabilityTests {
 	 */
 	public static <T> T check(T obj, Type type) throws UnableToSerializeException {
 		return check(obj, type, true);
+	}
+
+	/**
+	 * Checks serializability of one object and equality of the provided instance and the deserialized
+	 * one.
+	 * @param obj Object to test.
+	 * @param type Type to use for deserialization.
+	 * @return The deserialized instance.
+	 * @throws UnableToSerializeException
+	 * @see EqualityTests#two(Object, Object)
+	 */
+	public static <T> T check(T obj, TypeToken<T> type) throws UnableToSerializeException {
+		return check(obj, type.getType(), true);
 	}
 
 	/**

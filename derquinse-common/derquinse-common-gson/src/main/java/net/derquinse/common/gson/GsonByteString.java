@@ -15,39 +15,48 @@
  */
 package net.derquinse.common.gson;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import java.lang.reflect.Type;
+import java.io.IOException;
 
 import net.derquinse.common.base.ByteString;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 
 /**
  * Gson representation for {@link ByteString}.
  * @author Andres Rodriguez
  */
-public final class GsonByteString implements JsonSerializer<ByteString>, JsonDeserializer<ByteString> {
+public final class GsonByteString extends TypeAdapter<ByteString> {
 	/** Constructor. */
 	public GsonByteString() {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
+	 */
 	@Override
-	public JsonElement serialize(ByteString src, Type typeOfSrc, JsonSerializationContext context) {
-		return new JsonPrimitive(src.toHexString());
+	public ByteString read(JsonReader in) throws IOException {
+		if (in.peek() == JsonToken.NULL) {
+			in.nextNull();
+			return null;
+		}
+		final String string = in.nextString();
+		return ByteString.fromHexString(string);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
+	 */
 	@Override
-	public ByteString deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-			throws JsonParseException {
-		checkArgument(json.isJsonPrimitive(), "Expected JSON String to deserialize ByteString object.");
-		final String string = json.getAsString();
-		return ByteString.fromHexString(string);
+	public void write(JsonWriter out, ByteString value) throws IOException {
+		if (value == null) {
+			out.nullValue();
+			return;
+		}
+		out.value(value.toHexString());
 	}
 }

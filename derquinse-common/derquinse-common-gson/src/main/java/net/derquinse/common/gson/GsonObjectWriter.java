@@ -21,13 +21,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import net.derquinse.common.meta.BooleanMetaProperty;
 import net.derquinse.common.meta.CharacterMetaProperty;
-import net.derquinse.common.meta.DoubleMetaProperty;
-import net.derquinse.common.meta.FloatMetaProperty;
-import net.derquinse.common.meta.IntegerMetaProperty;
-import net.derquinse.common.meta.LongMetaProperty;
+import net.derquinse.common.meta.ComparableNumberMetaProperty;
 import net.derquinse.common.meta.MetaFlag;
 import net.derquinse.common.meta.MetaProperty;
-import net.derquinse.common.meta.ShortMetaProperty;
 import net.derquinse.common.meta.StringMetaProperty;
 
 import com.google.gson.JsonObject;
@@ -138,28 +134,8 @@ public final class GsonObjectWriter<T> {
 		return add(property.getName(), property.apply(source));
 	}
 
-	/** Adds an integer property. */
-	public GsonObjectWriter<T> add(IntegerMetaProperty<? super T> property) {
-		return add(property.getName(), property.apply(source));
-	}
-
-	/** Adds a long property. */
-	public GsonObjectWriter<T> add(LongMetaProperty<? super T> property) {
-		return add(property.getName(), property.apply(source));
-	}
-
-	/** Adds a short property. */
-	public GsonObjectWriter<T> add(ShortMetaProperty<? super T> property) {
-		return add(property.getName(), property.apply(source));
-	}
-
-	/** Adds a float property. */
-	public GsonObjectWriter<T> add(FloatMetaProperty<? super T> property) {
-		return add(property.getName(), property.apply(source));
-	}
-
-	/** Adds a double property. */
-	public GsonObjectWriter<T> add(DoubleMetaProperty<? super T> property) {
+	/** Adds a number property. */
+	public GsonObjectWriter<T> add(ComparableNumberMetaProperty<? super T, ?> property) {
 		return add(property.getName(), property.apply(source));
 	}
 
