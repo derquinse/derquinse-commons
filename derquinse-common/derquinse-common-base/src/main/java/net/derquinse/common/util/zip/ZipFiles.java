@@ -76,7 +76,7 @@ public final class ZipFiles extends NotInstantiable {
 		try {
 			return loadZip(is);
 		} finally {
-			Closeables.closeQuietly(is);
+			Closeables.close(is, true);
 		}
 	}
 
@@ -85,17 +85,22 @@ public final class ZipFiles extends NotInstantiable {
 		ByteArrayInputStream is = new ByteArrayInputStream(input);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(input.length);
 		try {
-			GZIPOutputStream zos = new GZIPOutputStream(bos);
 			try {
-				ByteStreams.copy(is, zos);
+				GZIPOutputStream zos = new GZIPOutputStream(bos);
+				try {
+					ByteStreams.copy(is, zos);
+				} finally {
+					Closeables.close(zos, true);
+				}
+			} catch (IOException e) {
+				// Should not happen.
+				throw new RuntimeException(e);
 			} finally {
-				Closeables.closeQuietly(zos);
+				Closeables.close(is, true);
 			}
 		} catch (IOException e) {
 			// Should not happen.
 			throw new RuntimeException(e);
-		} finally {
-			Closeables.closeQuietly(is);
 		}
 		return bos.toByteArray();
 	}
@@ -122,16 +127,20 @@ public final class ZipFiles extends NotInstantiable {
 		ByteArrayInputStream is = new ByteArrayInputStream(input);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(input.length);
 		try {
-			GZIPInputStream zis = new GZIPInputStream(is);
 			try {
-				ByteStreams.copy(zis, bos);
+				GZIPInputStream zis = new GZIPInputStream(is);
+				try {
+					ByteStreams.copy(zis, bos);
+				} finally {
+					Closeables.close(zis, true);
+				}
+			} catch (IOException e) {
+				throw new IllegalArgumentException(e);
 			} finally {
-				Closeables.closeQuietly(zis);
+				Closeables.close(bos, true);
 			}
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e);
-		} finally {
-			Closeables.closeQuietly(bos);
 		}
 		return bos.toByteArray();
 	}
@@ -217,7 +226,7 @@ public final class ZipFiles extends NotInstantiable {
 		try {
 			return loadZipAndGZip(is);
 		} finally {
-			Closeables.closeQuietly(is);
+			Closeables.close(is, true);
 		}
 	}
 
