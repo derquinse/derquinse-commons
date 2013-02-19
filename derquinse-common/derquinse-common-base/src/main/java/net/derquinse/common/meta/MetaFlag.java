@@ -30,6 +30,8 @@ import com.google.common.collect.Iterables;
 public abstract class MetaFlag<C> extends MetaField<C> implements Predicate<C> {
 	/** Default value. */
 	private final boolean defaultValue;
+	/** Property view. Preinstantiated to guarantee constant identity. */
+	private final FlagProperty property;
 
 	/**
 	 * Default constructor.
@@ -39,6 +41,7 @@ public abstract class MetaFlag<C> extends MetaField<C> implements Predicate<C> {
 	protected MetaFlag(String name, boolean defaultValue) {
 		super(name);
 		this.defaultValue = defaultValue;
+		this.property = new FlagProperty();
 	}
 
 	/**
@@ -60,7 +63,7 @@ public abstract class MetaFlag<C> extends MetaField<C> implements Predicate<C> {
 	 * Returns a view of the flag as a Boolean property.
 	 */
 	public final BooleanMetaProperty<C> asProperty() {
-		return new FlagProperty();
+		return property;
 	}
 
 	/**
@@ -146,11 +149,6 @@ public abstract class MetaFlag<C> extends MetaField<C> implements Predicate<C> {
 
 		public Boolean apply(C input) {
 			return get().apply(input);
-		}
-
-		@Override
-		public int hashCode() {
-			return get().hashCode();
 		}
 
 		@Override

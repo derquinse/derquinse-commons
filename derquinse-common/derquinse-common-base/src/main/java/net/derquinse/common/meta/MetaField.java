@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.reflect.TypeToken;
 
 /**
- * Base class for property and flag descriptors.
+ * Base class for property and flag descriptors. Meta fields use identity equality.
  * @author Andres Rodriguez
  * @param <C> Containing type.
  */
@@ -51,6 +51,18 @@ public abstract class MetaField<C> implements WithNameProperty {
 	@Override
 	public final String getName() {
 		return name;
+	}
+
+	/** Uses identity hash code. */
+	@Override
+	public final int hashCode() {
+		return super.hashCode();
+	}
+
+	/** Uses identity equality. */
+	@Override
+	public boolean equals(Object obj) {
+		return this == obj;
 	}
 
 	@Override
