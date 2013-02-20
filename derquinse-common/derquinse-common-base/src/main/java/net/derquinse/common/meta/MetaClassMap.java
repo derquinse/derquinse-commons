@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentMap;
 import net.derquinse.common.log.ContextLog;
 
 import com.google.common.collect.MapMaker;
+import com.google.common.reflect.Reflection;
 import com.google.common.reflect.TypeToken;
 
 /**
@@ -50,11 +51,7 @@ final class MetaClassMap {
 		MetaClass<T> metaClass = internalGet(checkNotNull(type, "The type must be provided"));
 		if (metaClass == null) {
 			// Try to initialize the class
-			try {
-				Class.forName(type.getRawType().getName());
-			} catch (ClassNotFoundException e) {
-				throw new IllegalStateException(e);
-			}
+			Reflection.initialize(type.getRawType());
 			metaClass = internalGet(type);
 		}
 		return metaClass;

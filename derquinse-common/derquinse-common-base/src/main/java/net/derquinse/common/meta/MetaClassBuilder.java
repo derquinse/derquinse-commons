@@ -25,6 +25,7 @@ import java.util.Map;
 
 import net.derquinse.common.base.Builder;
 
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -43,9 +44,9 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 	/** Super interfaces. */
 	private final ImmutableList<MetaClass<? super T>> superinterfaces;
 	/** Declared field map. */
-	private final ImmutableMap<String, MetaField<? super T>> declaredFields;
+	private final ImmutableBiMap<String, MetaField<? super T>> declaredFields;
 	/** All field map. */
-	private final ImmutableMap<String, MetaField<? super T>> fields;
+	private final ImmutableBiMap<String, MetaField<? super T>> fields;
 
 	private static boolean publicStaticFinal(Member m) {
 		int modifiers = m.getModifiers();
@@ -71,7 +72,7 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 		}
 		this.superinterfaces = builder.build();
 		// 3 - Declared fields
-		ImmutableMap.Builder<String, MetaField<? super T>> fieldBuilder = ImmutableMap.builder();
+		ImmutableBiMap.Builder<String, MetaField<? super T>> fieldBuilder = ImmutableBiMap.builder();
 		for (Field f : raw.getDeclaredFields()) {
 			// We get public static final MetaFields that are type compatible.
 			if (publicStaticFinal(f)) {
@@ -104,7 +105,7 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 			this.fields = declaredFields;
 		} else {
 			fmap.putAll(declaredFields);
-			this.fields = ImmutableMap.copyOf(fmap);
+			this.fields = ImmutableBiMap.copyOf(fmap);
 		}
 	}
 

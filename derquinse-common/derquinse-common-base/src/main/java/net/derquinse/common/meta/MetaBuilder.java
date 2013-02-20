@@ -15,16 +15,47 @@
  */
 package net.derquinse.common.meta;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Map;
+
 import net.derquinse.common.base.Builder;
 
+import com.google.common.collect.Maps;
+
 /**
- * Meta builder interface.
+ * Meta builder class.
  * @author Andres Rodriguez
- * @param <T> Described type.
+ * @param <T> Built type.
  */
-public interface MetaBuilder<T extends WithMetaClass> extends Builder<T> {
+public abstract class MetaBuilder<T extends WithMetaClass> implements Builder<T> {
+	/** Meta class. */
+	private final MetaClass<T> metaClass;
+	/** Property value map. */
+	private final Map<MetaField<? super T>, Object> values = Maps.newHashMap();
+
+	MetaBuilder(MetaClass<T> metaClass) {
+		this.metaClass = checkNotNull(metaClass);
+	}
+
+	final void checkField(MetaField<? super T> field) {
+		if (!metaClass.getFields().containsValue(field)) {
+			throw new IllegalArgumentException(String.format("MetaClass [%s] does not contain field [%s]", metaClass, field));
+		}
+	}
+
+	final void checkFieldNotSet(MetaField<? super T> field) {
+		checkField(field);
+		if (values.containsKey(field)) {
+			throw new IllegalArgumentException(String.format("Value already set for field [%s] of MetaClass [%s]", field,
+					metaClass));
+		}
+	}
+
 	/** Returns the metaclass of the object to build. */
-	MetaClass<T> getMetaClass();
+	public final MetaClass<T> getMetaClass() {
+		return metaClass;
+	}
 
 	/**
 	 * Sets a property value.
@@ -35,7 +66,12 @@ public interface MetaBuilder<T extends WithMetaClass> extends Builder<T> {
 	 * @throws IllegalArgumentException If the value is not allowed for the property.
 	 * @throws IllegalStateException If the value has already been set.
 	 */
-	<V> MetaBuilder<T> set(MetaProperty<? super T, V> property, V value);
+	public final <V> MetaBuilder<T> set(MetaProperty<? super T, V> property, V value) {
+		checkFieldNotSet(property);
+		property.checkValue(value);
+		values.put(property, value);
+		return this;
+	}
 
 	/**
 	 * Sets a flag value.
@@ -46,6 +82,10 @@ public interface MetaBuilder<T extends WithMetaClass> extends Builder<T> {
 	 * @throws IllegalArgumentException If the value is not allowed for the property.
 	 * @throws IllegalStateException If the value has already been set.
 	 */
-	<V> MetaBuilder<T> set(MetaFlag<? super T> property, V value);
+	public final MetaBuilder<T> set(MetaFlag<? super T> flag, boolean value) {
+		checkFieldNotSet(flag);
+		values.put(flag, value);
+		return this;
+	}
 
 }
