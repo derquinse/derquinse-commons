@@ -83,7 +83,7 @@ final class InterfaceMetaBuilderFactory<T extends WithMetaClass> extends MetaBui
 			Map<String, MetaField<? super T, ?>> fields) {
 		final MetaField<? super T, ?> field = lookup(method, IS, fields);
 		if (field instanceof MetaFlag<?>) {
-			return checkReturnType(method, field, ((MetaProperty<?, ?>) field).getFieldType());
+			return checkReturnType(method, field, field.getFieldType());
 		}
 		if (field instanceof MetaProperty<?, ?>) {
 			if (!BOOLEAN.isAssignableFrom(((MetaProperty<?, ?>) field).getFieldType())) {
