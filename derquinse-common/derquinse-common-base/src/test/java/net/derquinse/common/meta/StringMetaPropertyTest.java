@@ -19,8 +19,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import net.derquinse.common.meta.StringMetaProperty;
-
 import org.testng.annotations.Test;
 
 import com.google.common.base.Function;
@@ -43,15 +41,15 @@ public class StringMetaPropertyTest {
 		assertFalse(TestObject.SAMPLE.isValid(null));
 		assertTrue(TestObject.SAMPLE.notNull().apply(obj));
 		assertFalse(TestObject.SAMPLE.isNull().apply(obj));
-		
+
 		final Function<String, String> lower = new Function<String, String>() {
 			public String apply(String input) {
 				return input.toLowerCase();
 			}
 		};
-		
+
 		assertEquals(VALUE0.toLowerCase(), TestObject.SAMPLE.compose(lower).apply(obj));
-		//System.out.println(obj);
+		// System.out.println(obj);
 	}
 
 	/**
@@ -60,9 +58,9 @@ public class StringMetaPropertyTest {
 	@Test
 	public void types() {
 		assertEquals(TestObject.SAMPLE.getEnclosingType().getType(), TestObject.class);
-		assertEquals(TestObject.SAMPLE.getPropertyType().getType(), String.class);
+		assertEquals(TestObject.SAMPLE.getFieldType().getType(), String.class);
 	}
-	
+
 	private static final class TestObject {
 		/** Descriptor for sample property. */
 		public static final StringMetaProperty<TestObject> SAMPLE = new StringMetaProperty<TestObject>("sample", true) {
@@ -70,18 +68,18 @@ public class StringMetaPropertyTest {
 				return input.getSample();
 			}
 		};
-		
+
 		/** Sample property. */
 		private final String sample;
-		
+
 		public TestObject(String sample) {
 			this.sample = SAMPLE.checkValue(sample);
 		}
-		
+
 		public String getSample() {
 			return sample;
 		}
-		
+
 		@Override
 		public String toString() {
 			return Metas.toStringHelper(this).add(SAMPLE).toString();

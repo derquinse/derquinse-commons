@@ -15,29 +15,18 @@
  */
 package net.derquinse.common.meta;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
-import org.testng.annotations.Test;
-
 /**
- * Tests for {@link MetaField}
+ * Integer primitive property.
  * @author Andres Rodriguez
  */
-public class MetaFieldTest {
-	private static final String VALUE0 = "VaLue0";
+public interface IntegerPrimitiveProperty extends WithMetaClass {
+	/** Descriptor for name property. */
+	IntegerMetaProperty<IntegerPrimitiveProperty> INTEGER_PRIMITIVE = new IntegerMetaProperty<IntegerPrimitiveProperty>(
+			"integerObject", true) {
+		public Integer apply(IntegerPrimitiveProperty input) {
+			return input.getIntegerPrimitive();
+		}
+	};
 
-	/**
-	 * Name property.
-	 */
-	@Test
-	public void name() {
-		final MetaField<Object, Object> meta = new MetaField<Object, Object>(VALUE0) {};
-		assertEquals(meta.getName(), VALUE0);
-		assertEquals(MetaField.NAME.apply(meta), VALUE0);
-		assertFalse(MetaField.NAME.isValid(null));
-		assertTrue(MetaField.NAME.notNull().apply(meta));
-		assertFalse(MetaField.NAME.isNull().apply(meta));
-	}
+	int getIntegerPrimitive();
 }

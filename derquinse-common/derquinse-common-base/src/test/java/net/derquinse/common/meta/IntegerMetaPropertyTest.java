@@ -15,11 +15,15 @@
  */
 package net.derquinse.common.meta;
 
+import static net.derquinse.common.meta.IntegerObjectProperty.INTEGER_OBJECT;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
+
+import com.google.common.reflect.Invokable;
+import com.google.common.reflect.TypeToken;
 
 /**
  * Tests for StringMetaProperty
@@ -39,6 +43,24 @@ public class IntegerMetaPropertyTest {
 		assertFalse(TestObject.SAMPLE.isNull().apply(obj));
 		assertTrue(TestObject.SAMPLE.greaterThan(-3).apply(obj));
 		assertFalse(TestObject.SAMPLE.lessThan(-3).apply(obj));
+	}
+
+	/**
+	 * Return types.
+	 */
+	@Test
+	public void returnTypes() throws Exception {
+		TypeToken<?> t1 = INTEGER_OBJECT.getFieldType();
+		TypeToken<?> t2 = Invokable.from(IntegerObjectProperty.class.getMethod("getIntegerObject")).getReturnType();
+		System.out.println(t1);
+		System.out.println(t2);
+		TypeToken<?> t3 = IntegerPrimitiveProperty.INTEGER_PRIMITIVE.getFieldType();
+		TypeToken<?> t4 = Invokable.from(IntegerPrimitiveProperty.class.getMethod("getIntegerPrimitive")).getReturnType();
+		System.out.println(t3);
+		System.out.println(t4);
+		System.out.println(t4.isAssignableFrom(t3));
+		System.out.println(t4.equals(TypeToken.of(Integer.TYPE)));
+		System.out.println(Integer.TYPE.isAssignableFrom(Integer.class));
 	}
 
 	private static final class TestObject {

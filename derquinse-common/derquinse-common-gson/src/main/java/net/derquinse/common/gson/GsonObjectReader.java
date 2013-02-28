@@ -103,7 +103,7 @@ public final class GsonObjectReader<T> {
 
 		Property(MetaProperty<? super T, V> property) {
 			checkNotNull(property, "The property descriptor is required");
-			this.type = property.getPropertyType();
+			this.type = property.getFieldType();
 			this.name = property.getName();
 			this.defaultValue = property.getDefaultValue();
 		}

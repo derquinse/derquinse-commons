@@ -16,7 +16,6 @@
 package net.derquinse.common.meta;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.reflect.TypeToken;
 
 /**
@@ -76,17 +75,17 @@ public final class MetaClass<T extends WithMetaClass> {
 	/** Super interfaces. */
 	private final ImmutableList<MetaClass<? super T>> superinterfaces;
 	/** Declared field map. */
-	private final ImmutableMap<String, MetaField<? super T>> declaredFields;
+	private final FieldMap<T> declaredFields;
 	/** All field map. */
-	private final ImmutableMap<String, MetaField<? super T>> fields;
+	private final FieldMap<T> fields;
 
 	/** Root constructor. */
 	private MetaClass(Class<T> rootClass) {
 		this.type = TypeToken.of(rootClass);
 		this.superclass = this;
 		this.superinterfaces = ImmutableList.of();
-		this.declaredFields = ImmutableMap.of();
-		this.fields = ImmutableMap.of();
+		this.declaredFields = ImmutableFieldMap.of();
+		this.fields = ImmutableFieldMap.of();
 		register(this);
 	}
 
@@ -123,12 +122,12 @@ public final class MetaClass<T extends WithMetaClass> {
 	}
 
 	/** Returns the declared fields. */
-	public final ImmutableMap<String, MetaField<? super T>> getDeclaredFields() {
+	public final FieldMap<T> getDeclaredFields() {
 		return declaredFields;
 	}
 
 	/** Returns the all fields map. */
-	public ImmutableMap<String, MetaField<? super T>> getFields() {
+	public FieldMap<T> getFields() {
 		return fields;
 	}
 

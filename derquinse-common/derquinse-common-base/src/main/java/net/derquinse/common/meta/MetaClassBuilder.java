@@ -21,14 +21,10 @@ import static net.derquinse.common.meta.MetaClass.ROOT;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
-import java.util.Map;
 
 import net.derquinse.common.base.Builder;
 
-import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 
 /**
@@ -44,9 +40,9 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 	/** Super interfaces. */
 	private final ImmutableList<MetaClass<? super T>> superinterfaces;
 	/** Declared field map. */
-	private final ImmutableBiMap<String, MetaField<? super T>> declaredFields;
+	private final FieldMap<T> declaredFields;
 	/** All field map. */
-	private final ImmutableBiMap<String, MetaField<? super T>> fields;
+	private final FieldMap<T> fields;
 
 	private static boolean publicStaticFinal(Member m) {
 		int modifiers = m.getModifiers();
@@ -72,7 +68,7 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 		}
 		this.superinterfaces = builder.build();
 		// 3 - Declared fields
-		ImmutableBiMap.Builder<String, MetaField<? super T>> fieldBuilder = ImmutableBiMap.builder();
+		ImmutableFieldMap.Builder<T> fieldBuilder = ImmutableFieldMap.builder();
 		for (Field f : raw.getDeclaredFields()) {
 			// We get public static final MetaFields that are type compatible.
 			if (publicStaticFinal(f)) {
@@ -83,29 +79,29 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 					throw new IllegalArgumentException(String.format("Unable to get value of type [%s] field [%s]", type,
 							f.getName()), e);
 				}
-				if (val instanceof MetaField<?>) {
-					MetaField<?> mf = MetaField.class.cast(val);
+				if (val instanceof MetaField<?, ?>) {
+					MetaField<?, ?> mf = MetaField.class.cast(val);
 					if (mf.getEnclosingType().isAssignableFrom(type)) {
 						// Checked in the if
 						@SuppressWarnings("unchecked")
-						MetaField<? super T> smf = (MetaField<? super T>) mf;
-						fieldBuilder.put(smf.getName(), smf);
+						MetaField<? super T, ?> smf = (MetaField<? super T, ?>) mf;
+						fieldBuilder.add(smf);
 					}
 				}
 			}
 		}
 		this.declaredFields = fieldBuilder.build();
 		// 4 - All fields
-		Map<String, MetaField<? super T>> fmap = Maps.newLinkedHashMap();
-		fmap.putAll(this.superclass.getFields());
+		ImmutableFieldMap.Builder<T> fmap = ImmutableFieldMap.builder();
+		fmap.addAll(this.superclass.getFields());
 		for (MetaClass<? super T> mi : this.superinterfaces) {
-			fmap.putAll(mi.getFields());
+			fmap.addAll(mi.getFields());
 		}
 		if (fmap.isEmpty()) {
 			this.fields = declaredFields;
 		} else {
-			fmap.putAll(declaredFields);
-			this.fields = ImmutableBiMap.copyOf(fmap);
+			fmap.addAll(declaredFields);
+			this.fields = fmap.build();
 		}
 	}
 
@@ -135,12 +131,12 @@ public final class MetaClassBuilder<T extends WithMetaClass> implements Builder<
 	}
 
 	/** Returns the declared field map. */
-	public ImmutableMap<String, MetaField<? super T>> getDeclaredFields() {
+	public FieldMap<T> getDeclaredFields() {
 		return declaredFields;
 	}
 
 	/** Returns the all fields map. */
-	public ImmutableMap<String, MetaField<? super T>> getFields() {
+	public FieldMap<T> getFields() {
 		return fields;
 	}
 

@@ -23,12 +23,16 @@ import com.google.common.reflect.TypeToken;
  * Base class for property and flag descriptors. Meta fields use identity equality.
  * @author Andres Rodriguez
  * @param <C> Containing type.
+ * @param <T> Field type.
  */
-public abstract class MetaField<C> implements WithNameProperty {
+public abstract class MetaField<C, T> implements WithNameProperty {
 	/** Enclosing type. */
 	@SuppressWarnings("serial")
 	private final transient TypeToken<C> enclosingType = new TypeToken<C>(getClass()) {};
-	/** Property name. */
+	/** Field type. */
+	@SuppressWarnings("serial")
+	private final transient TypeToken<T> fieldType = new TypeToken<T>(getClass()) {};
+	/** Field name. */
 	private final String name;
 
 	/**
@@ -43,10 +47,15 @@ public abstract class MetaField<C> implements WithNameProperty {
 	public final TypeToken<C> getEnclosingType() {
 		return enclosingType;
 	}
+	
+	/** Returns the field type. */
+	public final TypeToken<T> getFieldType() {
+		return fieldType;
+	}
 
 	/**
-	 * Returns the property name.
-	 * @return The property name.
+	 * Returns the field name.
+	 * @return The field name.
 	 */
 	@Override
 	public final String getName() {

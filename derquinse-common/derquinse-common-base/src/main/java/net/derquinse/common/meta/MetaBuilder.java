@@ -32,19 +32,19 @@ public abstract class MetaBuilder<T extends WithMetaClass> implements Builder<T>
 	/** Meta class. */
 	private final MetaClass<T> metaClass;
 	/** Property value map. */
-	private final Map<MetaField<? super T>, Object> values = Maps.newHashMap();
+	private final Map<MetaField<? super T, ?>, Object> values = Maps.newHashMap();
 
 	MetaBuilder(MetaClass<T> metaClass) {
 		this.metaClass = checkNotNull(metaClass);
 	}
 
-	final void checkField(MetaField<? super T> field) {
+	final void checkField(MetaField<? super T, ?> field) {
 		if (!metaClass.getFields().containsValue(field)) {
 			throw new IllegalArgumentException(String.format("MetaClass [%s] does not contain field [%s]", metaClass, field));
 		}
 	}
 
-	final void checkFieldNotSet(MetaField<? super T> field) {
+	final void checkFieldNotSet(MetaField<? super T, ?> field) {
 		checkField(field);
 		if (values.containsKey(field)) {
 			throw new IllegalArgumentException(String.format("Value already set for field [%s] of MetaClass [%s]", field,

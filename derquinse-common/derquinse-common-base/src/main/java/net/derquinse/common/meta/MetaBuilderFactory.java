@@ -34,4 +34,7 @@ abstract class MetaBuilderFactory<T extends WithMetaClass> {
 	final MetaClass<T> getMetaClass() {
 		return metaClass;
 	}
+
+	/** Returns a new builder. */
+	abstract MetaBuilder<T> newBuilder();
 }

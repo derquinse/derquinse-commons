@@ -29,14 +29,6 @@ import com.google.common.collect.Ordering;
  * @param <T> Property type.
  */
 public abstract class ComparableMetaProperty<C, T extends Comparable<T>> extends MetaProperty<C, T> {
-	/** Descriptor for required flag. */
-	public static final MetaFlag<ComparableMetaProperty<?, ?>> REQUIRED = new MetaFlag<ComparableMetaProperty<?, ?>>(
-			"required") {
-		public boolean apply(ComparableMetaProperty<?, ?> input) {
-			return input.isRequired();
-		}
-	};
-
 	/**
 	 * Default constructor.
 	 * @param name Property name.

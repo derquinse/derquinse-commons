@@ -25,7 +25,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.reflect.TypeToken;
 
 /**
  * Base class for property descriptors.
@@ -33,10 +32,7 @@ import com.google.common.reflect.TypeToken;
  * @param <C> Containing type.
  * @param <T> Property type.
  */
-public abstract class MetaProperty<C, T> extends MetaField<C> implements WithRequiredFlag, Function<C, T> {
-	/** Property type. */
-	@SuppressWarnings("serial")
-	private final transient TypeToken<T> propertyType = new TypeToken<T>(getClass()) {};
+public abstract class MetaProperty<C, T> extends MetaField<C, T> implements WithRequiredFlag, Function<C, T> {
 	/** Whether the property is required. */
 	private final boolean required;
 	/** Validity predicate. */
@@ -80,11 +76,6 @@ public abstract class MetaProperty<C, T> extends MetaField<C> implements WithReq
 	 */
 	protected MetaProperty(String name, boolean required) {
 		this(name, required, null);
-	}
-	
-	/** Returns the property type. */
-	public final TypeToken<T> getPropertyType() {
-		return propertyType;
 	}
 
 	/**

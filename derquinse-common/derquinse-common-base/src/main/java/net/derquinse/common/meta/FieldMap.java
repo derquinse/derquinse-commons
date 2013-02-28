@@ -15,29 +15,12 @@
  */
 package net.derquinse.common.meta;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
-import org.testng.annotations.Test;
+import java.util.Map;
 
 /**
- * Tests for {@link MetaField}
+ * A metaclass field map.
  * @author Andres Rodriguez
+ * @param <T> Enclosing type.
  */
-public class MetaFieldTest {
-	private static final String VALUE0 = "VaLue0";
-
-	/**
-	 * Name property.
-	 */
-	@Test
-	public void name() {
-		final MetaField<Object, Object> meta = new MetaField<Object, Object>(VALUE0) {};
-		assertEquals(meta.getName(), VALUE0);
-		assertEquals(MetaField.NAME.apply(meta), VALUE0);
-		assertFalse(MetaField.NAME.isValid(null));
-		assertTrue(MetaField.NAME.notNull().apply(meta));
-		assertFalse(MetaField.NAME.isNull().apply(meta));
-	}
+public interface FieldMap<T extends WithMetaClass> extends Map<String, MetaField<? super T, ?>> {
 }
