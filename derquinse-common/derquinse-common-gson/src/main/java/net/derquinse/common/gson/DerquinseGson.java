@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import net.derquinse.common.base.ByteString;
 
 import com.google.common.base.Supplier;
+import com.google.common.hash.HashCode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,7 +35,7 @@ public final class DerquinseGson {
 
 	/** Shared instance. */
 	private static volatile Gson instance = null;
-	
+
 	/**
 	 * Decorates a {@link GsonBuilder} with conquiris clases.
 	 * @param builder Builder to decorate.
@@ -43,6 +44,7 @@ public final class DerquinseGson {
 	public static GsonBuilder decorate(GsonBuilder builder) {
 		checkNotNull(builder, "The builder to decorate must be provided");
 		builder.registerTypeAdapter(ByteString.class, new GsonByteString());
+		builder.registerTypeAdapter(HashCode.class, new GsonHashCode());
 		return builder;
 	}
 
