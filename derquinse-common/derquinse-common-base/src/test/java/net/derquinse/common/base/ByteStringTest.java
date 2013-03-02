@@ -15,6 +15,8 @@
  */
 package net.derquinse.common.base;
 
+import static org.testng.Assert.assertEquals;
+
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
@@ -23,6 +25,8 @@ import net.derquinse.common.test.HessianSerializabilityTests;
 import net.derquinse.common.test.SerializabilityTests;
 
 import org.testng.annotations.Test;
+
+import com.google.common.hash.HashCode;
 
 /**
  * Tests for ByteString
@@ -61,6 +65,16 @@ public class ByteStringTest {
 		ByteString s = createRandom();
 		SerializabilityTests.check(s);
 		HessianSerializabilityTests.both(s);
+	}
+
+	/** {@link HashCode} conversions. */
+	@Test
+	public void hashCodeConversion() throws Exception {
+		ByteString s = createRandom();
+		HashCode h = s.toHashCode();
+		assertEquals(h.asBytes(), s.toByteArray());
+		assertEquals(ByteString.copyFrom(h), s);
+		assertEquals(h.toString(), s.toHexString());
 	}
 
 }

@@ -17,6 +17,7 @@
 package net.derquinse.common.base;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,6 +35,8 @@ import java.util.List;
 
 import com.google.common.annotations.Beta;
 import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashCodes;
 
 /**
  * Immutable array of bytes. Based on Google's code in Protocol Buffers. A version of this class is
@@ -105,6 +108,13 @@ public final class ByteString implements Serializable {
 	 */
 	public static ByteString copyFrom(final byte[] bytes) {
 		return copyFrom(bytes, 0, bytes.length);
+	}
+
+	/**
+	 * Copies the given {@link HashCode} into a {@code ByteString}.
+	 */
+	public static ByteString copyFrom(HashCode hashCode) {
+		return copyFrom(hashCode.asBytes());
 	}
 
 	/**
@@ -272,6 +282,15 @@ public final class ByteString implements Serializable {
 		final byte[] copy = new byte[size];
 		System.arraycopy(bytes, 0, copy, 0, size);
 		return copy;
+	}
+
+	/**
+	 * Converts the byte string to a {@link HashCode}.
+	 * @throws IllegalStateException if the string is empty.
+	 */
+	public HashCode toHashCode() {
+		checkState(bytes.length > 0, "The byte string must not be empty");
+		return HashCodes.fromBytes(bytes);
 	}
 
 	/**
