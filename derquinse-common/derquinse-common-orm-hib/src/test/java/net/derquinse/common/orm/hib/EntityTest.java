@@ -30,6 +30,8 @@ import org.hibernate.Transaction;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
@@ -45,6 +47,7 @@ public class EntityTest {
 		new SecureRandom().nextBytes(bytes);
 		InputSupplier<ByteArrayInputStream> is = ByteStreams.newInputStreamSupplier(bytes);
 		ByteString sha1 = Digests.sha1(is);
+		HashCode sha256 = Hashing.sha256().hashBytes(bytes);
 		// DateTime t = DateTime.now().minusMonths(3);
 		Locale locale = Locale.CANADA_FRENCH;
 		final UUID id = UUID.randomUUID();
@@ -53,6 +56,7 @@ public class EntityTest {
 		e1.locale = locale;
 		// e1.dateTime = t;
 		e1.sha1 = sha1;
+		e1.sha256 = sha256;
 		// @SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = TestConfigurations.h2(TestConfigurations.types()).buildSessionFactory();
 		Session s1 = sessionFactory.openSession();
@@ -67,9 +71,10 @@ public class EntityTest {
 		// EqualityTests.many(t, e1.dateTime, e2.dateTime);
 		EqualityTests.many(locale, e1.locale, e2.locale);
 		EqualityTests.many(sha1, e1.sha1, e2.sha1);
+		EqualityTests.many(sha256, e1.sha256, e2.sha256);
 		// Assert.assertNotSame(e1.dateTime, e2.dateTime);
 		Assert.assertNotSame(e1.locale, e2.locale);
-		Assert.assertNotSame(e1.sha1, e2.sha1);
+		Assert.assertNotSame(e1.sha256, e2.sha256);
 		EqualityTests.two(e1, e2);
 		Assert.assertEquals(e1.hashCode(), id.hashCode());
 		Assert.assertEquals(e2.hashCode(), id.hashCode());

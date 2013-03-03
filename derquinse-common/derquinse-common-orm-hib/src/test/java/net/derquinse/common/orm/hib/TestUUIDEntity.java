@@ -24,6 +24,8 @@ import javax.persistence.Table;
 import net.derquinse.common.base.ByteString;
 import net.derquinse.common.orm.PropertyLengths;
 
+import com.google.common.hash.HashCode;
+
 /**
  * Test UUID entity.
  * @author Andres Rodriguez
@@ -39,11 +41,14 @@ public class TestUUIDEntity extends MappedUUIDVersionedEntity {
 	@Column(name = "TEST_SHA1", nullable = true, length = PropertyLengths.SHA1_BYTES)
 	ByteString sha1;
 
+	/** SHA-1. */
+	@Column(name = "TEST_SHA256", nullable = true, length = PropertyLengths.SHA256_BYTES)
+	HashCode sha256;
+
 	/** Locale. */
 	@Column(name = "TEST_LOCALE", nullable = false, length = PropertyLengths.LOCALE_CHARS)
 	Locale locale;
 
-	
 	@Override
 	public int hashCode() {
 		return idHashCode();

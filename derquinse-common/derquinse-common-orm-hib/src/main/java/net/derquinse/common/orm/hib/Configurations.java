@@ -37,7 +37,7 @@ public class Configurations extends NotInstantiable {
 	 */
 	public static Configuration registerTypes(Configuration configuration) {
 		checkNotNull(configuration, "The configuration must be provided");
-		registerTypes(configuration, new ByteStringUserType(), new LocaleUserType());
+		registerTypes(configuration, new ByteStringUserType(), new HashCodeUserType(), new LocaleUserType());
 		return configuration;
 	}
 
