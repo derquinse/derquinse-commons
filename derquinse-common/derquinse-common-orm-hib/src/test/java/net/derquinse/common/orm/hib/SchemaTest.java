@@ -38,7 +38,7 @@ public class SchemaTest {
 		System.out.println(prefix + "END");
 	}
 
-	@Test
+	//@Test
 	public void basic() {
 		showSchema("Basic", TestConfigurations.basic(), new DerquinseMySQL5InnoDBDialect());
 		//showSchema("Basic", TestConfigurations.basic(), new MySQL5InnoDBDialect());
