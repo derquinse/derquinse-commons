@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-pom</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>39</version>
+		<version>40</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
 	<version>1.0.31-SNAPSHOT</version>
@@ -56,5 +56,6 @@
 		<module>derquinse-common-gson</module>
 		<module>derquinse-common-jaxrs</module>
 		<module>derquinse-common-jaxrs-gson</module>
+		<module>derquinse-common-metrics</module>
 	</modules>
 </project>

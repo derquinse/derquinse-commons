@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.derquinse</groupId>
+		<artifactId>derquinse-common</artifactId>
+		<version>1.0.31-SNAPSHOT</version>
+	</parent>
+	<artifactId>derquinse-common-metrics</artifactId>
+	<name>Derquinse Commons :: Metrics</name>
+	<description>Coda Hale Metrics Package integration.</description>
+	<dependencies>
+		<dependency>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-base</artifactId>
+			<version>1.0.31-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yammer.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-base</artifactId>
+			<version>1.0.31-SNAPSHOT</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.derquinse</groupId>
+			<artifactId>derquinse-common-test-deps</artifactId>
+			<version>1.0.31-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+</project>
