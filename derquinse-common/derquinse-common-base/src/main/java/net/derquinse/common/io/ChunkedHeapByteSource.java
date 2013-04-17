@@ -83,4 +83,9 @@ final class ChunkedHeapByteSource extends HeapByteSource {
 		return chunks.writeTo(buffer);
 	}
 
+	@Override
+	int chunks() {
+		return chunks.size();
+	}
+
 }

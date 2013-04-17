@@ -106,6 +106,11 @@ final class EmptyByteSource extends MemoryByteSource {
 	}
 
 	@Override
+	int chunks() {
+		return 0;
+	}
+
+	@Override
 	public String toString() {
 		return direct ? "EmptyDirectByteSource" : "EmptyHeapByteSource";
 	}

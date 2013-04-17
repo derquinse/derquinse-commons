@@ -18,26 +18,33 @@ package net.derquinse.common.io;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import com.google.common.annotations.Beta;
+import com.google.common.base.Objects;
 import com.google.common.io.ByteSource;
 
 /**
  * Base class for byte sources that are guaranteed to be stored in memory, either heap or direct
  * buffers. The byte source may be contiguous or backed a list of chunks. Total size must fit in an
- * integer.
+ * integer. The default chunk size is 8 KB.
  * @author Andres Rodriguez
  */
 @Beta
 public abstract class MemoryByteSource extends ByteSource {
+	/** Creates a new loader. */
+	public static Loader loader() {
+		return new Loader();
+	}
+
 	/** Returns whether the data is stored in the heap. */
 	public abstract boolean isHeap();
 
 	/** Returns whether the data is stored in direct memory. */
 	public abstract boolean isDirect();
-	
+
 	/** Returns the exact number of bytes in the source. */
 	@Override
 	public abstract long size();
@@ -67,6 +74,9 @@ public abstract class MemoryByteSource extends ByteSource {
 
 	/** Writes to a byte array, at a specified offset, returning the number of bytes written. */
 	abstract int writeTo(byte[] buffer, int offset);
+	
+	/** Returns the number of chunks. */
+	abstract int chunks();
 
 	/**
 	 * Memory byte source loaders.
@@ -74,11 +84,17 @@ public abstract class MemoryByteSource extends ByteSource {
 	 */
 	public static final class Loader {
 		/** Whether to use direct memory. */
-		private Boolean direct = false;
+		private Boolean direct = null;
 		/** Maximum size. */
 		private Integer maxSize = null;
 		/** Chunk size. */
-		private Integer chunkSize = null;
+		private int chunkSize = 8192;
+		/** Whether the chunk size has been set. */
+		private boolean chunkSizeSet = false;
+
+		/** Constructor. */
+		private Loader() {
+		}
 
 		/**
 		 * Specifies if the loader should use direct memory (the default is to use heap memory).
@@ -112,14 +128,25 @@ public abstract class MemoryByteSource extends ByteSource {
 		 * @throws IllegalArgumentException if the argument is not greater than zero.
 		 */
 		public Loader chunkSize(int chunkSize) {
-			checkState(this.chunkSize == null, "The chunkSize method has already been called");
+			checkState(!chunkSizeSet, "The chunk size has already been set");
 			checkArgument(chunkSize >= 0, "The chunk size must be >= 0");
 			this.chunkSize = chunkSize;
+			this.chunkSizeSet = true;
 			return this;
 		}
 
-		public MemoryByteSource load(InputStream is) {
-			return null; // TODO
+		/**
+		 * Loads the contents of the input stream into a memory byte source.
+		 * @param is Input stream. It is not closed.
+		 * @return The loaded data in a byte source.
+		 */
+		public MemoryByteSource load(InputStream is) throws IOException {
+			final int ms = Objects.firstNonNull(this.maxSize, Integer.MAX_VALUE);
+			final int cs = Math.min(ms, Objects.firstNonNull(this.chunkSize, Integer.MAX_VALUE));
+			if (Boolean.TRUE.equals(direct)) {
+				return DirectByteSource.load(is, ms, cs);
+			}
+			return HeapByteSource.load(is, ms, cs);
 		}
 
 	}

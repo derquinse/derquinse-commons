@@ -38,7 +38,7 @@ abstract class HeapByteSource extends MemoryByteSource {
 		while (!done) {
 			// New chunk size
 			int ncs = Math.min(chunkSize, maxSize - acc);
-			// Load the the new chunk
+			// Load the new chunk
 			final byte[] buffer = new byte[ncs];
 			final byte[] bytes;
 			final int loaded = is.read(buffer);
@@ -61,6 +61,8 @@ abstract class HeapByteSource extends MemoryByteSource {
 					done = true;
 				}
 				chunks.add(source);
+			} else {
+				done = true; // EOF
 			}
 		}
 		final int n = chunks.size();

@@ -54,6 +54,7 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 	public MemoryByteSource merge() {
 		final ByteBuffer buffer = ByteBuffer.allocateDirect(chunks.getTotalSize());
 		writeTo(buffer);
+		buffer.flip();
 		return new ByteBufferByteSource(buffer);
 	}
 
@@ -80,6 +81,11 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 	@Override
 	int writeTo(ByteBuffer buffer) {
 		return chunks.writeTo(buffer);
+	}
+
+	@Override
+	int chunks() {
+		return chunks.size();
 	}
 
 }

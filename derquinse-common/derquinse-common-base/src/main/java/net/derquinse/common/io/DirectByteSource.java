@@ -86,12 +86,12 @@ abstract class DirectByteSource extends MemoryByteSource {
 
 	@Override
 	public final boolean isHeap() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public final boolean isDirect() {
-		return false;
+		return true;
 	}
 
 	@Override

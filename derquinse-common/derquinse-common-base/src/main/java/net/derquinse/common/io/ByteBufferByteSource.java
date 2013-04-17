@@ -112,4 +112,10 @@ final class ByteBufferByteSource extends DirectByteSource {
 		}
 		return targetLength;
 	}
+
+	@Override
+	int chunks() {
+		return 1;
+	}
+
 }

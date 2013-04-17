@@ -101,6 +101,11 @@ final class ByteArrayByteSource extends HeapByteSource {
 	}
 
 	@Override
+	int chunks() {
+		return 1;
+	}
+
+	@Override
 	public String toString() {
 		return "ByteArrayByteSource(" + BaseEncoding.base16().encode(bytes) + ")";
 	}
