@@ -15,15 +15,10 @@
  */
 package net.derquinse.common.io;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkState;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import com.google.common.annotations.Beta;
-import com.google.common.base.Objects;
 import com.google.common.io.ByteSource;
 
 /**
@@ -34,11 +29,10 @@ import com.google.common.io.ByteSource;
  */
 @Beta
 public abstract class MemoryByteSource extends ByteSource {
-	/** Creates a new loader. */
-	public static Loader loader() {
-		return new Loader();
+	/** Constructor. */
+	MemoryByteSource() {
 	}
-
+	
 	/** Returns whether the data is stored in the heap. */
 	public abstract boolean isHeap();
 
@@ -77,78 +71,5 @@ public abstract class MemoryByteSource extends ByteSource {
 	
 	/** Returns the number of chunks. */
 	abstract int chunks();
-
-	/**
-	 * Memory byte source loaders.
-	 * @author Andres Rodriguez
-	 */
-	public static final class Loader {
-		/** Whether to use direct memory. */
-		private Boolean direct = null;
-		/** Maximum size. */
-		private Integer maxSize = null;
-		/** Chunk size. */
-		private int chunkSize = 8192;
-		/** Whether the chunk size has been set. */
-		private boolean chunkSizeSet = false;
-
-		/** Constructor. */
-		private Loader() {
-		}
-
-		/**
-		 * Specifies if the loader should use direct memory (the default is to use heap memory).
-		 * @param direct True to use direct memory, false to use heap.
-		 * @return This loader.
-		 * @throws IllegalStateException if the use of direct or heap memory has already been set.
-		 */
-		public Loader setDirect(boolean direct) {
-			checkState(this.direct == null, "The use of direct or heap memory has already been set.");
-			this.direct = direct;
-			return this;
-		}
-
-		/**
-		 * Specifies the maximum size allowed (the default is limited only by memory available).
-		 * @return This loader.
-		 * @throws IllegalStateException if the maximum size has already been set.
-		 * @throws IllegalArgumentException if the argument is not greater than zero.
-		 */
-		public Loader maxSize(int maxSize) {
-			checkState(this.maxSize == null, "The maxSize method has already been called");
-			checkArgument(maxSize >= 0, "The maximum size must be >= 0");
-			this.maxSize = maxSize;
-			return this;
-		}
-
-		/**
-		 * Specifies the chunk size to use (the default is 8192 bytes).
-		 * @return This loader.
-		 * @throws IllegalStateException if the chunk size has already been set.
-		 * @throws IllegalArgumentException if the argument is not greater than zero.
-		 */
-		public Loader chunkSize(int chunkSize) {
-			checkState(!chunkSizeSet, "The chunk size has already been set");
-			checkArgument(chunkSize >= 0, "The chunk size must be >= 0");
-			this.chunkSize = chunkSize;
-			this.chunkSizeSet = true;
-			return this;
-		}
-
-		/**
-		 * Loads the contents of the input stream into a memory byte source.
-		 * @param is Input stream. It is not closed.
-		 * @return The loaded data in a byte source.
-		 */
-		public MemoryByteSource load(InputStream is) throws IOException {
-			final int ms = Objects.firstNonNull(this.maxSize, Integer.MAX_VALUE);
-			final int cs = Math.min(ms, Objects.firstNonNull(this.chunkSize, Integer.MAX_VALUE));
-			if (Boolean.TRUE.equals(direct)) {
-				return DirectByteSource.load(is, ms, cs);
-			}
-			return HeapByteSource.load(is, ms, cs);
-		}
-
-	}
 
 }
