@@ -122,9 +122,11 @@ public final class MemoryByteSourceLoader {
 	 */
 	public MemoryByteSource load(InputSupplier<? extends InputStream> supplier) throws IOException {
 		checkNotNull(supplier, "The input supplier to load must be provided");
+		/*
 		if (supplier instanceof MemoryByteSource) {
 			return transform((MemoryByteSource) supplier); // for guava 15
 		}
+		*/
 		Closer closer = Closer.create();
 		try {
 			InputStream is = closer.register(supplier.getInput());
@@ -136,14 +138,14 @@ public final class MemoryByteSourceLoader {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(direct, maxSize, chunkSize);
+		return Objects.hashCode(direct, maxSize, chunkSize, merge);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof MemoryByteSourceLoader) {
 			MemoryByteSourceLoader s = (MemoryByteSourceLoader) obj;
-			return direct == s.direct && maxSize == s.maxSize && chunkSize == s.chunkSize;
+			return direct == s.direct && merge == s.merge && maxSize == s.maxSize && chunkSize == s.chunkSize;
 		}
 		return false;
 	}
@@ -151,7 +153,7 @@ public final class MemoryByteSourceLoader {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this).add("direct", direct).add("maxSize", maxSize).add("chunkSize", chunkSize)
-				.toString();
+				.add("merge", merge).toString();
 	}
 
 	/** Memory byte source loader builder. */
