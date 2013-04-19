@@ -15,7 +15,6 @@
  */
 package net.derquinse.common.io;
 
-
 import java.nio.ByteBuffer;
 
 import com.google.common.annotations.Beta;
@@ -32,7 +31,7 @@ public abstract class MemoryByteSource extends ByteSource {
 	/** Constructor. */
 	MemoryByteSource() {
 	}
-	
+
 	/** Returns whether the data is stored in the heap. */
 	public abstract boolean isHeap();
 
@@ -50,6 +49,14 @@ public abstract class MemoryByteSource extends ByteSource {
 	public abstract MemoryByteSource merge();
 
 	/**
+	 * Merges to a byte source consisting with a chunk size of at least the provided argument. If the
+	 * argument is smaller than the size, the byte source will be merged to a single chunk.
+	 * @param chunkSize Requested chunk size.
+	 * @return The merged byte source. Maybe the same one if already consisted of only one chunck.
+	 */
+	public abstract MemoryByteSource merge(int chunkSize);
+
+	/**
 	 * Transforms this source into a byte source stored in the heap.
 	 * @param merge Whether the result should be merged.
 	 * @return The resulting byte source.
@@ -63,12 +70,28 @@ public abstract class MemoryByteSource extends ByteSource {
 	 */
 	public abstract MemoryByteSource toDirect(boolean merge);
 
+	/**
+	 * Transforms this source into a byte source stored in the heap with at least the specified chunk
+	 * size.
+	 * @param chunkSize Requested chunk size.
+	 * @return The resulting byte source.
+	 */
+	public abstract MemoryByteSource toHeap(int chunkSize);
+
+	/**
+	 * Transforms this source into a byte source stored in direct memory with at least the specified
+	 * chunk size.
+	 * @param chunkSize Requested chunk size.
+	 * @return The resulting byte source.
+	 */
+	public abstract MemoryByteSource toDirect(int chunkSize);
+
 	/** Writes to a byte buffer, returning the number of bytes written. */
 	abstract int writeTo(ByteBuffer buffer);
 
 	/** Writes to a byte array, at a specified offset, returning the number of bytes written. */
 	abstract int writeTo(byte[] buffer, int offset);
-	
+
 	/** Returns the number of chunks. */
 	abstract int chunks();
 

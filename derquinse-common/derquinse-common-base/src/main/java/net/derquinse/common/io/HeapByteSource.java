@@ -16,6 +16,7 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkState;
+import static net.derquinse.common.io.InternalPreconditions.checkSize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,9 +56,7 @@ abstract class HeapByteSource extends MemoryByteSource {
 					// last chunck
 					done = true;
 				} else if (acc == maxSize) {
-					if (is.read() != -1) {
-						throw new IllegalArgumentException(String.format("Maximum size of %d exceeded", maxSize));
-					}
+					checkSize(acc + tryReadOne(is), maxSize);
 					done = true;
 				}
 				chunks.add(source);
@@ -74,6 +73,10 @@ abstract class HeapByteSource extends MemoryByteSource {
 			return new ChunkedHeapByteSource(new Chunks<ByteArrayByteSource>(chunks));
 		}
 	}
+	
+	private static final int tryReadOne(InputStream is) throws IOException {
+		return is.read() < 0 ? 0 : 1;
+	}
 
 	@Override
 	public final boolean isHeap() {
@@ -88,5 +91,10 @@ abstract class HeapByteSource extends MemoryByteSource {
 	@Override
 	public final MemoryByteSource toHeap(boolean merge) {
 		return merge ? merge() : this;
+	}
+	
+	@Override
+	public final MemoryByteSource toHeap(int chunkSize) {
+		return merge(chunkSize);
 	}
 }

@@ -15,6 +15,8 @@
  */
 package net.derquinse.common.io;
 
+import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -86,12 +88,30 @@ final class EmptyByteSource extends MemoryByteSource {
 	}
 
 	@Override
+	public MemoryByteSource merge(int chunkSize) {
+		checkChunkSize(chunkSize);
+		return this;
+	}
+
+	@Override
 	public MemoryByteSource toHeap(boolean merge) {
 		return HEAP;
 	}
 
 	@Override
 	public MemoryByteSource toDirect(boolean merge) {
+		return DIRECT;
+	}
+
+	@Override
+	public MemoryByteSource toHeap(int chunkSize) {
+		checkChunkSize(chunkSize);
+		return HEAP;
+	}
+
+	@Override
+	public MemoryByteSource toDirect(int chunkSize) {
+		checkChunkSize(chunkSize);
 		return DIRECT;
 	}
 

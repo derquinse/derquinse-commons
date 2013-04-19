@@ -20,7 +20,6 @@ import java.nio.ByteBuffer;
 
 import net.derquinse.common.base.NotInstantiable;
 
-import com.google.common.base.Function;
 import com.google.common.io.InputSupplier;
 
 /**
@@ -45,52 +44,4 @@ public final class MemoryByteStreams extends NotInstantiable {
 		return new ByteBufferInputStreamSupplier(b);
 	}
 
-	/** Returns a memory byte source transformer that merges the input. */
-	public static Function<MemoryByteSource, MemoryByteSource> merge() {
-		return MemoryByteSourceTransformers.MERGE;
-	}
-
-	/** Returns a memory byte source transformer that moves the input to the heap. */
-	public static Function<MemoryByteSource, MemoryByteSource> toHeap(boolean merge) {
-		return merge ? MemoryByteSourceTransformers.HEAP_MERGE : MemoryByteSourceTransformers.HEAP;
-	}
-
-	/** Returns a memory byte source transformer that moves the input to direct memory. */
-	public static Function<MemoryByteSource, MemoryByteSource> toDirect(boolean merge) {
-		return merge ? MemoryByteSourceTransformers.DIRECT_MERGE : MemoryByteSourceTransformers.DIRECT;
-	}
-
-	/** Memory byte source transformers. */
-	private enum MemoryByteSourceTransformers implements Function<MemoryByteSource, MemoryByteSource> {
-		MERGE {
-			@Override
-			public MemoryByteSource apply(MemoryByteSource input) {
-				return input.merge();
-			}
-		},
-		HEAP {
-			@Override
-			public MemoryByteSource apply(MemoryByteSource input) {
-				return input.toHeap(false);
-			}
-		},
-		HEAP_MERGE {
-			@Override
-			public MemoryByteSource apply(MemoryByteSource input) {
-				return input.toHeap(true);
-			}
-		},
-		DIRECT {
-			@Override
-			public MemoryByteSource apply(MemoryByteSource input) {
-				return input.toDirect(false);
-			}
-		},
-		DIRECT_MERGE {
-			@Override
-			public MemoryByteSource apply(MemoryByteSource input) {
-				return input.toDirect(true);
-			}
-		},
-	}
 }

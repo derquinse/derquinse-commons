@@ -16,6 +16,7 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkState;
+import static net.derquinse.common.io.InternalPreconditions.checkSize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,16 +73,18 @@ abstract class DirectByteSource extends MemoryByteSource {
 				final ByteBufferByteSource source = new ByteBufferByteSource(bytes);
 				chunks.add(source);
 				if (acc == maxSize) {
-					ByteBuffer local = ByteBuffer.allocate(1);
-					if (channel.read(local) >= 0) {
-						throw new IllegalArgumentException(String.format("Maximum size of %d exceeded", maxSize));
-					}
+					checkSize(acc + tryReadOne(channel), maxSize);
 					return chunks;
 				}
 			} else if (loaded < 0) {
 				return chunks;
 			}
 		}
+	}
+
+	private static final int tryReadOne(ReadableByteChannel channel) throws IOException {
+		ByteBuffer local = ByteBuffer.allocate(1);
+		return (channel.read(local) >= 0) ? 1 : 0;
 	}
 
 	@Override
@@ -97,5 +100,10 @@ abstract class DirectByteSource extends MemoryByteSource {
 	@Override
 	public final MemoryByteSource toDirect(boolean merge) {
 		return merge ? merge() : this;
+	}
+
+	@Override
+	public final MemoryByteSource toDirect(int chunkSize) {
+		return merge(chunkSize);
 	}
 }

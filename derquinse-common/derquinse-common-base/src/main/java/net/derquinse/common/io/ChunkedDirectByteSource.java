@@ -16,6 +16,7 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,6 +60,11 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 	}
 
 	@Override
+	public MemoryByteSource merge(int chunkSize) {
+		return chunks.merge(this, chunkSize);
+	}
+
+	@Override
 	public MemoryByteSource toHeap(boolean merge) {
 		if (merge) {
 			byte[] buffer = new byte[chunks.getTotalSize()];
@@ -71,6 +77,17 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 			}
 			return new ChunkedHeapByteSource(new Chunks<ByteArrayByteSource>(list));
 		}
+	}
+	
+	@Override
+	public MemoryByteSource toHeap(int chunkSize) {
+		checkChunkSize(chunkSize);
+		if (chunkSize <= chunks.getChunkSize()) {
+			return toHeap(false);
+		} else if (chunkSize >= chunks.getTotalSize()) {
+			return toHeap(true);
+		}
+		return chunks.copyToHeap(chunkSize);
 	}
 
 	@Override

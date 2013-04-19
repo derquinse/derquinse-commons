@@ -16,7 +16,7 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static net.derquinse.common.io.MemoryByteSourceLoader.create;
+import static net.derquinse.common.io.MemoryByteSourceLoader.builder;
 import static org.testng.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -93,14 +93,15 @@ public class MemoryByteSourceTest {
 	/** Exerciser. */
 	private void exercise(boolean direct, int chunkSize) throws IOException {
 		checkArgument(chunkSize >= 1024);
-		MemoryByteSourceLoader loader = create();
+		MemoryByteSourceLoader.Builder builder = builder();
 		if (direct) {
-			loader.setDirect(direct);
+			builder.setDirect(direct);
 		}
 		if (chunkSize != 8192) {
-			loader.chunkSize(chunkSize);
+			builder.chunkSize(chunkSize);
 		}
-		final String base = String.format("%s(%s) ", direct ? "Direct" : "Heap", chunkSize);
+		MemoryByteSourceLoader loader = builder.build();
+		String base = String.format("%s(%s) ", direct ? "Direct" : "Heap", chunkSize);
 		test(base + "less than one", chunkSize / 2 + 3, loader, direct, 1);
 		test(base + "one", chunkSize, loader, direct, 1);
 		test(base + "more than one", chunkSize + 111, loader, direct, 2);
@@ -108,9 +109,22 @@ public class MemoryByteSourceTest {
 		test(base + "three", chunkSize * 3, loader, direct, 3);
 		test(base + "many", chunkSize * 7 + chunkSize / 3, loader, direct, 8);
 		test(base + "max size, single chunk", chunkSize / 2,
-				create().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize / 2), direct, 1);
+				builder().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize / 2).build(), direct, 1);
 		test(base + "max size, many chunk", chunkSize * 5,
-				create().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize * 5), direct, 5);
+				builder().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize * 5).build(), direct, 5);
+		MemoryByteSourceLoader merged = builder.setMerge(true).build();
+		base += "merged ";
+		test(base + "less than one", chunkSize / 2 + 3, merged, direct, 1);
+		test(base + "one", chunkSize, merged, direct, 1);
+		test(base + "more than one", chunkSize + 111, merged, direct, 1);
+		test(base + "two", chunkSize * 2, merged, direct, 1);
+		test(base + "three", chunkSize * 3, merged, direct, 1);
+		test(base + "many", chunkSize * 7 + chunkSize / 3, merged, direct, 1);
+		test(base + "max size, single chunk", chunkSize / 2,
+				builder().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize / 2).setMerge(true).build(), direct, 1);
+		test(base + "max size, many chunk", chunkSize * 5,
+				builder().setDirect(direct).chunkSize(chunkSize).maxSize(chunkSize * 5).setMerge(true).build(), direct, 1);
+
 	}
 
 	/**
@@ -150,7 +164,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test
 	public void heapEmpty() throws IOException {
-		test("Heap Empty", 0, create().setDirect(false).chunkSize(8192), false, 0);
+		test("Heap Empty", 0, builder().setDirect(false).chunkSize(8192).build(), false, 0);
 	}
 
 	/**
@@ -158,7 +172,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test
 	public void heapDirect() throws IOException {
-		test("Direct Empty", 0, create().setDirect(true), true, 0);
+		test("Direct Empty", 0, builder().setDirect(true).build(), true, 0);
 	}
 
 	/**
@@ -166,7 +180,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void heapOver() throws IOException {
-		test("Heap overflow", 456, create().maxSize(384), false, 0);
+		test("Heap overflow", 456, builder().maxSize(384).build(), false, 0);
 	}
 
 	/**
@@ -174,7 +188,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void heapOverChunked() throws IOException {
-		test("Heap overflow chuncked", 456, create().chunkSize(128).maxSize(384), false, 0);
+		test("Heap overflow chuncked", 456, builder().chunkSize(128).maxSize(384).build(), false, 0);
 	}
 
 	/**
@@ -182,7 +196,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void directOver() throws IOException {
-		test("Direct overflow", 456, create().setDirect(true).maxSize(384), true, 0);
+		test("Direct overflow", 456, builder().setDirect(true).maxSize(384).build(), true, 0);
 	}
 
 	/**
@@ -190,7 +204,7 @@ public class MemoryByteSourceTest {
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void directOverChunked() throws IOException {
-		test("Direct overflow chuncked", 456, create().setDirect(true).chunkSize(128).maxSize(384), true, 0);
+		test("Direct overflow chuncked", 456, builder().setDirect(true).chunkSize(128).maxSize(384).build(), true, 0);
 	}
 
 }

@@ -17,6 +17,7 @@ package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,6 +110,39 @@ final class Chunks<T extends MemoryByteSource> extends ForwardingList<T> {
 			written += n;
 		}
 		return written;
+	}
+
+	/** Merges to a specified chunk size. */
+	MemoryByteSource merge(MemoryByteSource container, int chunkSize) {
+		checkChunkSize(chunkSize);
+		if (chunkSize <= this.chunkSize) {
+			return container;
+		} else if (chunkSize >= totalSize) {
+			return container.merge();
+		}
+		if (container.isDirect()) {
+			return copyToDirect(chunkSize);
+		} else {
+			return copyToHeap(chunkSize);
+		}
+	}
+
+	/** Copies to a new heap byte source with the specified chunk size. */
+	MemoryByteSource copyToHeap(int chunkSize) {
+		try {
+			return HeapByteSource.load(openStream(), Integer.MAX_VALUE, chunkSize);
+		} catch (IOException e) {
+			throw new IllegalStateException(e); // should not happen
+		}
+	}
+
+	/** Copies to a new direct byte source with the specified chunk size. */
+	MemoryByteSource copyToDirect(int chunkSize) {
+		try {
+			return DirectByteSource.load(openStream(), Integer.MAX_VALUE, chunkSize);
+		} catch (IOException e) {
+			throw new IllegalStateException(e); // should not happen
+		}
 	}
 
 }
