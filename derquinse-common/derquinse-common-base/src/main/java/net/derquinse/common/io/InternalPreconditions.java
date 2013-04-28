@@ -65,4 +65,14 @@ final class InternalPreconditions extends NotInstantiable {
 		return checkNotNull(source, "The source byte buffer must be provided");
 	}
 
+	/** Checks the input argument is provided, throwing {@link NullPointerException} if not. */
+	static <T> T checkInput(T input) {
+		return checkNotNull(input, "The input argument must be provided");
+	}
+
+	/** Checks the output argument is provided, throwing {@link NullPointerException} if not. */
+	static <T> T checkOutput(T output) {
+		return checkNotNull(output, "The output argument must be provided");
+	}
+
 }
