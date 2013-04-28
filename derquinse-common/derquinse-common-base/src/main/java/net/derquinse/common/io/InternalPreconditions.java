@@ -16,6 +16,10 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.nio.ByteBuffer;
+
 import net.derquinse.common.base.NotInstantiable;
 
 /**
@@ -49,6 +53,16 @@ final class InternalPreconditions extends NotInstantiable {
 			throw new IllegalArgumentException(String.format("Size %d greater than maximum %d", size, maxSize));
 		}
 		return size;
+	}
+
+	/** Checks that a source byte array is provided. */
+	static byte[] checkSourceArray(byte[] source) {
+		return checkNotNull(source, "The source array must be provided");
+	}
+
+	/** Checks that a source byte buffer is provided. */
+	static ByteBuffer checkSourceBuffer(ByteBuffer source) {
+		return checkNotNull(source, "The source byte buffer must be provided");
 	}
 
 }

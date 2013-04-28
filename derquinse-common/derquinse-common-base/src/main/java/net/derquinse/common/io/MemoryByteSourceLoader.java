@@ -61,6 +61,22 @@ public final class MemoryByteSourceLoader {
 		this.merge = builder.merge;
 	}
 
+	boolean isDirect() {
+		return direct;
+	}
+
+	int getMaxSize() {
+		return maxSize;
+	}
+
+	int getChunkSize() {
+		return chunkSize;
+	}
+
+	boolean isMerge() {
+		return merge;
+	}
+
 	private MemoryByteSource merged(MemoryByteSource source) {
 		if (merge) {
 			return source.merge();
@@ -123,10 +139,9 @@ public final class MemoryByteSourceLoader {
 	public MemoryByteSource load(InputSupplier<? extends InputStream> supplier) throws IOException {
 		checkNotNull(supplier, "The input supplier to load must be provided");
 		/*
-		if (supplier instanceof MemoryByteSource) {
-			return transform((MemoryByteSource) supplier); // for guava 15
-		}
-		*/
+		 * if (supplier instanceof MemoryByteSource) { return transform((MemoryByteSource) supplier); //
+		 * for guava 15 }
+		 */
 		Closer closer = Closer.create();
 		try {
 			InputStream is = closer.register(supplier.getInput());
@@ -148,6 +163,11 @@ public final class MemoryByteSourceLoader {
 			return direct == s.direct && merge == s.merge && maxSize == s.maxSize && chunkSize == s.chunkSize;
 		}
 		return false;
+	}
+
+	/** Creates a new sink based on this loader. */
+	public MemoryByteSink newSink() {
+		return new MemoryByteSink(this);
 	}
 
 	@Override

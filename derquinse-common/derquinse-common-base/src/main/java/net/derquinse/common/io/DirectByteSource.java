@@ -16,6 +16,8 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkState;
+import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
+import static net.derquinse.common.io.InternalPreconditions.checkMaxSize;
 import static net.derquinse.common.io.InternalPreconditions.checkSize;
 
 import java.io.IOException;
@@ -37,6 +39,10 @@ abstract class DirectByteSource extends MemoryByteSource {
 	static MemoryByteSource load(InputStream is, int maxSize, int chunkSize) throws IOException {
 		final ReadableByteChannel channel = Channels.newChannel(is);
 		final List<ByteBufferByteSource> chunks = load(channel, maxSize, chunkSize);
+		return build(chunks);
+	}
+
+	private static MemoryByteSource build(List<ByteBufferByteSource> chunks) {
 		final int n = chunks.size();
 		if (n == 0) {
 			return EmptyByteSource.DIRECT;
@@ -87,6 +93,14 @@ abstract class DirectByteSource extends MemoryByteSource {
 		return (channel.read(local) >= 0) ? 1 : 0;
 	}
 
+	static SinkOutputStream openStream(MemoryByteSink sink, int maxSize, int chunkSize) {
+		return new Output(sink, maxSize, chunkSize);
+	}
+
+	/** Constructor. */
+	DirectByteSource() {
+	}
+
 	@Override
 	public final boolean isHeap() {
 		return false;
@@ -106,4 +120,64 @@ abstract class DirectByteSource extends MemoryByteSource {
 	public final MemoryByteSource toDirect(int chunkSize) {
 		return merge(chunkSize);
 	}
+
+	/** Direct buffer-based sink output stream. */
+	private static final class Output extends SinkOutputStream {
+		/** Chunks. */
+		private final List<ByteBufferByteSource> chunks = Lists.newLinkedList();
+		/** Max size. */
+		private final int maxSize;
+		/** Max size. */
+		private final int chunkSize;
+		/** Buffer. */
+		private ByteBuffer buffer = null;
+		/** Total number of bytes written. */
+		private int count = 0;
+
+		/** Constructor. */
+		Output(MemoryByteSink sink, int maxSize, int chunkSize) {
+			super(sink);
+			this.maxSize = checkMaxSize(maxSize);
+			this.chunkSize = checkChunkSize(chunkSize);
+		}
+
+		@Override
+		void write(byte b) throws IOException {
+			if (count >= maxSize) {
+				throw new IOException("Stream max size reached");
+			}
+			if (buffer == null) {
+				buffer = ByteBuffer.allocateDirect(chunkSize);
+			} else if (buffer.remaining() <= 0) {
+				buffer.flip();
+				chunks.add(new ByteBufferByteSource(buffer));
+				buffer = ByteBuffer.allocateDirect(chunkSize);
+			}
+			buffer.put(b);
+			count++;
+		}
+
+		@Override
+		MemoryByteSource build() {
+			if (count == 0) {
+				return EmptyByteSource.DIRECT;
+			}
+			// Whether we have to copy to a smaller buffer
+			final boolean copy = buffer.remaining() > 0;
+			final int loaded = buffer.position();
+			// We're done with the current buffer
+			buffer.flip();
+			final ByteBuffer bytes;
+			if (copy) {
+				bytes = ByteBuffer.allocateDirect(loaded);
+				bytes.put(buffer);
+				bytes.flip();
+			} else {
+				bytes = buffer;
+			}
+			chunks.add(new ByteBufferByteSource(bytes));
+			return DirectByteSource.build(chunks);
+		}
+	}
+
 }

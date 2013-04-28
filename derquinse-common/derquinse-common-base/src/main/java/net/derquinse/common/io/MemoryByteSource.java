@@ -15,19 +15,61 @@
  */
 package net.derquinse.common.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.derquinse.common.io.InternalPreconditions.checkSourceArray;
+import static net.derquinse.common.io.InternalPreconditions.checkSourceBuffer;
+
 import java.nio.ByteBuffer;
 
 import com.google.common.annotations.Beta;
 import com.google.common.io.ByteSource;
 
 /**
- * Base class for byte sources that are guaranteed to be stored in memory, either heap or direct
- * buffers. The byte source may be contiguous or backed a list of chunks. Total size must fit in an
- * integer. The default chunk size is 8 KB.
+ * Base class for byte sources that are guaranteed to be stored in memory, either in byte arrays in
+ * the heap or direct buffers. The byte source may be contiguous or backed a list of chunks. Total
+ * size must fit in an integer. The default chunk size is 8 KB.
  * @author Andres Rodriguez
  */
 @Beta
 public abstract class MemoryByteSource extends ByteSource {
+	/** Creates a heap memory byte source backed by a copy of the provided array. */
+	public static MemoryByteSource heapCopyOf(byte[] source) {
+		return new ByteArrayByteSource(checkSourceArray(source).clone());
+	}
+
+	/** Creates a direct memory byte source backed by a copy of the provided array. */
+	public static MemoryByteSource directCopyOf(byte[] source) {
+		final int size = checkSourceArray(source).length;
+		ByteBuffer buffer = ByteBuffer.allocateDirect(size);
+		buffer.put(source);
+		buffer.flip();
+		return new ByteBufferByteSource(buffer);
+	}
+
+	/** Creates a heap memory byte source that is backed by a the provided array. */
+	public static MemoryByteSource wrap(byte[] source) {
+		return new ByteArrayByteSource(checkNotNull(source, "The source array must be provided"));
+	}
+
+	/** Creates a heap memory byte source backed by a copy of the provided buffer, which is consumed. */
+	public static MemoryByteSource heapCopyOf(ByteBuffer source) {
+		final int size = checkSourceBuffer(source).remaining();
+		final byte[] bytes = new byte[size];
+		source.get(bytes);
+		return wrap(bytes);
+	}
+
+	/**
+	 * Creates a direct memory byte source backed by a copy of the provided buffer, which is consumed.
+	 */
+	public static MemoryByteSource directCopyOf(ByteBuffer source) {
+		final int size = checkSourceBuffer(source).remaining();
+		ByteBuffer buffer = ByteBuffer.allocateDirect(size);
+		buffer.put(source);
+		buffer.flip();
+		return new ByteBufferByteSource(buffer);
+	}
+
 	/** Constructor. */
 	MemoryByteSource() {
 	}

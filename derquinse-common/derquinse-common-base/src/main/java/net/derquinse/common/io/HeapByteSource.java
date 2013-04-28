@@ -16,6 +16,8 @@
 package net.derquinse.common.io;
 
 import static com.google.common.base.Preconditions.checkState;
+import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
+import static net.derquinse.common.io.InternalPreconditions.checkMaxSize;
 import static net.derquinse.common.io.InternalPreconditions.checkSize;
 
 import java.io.IOException;
@@ -64,6 +66,10 @@ abstract class HeapByteSource extends MemoryByteSource {
 				done = true; // EOF
 			}
 		}
+		return build(chunks);
+	}
+
+	private static MemoryByteSource build(List<ByteArrayByteSource> chunks) {
 		final int n = chunks.size();
 		if (n == 0) {
 			return EmptyByteSource.HEAP;
@@ -73,9 +79,17 @@ abstract class HeapByteSource extends MemoryByteSource {
 			return new ChunkedHeapByteSource(new Chunks<ByteArrayByteSource>(chunks));
 		}
 	}
-	
+
 	private static final int tryReadOne(InputStream is) throws IOException {
 		return is.read() < 0 ? 0 : 1;
+	}
+
+	static SinkOutputStream openStream(MemoryByteSink sink, int maxSize, int chunkSize) {
+		return new Output(sink, maxSize, chunkSize);
+	}
+
+	/** Constructor. */
+	HeapByteSource() {
 	}
 
 	@Override
@@ -92,9 +106,68 @@ abstract class HeapByteSource extends MemoryByteSource {
 	public final MemoryByteSource toHeap(boolean merge) {
 		return merge ? merge() : this;
 	}
-	
+
 	@Override
 	public final MemoryByteSource toHeap(int chunkSize) {
 		return merge(chunkSize);
 	}
+
+	/** Heap-based sink output stream. */
+	private static final class Output extends SinkOutputStream {
+		/** Chunks. */
+		private final List<ByteArrayByteSource> chunks = Lists.newLinkedList();
+		/** Max size. */
+		private final int maxSize;
+		/** Max size. */
+		private final int chunkSize;
+		/** Buffer. */
+		private byte[] buffer = null;
+		/** Current position. */
+		private int position = 0;
+		/** Total number of bytes written. */
+		private int count = 0;
+
+		/** Constructor. */
+		Output(MemoryByteSink sink, int maxSize, int chunkSize) {
+			super(sink);
+			this.maxSize = checkMaxSize(maxSize);
+			this.chunkSize = checkChunkSize(chunkSize);
+		}
+
+		@Override
+		void write(byte b) throws IOException {
+			if (count >= maxSize) {
+				throw new IOException("Stream max size reached");
+			}
+			if (buffer == null) {
+				buffer = new byte[chunkSize];
+				position = 0;
+			} else if (position >= buffer.length) {
+				chunks.add(new ByteArrayByteSource(buffer));
+				buffer = new byte[chunkSize];
+				position = 0;
+			}
+			buffer[position] = b;
+			position++;
+			count++;
+		}
+
+		@Override
+		MemoryByteSource build() {
+			if (count == 0) {
+				return EmptyByteSource.HEAP;
+			}
+			if (position > 0) {
+				final byte[] loaded;
+				if (buffer.length - position <= 1) {
+					loaded = buffer;
+				} else {
+					loaded = Arrays.copyOf(buffer, position);
+				}
+				chunks.add(new ByteArrayByteSource(loaded));
+			}
+			return HeapByteSource.build(chunks);
+		}
+	}
+
 }

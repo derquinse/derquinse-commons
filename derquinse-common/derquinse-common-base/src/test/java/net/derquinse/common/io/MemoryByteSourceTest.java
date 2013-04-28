@@ -80,14 +80,24 @@ public class MemoryByteSourceTest {
 	}
 
 	/** Test maker. */
-	private void test(String test, int length, MemoryByteSourceLoader loader, boolean direct, int chunks)
+	private void test(String test, byte[] original, MemoryByteSource source, boolean direct, int chunks)
 			throws IOException {
-		byte[] original = data(length);
-		MemoryByteSource source = loader.load(new ByteArrayInputStream(original));
 		checkKind(test, "Direct Flag", direct == source.isDirect());
 		checkKind(test, "Heap Flag", direct == !source.isHeap());
 		checkKind(test, "Number of chunks", chunks == source.chunks());
 		check(test, original, source);
+	}
+
+	/** Test maker. */
+	private void test(String test, int length, MemoryByteSourceLoader loader, boolean direct, int chunks)
+			throws IOException {
+		byte[] original = data(length);
+		MemoryByteSource source = loader.load(new ByteArrayInputStream(original));
+		test(test, original, source, direct, chunks);
+		MemoryByteSink sink = loader.newSink();
+		sink.write(original);
+		MemoryByteSource source2 = sink.queue().remove();
+		test(test + " Sink ", original, source2, direct, chunks);
 	}
 
 	/** Exerciser. */
