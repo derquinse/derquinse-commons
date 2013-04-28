@@ -33,7 +33,7 @@ final class ByteBufferInputStream extends InputStream {
 
 	/**
 	 * Constructor.
-	 * @param buffer Backing buffer. The buffer will not be modified by this object.
+	 * @param buffer Backing buffer. The buffer contents will not be modified by this object.
 	 */
 	ByteBufferInputStream(ByteBuffer buffer) {
 		this.buffer = checkNotNull(buffer, "The backing buffer must be provided");

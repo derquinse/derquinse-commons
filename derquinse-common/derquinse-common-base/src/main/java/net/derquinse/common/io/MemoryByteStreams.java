@@ -44,4 +44,9 @@ public final class MemoryByteStreams extends NotInstantiable {
 		return new ByteBufferInputStreamSupplier(b);
 	}
 
+	/** Returns an input stream that reads the remaining bytes of the bprovided buffer. */
+	public static InputStream newInputStream(ByteBuffer buffer) {
+		return new ByteBufferInputStream(buffer);
+	}
+
 }
