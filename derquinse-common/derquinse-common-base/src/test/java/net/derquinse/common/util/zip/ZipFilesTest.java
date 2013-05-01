@@ -24,7 +24,6 @@ import java.util.Map;
 
 import net.derquinse.common.io.MemoryByteSource;
 import net.derquinse.common.io.MemoryByteSourceLoader;
-import net.derquinse.common.test.RandomSupport;
 
 import org.testng.annotations.Test;
 
@@ -64,4 +63,16 @@ public class ZipFilesTest {
 			assertTrue(cmp.contentEquals(orig));
 		}
 	}
+
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void overExpanded() throws IOException {
+		ZipFileLoader.get().maxSize(1600).load(getClass().getResourceAsStream("loren.zip"));
+	}
+
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void overItem() throws IOException {
+		ZipFileLoader.get().loader(MemoryByteSourceLoader.get().maxSize(128))
+				.load(getClass().getResourceAsStream("loren.zip"));
+	}
+
 }

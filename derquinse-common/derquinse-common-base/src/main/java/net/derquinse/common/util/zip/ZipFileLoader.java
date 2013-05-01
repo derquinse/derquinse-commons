@@ -98,7 +98,7 @@ public final class ZipFileLoader {
 				currentLoader = currentLoader.maxSize(Ints.saturatedCast(allowed));
 			}
 			try {
-				final MemoryByteSource data = loader.load(zis);
+				final MemoryByteSource data = currentLoader.load(zis);
 				allowed -= data.size();
 				final String item = entry.getName();
 				b.put(item, data);
