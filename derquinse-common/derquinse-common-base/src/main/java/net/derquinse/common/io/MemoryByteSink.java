@@ -70,10 +70,13 @@ public final class MemoryByteSink extends ByteSink {
 
 	@Override
 	public OutputStream openStream() throws IOException {
+		final MemoryOutputStream mos;
 		if (loader.isDirect()) {
-			return DirectByteSource.openStream(this, loader.getMaxSize(), loader.getChunkSize());
+			mos = DirectByteSource.openStream(loader);
+		} else {
+			mos = HeapByteSource.openStream(loader);
 		}
-		return HeapByteSource.openStream(this, loader.getMaxSize(), loader.getChunkSize());
+		return new SinkOutputStream(mos);
 	}
 
 	private final class Queue extends ForwardingBlockingQueue<MemoryByteSource> {
@@ -111,6 +114,36 @@ public final class MemoryByteSink extends ByteSink {
 			throw new UnsupportedOperationException("Can't add elements to the sink queue");
 		}
 
+	}
+
+	final class SinkOutputStream extends OutputStream {
+		/** Whether the stream is closed. */
+		private boolean closed = false;
+		/** Memory stream. */
+		private final MemoryOutputStream os;
+
+		/** Constructor. */
+		SinkOutputStream(MemoryOutputStream os) {
+			this.os = os;
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			os.write(b);
+		}
+
+		@Override
+		public void write(byte[] b, int off, int len) throws IOException {
+			os.write(b, off, len);
+		}
+
+		@Override
+		public synchronized final void close() {
+			if (!closed) {
+				queue.add(os.toByteSource());
+				closed = true;
+			}
+		}
 	}
 
 }

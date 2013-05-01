@@ -78,7 +78,7 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 			return new ChunkedHeapByteSource(new Chunks<ByteArrayByteSource>(list));
 		}
 	}
-	
+
 	@Override
 	public MemoryByteSource toHeap(int chunkSize) {
 		checkChunkSize(chunkSize);
@@ -87,7 +87,7 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 		} else if (chunkSize >= chunks.getTotalSize()) {
 			return toHeap(true);
 		}
-		return chunks.copyToHeap(chunkSize);
+		return MemoryByteSourceLoader.get().chunkSize(chunkSize).copy(this);
 	}
 
 	@Override

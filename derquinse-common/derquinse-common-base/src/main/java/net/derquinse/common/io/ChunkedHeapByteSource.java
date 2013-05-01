@@ -87,7 +87,7 @@ final class ChunkedHeapByteSource extends HeapByteSource {
 		} else if (chunkSize >= chunks.getTotalSize()) {
 			return toDirect(true);
 		}
-		return chunks.copyToDirect(chunkSize);
+		return MemoryByteSourceLoader.get().direct(true).chunkSize(chunkSize).copy(this);
 	}
 
 	@Override

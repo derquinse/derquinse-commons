@@ -15,24 +15,26 @@
  */
 package net.derquinse.common.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Base class for sink-created ouput streams.
+ * Output stream that stores written bytes in memory readable using a {@link MemoryByteSource}.
  * @author Andres Rodriguez
  */
-abstract class SinkOutputStream extends OutputStream {
-	/** Owning sink. */
-	private final MemoryByteSink sink;
+public abstract class MemoryOutputStream extends OutputStream {
+	/** Memory loader. */
+	final MemoryByteSourceLoader loader;
 	/** Whether the stream is closed. */
 	private boolean closed = false;
+	/** Result. */
+	private volatile MemoryByteSource source;
+	/** Total number of bytes written. */
+	private int count = 0;
 
 	/** Constructor. */
-	SinkOutputStream(MemoryByteSink sink) {
-		this.sink = checkNotNull(sink);
+	MemoryOutputStream(MemoryByteSourceLoader loader) {
+		this.loader = loader;
 	}
 
 	private void ensureOpen() throws IOException {
@@ -61,16 +63,47 @@ abstract class SinkOutputStream extends OutputStream {
 			write(b[off + i]);
 		}
 	}
+	
+	private void write(byte b) throws IOException {
+		final int maxSize = loader.getMaxSize();
+		if (count >= maxSize) {
+			throw new MaximumSizeExceededException(maxSize);
+		}
+		add(b);
+		count++;
+	}
 
+	/**
+	 * Closes the stream. One the stream is closed the byte source is available. Closing an
+	 * already-closed stream is a no-op.
+	 */
 	@Override
-	public synchronized final void close() throws IOException {
-		ensureOpen();
-		MemoryByteSource source = build();
-		sink.add(source);
+	public synchronized final void close() {
+		if (closed) {
+			return;
+		}
+		if (count == 0) {
+			source = loader.isDirect() ? EmptyByteSource.DIRECT : EmptyByteSource.HEAP;
+		} else {
+			source = build();
+			if (loader.isMerge()) {
+				source = source.merge();
+			}
+		}
 		closed = true;
 	}
 
-	abstract void write(byte b) throws IOException;
+	/**
+	 * Returns the result. If the stream is open it will be closed.
+	 */
+	public final MemoryByteSource toByteSource() {
+		if (source == null) {
+			close();
+		}
+		return source;
+	}
+
+	abstract void add(byte b) throws IOException;
 
 	abstract MemoryByteSource build();
 }

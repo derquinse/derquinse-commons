@@ -120,29 +120,7 @@ final class Chunks<T extends MemoryByteSource> extends ForwardingList<T> {
 		} else if (chunkSize >= totalSize) {
 			return container.merge();
 		}
-		if (container.isDirect()) {
-			return copyToDirect(chunkSize);
-		} else {
-			return copyToHeap(chunkSize);
-		}
-	}
-
-	/** Copies to a new heap byte source with the specified chunk size. */
-	MemoryByteSource copyToHeap(int chunkSize) {
-		try {
-			return HeapByteSource.load(openStream(), Integer.MAX_VALUE, chunkSize);
-		} catch (IOException e) {
-			throw new IllegalStateException(e); // should not happen
-		}
-	}
-
-	/** Copies to a new direct byte source with the specified chunk size. */
-	MemoryByteSource copyToDirect(int chunkSize) {
-		try {
-			return DirectByteSource.load(openStream(), Integer.MAX_VALUE, chunkSize);
-		} catch (IOException e) {
-			throw new IllegalStateException(e); // should not happen
-		}
+		return MemoryByteSourceLoader.get().chunkSize(chunkSize).direct(container.isDirect()).copy(container);
 	}
 
 }

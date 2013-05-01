@@ -177,7 +177,7 @@ public class MemoryByteSourceTest {
 	/**
 	 * More than maximum size.
 	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void heapOver() throws IOException {
 		test("Heap overflow", 456, get().maxSize(384), false, 0);
 	}
@@ -185,7 +185,7 @@ public class MemoryByteSourceTest {
 	/**
 	 * More than maximum size.
 	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void heapOverChunked() throws IOException {
 		test("Heap overflow chuncked", 456, get().chunkSize(128).maxSize(384), false, 0);
 	}
@@ -193,7 +193,7 @@ public class MemoryByteSourceTest {
 	/**
 	 * More than maximum size.
 	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void directOver() throws IOException {
 		test("Direct overflow", 456, get().direct(true).maxSize(384), true, 0);
 	}
@@ -201,7 +201,7 @@ public class MemoryByteSourceTest {
 	/**
 	 * More than maximum size.
 	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void directOverChunked() throws IOException {
 		test("Direct overflow chuncked", 456, get().direct(true).chunkSize(128).maxSize(384), true, 0);
 	}

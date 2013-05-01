@@ -27,6 +27,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.google.common.base.Objects;
 import com.google.common.io.ByteSource;
+import com.google.common.io.ByteStreams;
 import com.google.common.io.Closer;
 import com.google.common.io.InputSupplier;
 import com.google.common.primitives.Ints;
@@ -167,13 +168,23 @@ public final class MemoryByteSourceLoader {
 			transformer.transform(is, sink);
 			return sink.queue().remove();
 		}
-		final MemoryByteSource source;
+		final MemoryOutputStream os;
 		if (direct) {
-			source = DirectByteSource.load(is, maxSize, chunkSize);
+			os = DirectByteSource.openStream(this);
 		} else {
-			source = HeapByteSource.load(is, maxSize, chunkSize);
+			os = HeapByteSource.openStream(this);
 		}
-		return merged(source);
+		ByteStreams.copy(is, os);
+		return os.toByteSource();
+	}
+
+	/** Performs a copy of the provided source. */
+	MemoryByteSource copy(MemoryByteSource source) {
+		try {
+			return load(source.openStream());
+		} catch (IOException e) {
+			throw new IllegalStateException(e); // should not happen
+		}
 	}
 
 	/**
