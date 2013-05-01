@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.33-SNAPSHOT</version>
+		<version>1.0.33</version>
 	</parent>
 	<artifactId>derquinse-common-orm-hib</artifactId>
 	<name>Derquinse Commons :: ORM :: Hibernate</name>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-orm</artifactId>
-			<version>1.0.33-SNAPSHOT</version>
+			<version>1.0.33</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -34,14 +34,14 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.33-SNAPSHOT</version>
+			<version>1.0.33</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-deps</artifactId>
-			<version>1.0.33-SNAPSHOT</version>
+			<version>1.0.33</version>
 			<type>pom</type>
 		</dependency>
 	</dependencies>
