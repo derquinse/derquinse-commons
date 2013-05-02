@@ -70,12 +70,7 @@ public final class MemoryByteSink extends ByteSink {
 
 	@Override
 	public OutputStream openStream() throws IOException {
-		final MemoryOutputStream mos;
-		if (loader.isDirect()) {
-			mos = DirectByteSource.openStream(loader);
-		} else {
-			mos = HeapByteSource.openStream(loader);
-		}
+		final MemoryOutputStream mos = loader.openStream();
 		return new SinkOutputStream(mos);
 	}
 

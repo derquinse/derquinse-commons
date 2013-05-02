@@ -32,12 +32,12 @@ import com.google.common.io.ByteSource;
  */
 @Beta
 public abstract class MemoryByteSource extends ByteSource {
-	/** Creates a heap memory byte source backed by a copy of the provided array. */
+	/** Creates a merged heap memory byte source backed by a copy of the provided array. */
 	public static MemoryByteSource heapCopyOf(byte[] source) {
 		return new ByteArrayByteSource(checkSourceArray(source).clone());
 	}
 
-	/** Creates a direct memory byte source backed by a copy of the provided array. */
+	/** Creates a merged direct memory byte source backed by a copy of the provided array. */
 	public static MemoryByteSource directCopyOf(byte[] source) {
 		final int size = checkSourceArray(source).length;
 		ByteBuffer buffer = ByteBuffer.allocateDirect(size);
@@ -51,7 +51,10 @@ public abstract class MemoryByteSource extends ByteSource {
 		return new ByteArrayByteSource(checkNotNull(source, "The source array must be provided"));
 	}
 
-	/** Creates a heap memory byte source backed by a copy of the provided buffer, which is consumed. */
+	/**
+	 * Creates a merged heap memory byte source backed by a copy of the provided buffer, which is
+	 * consumed.
+	 */
 	public static MemoryByteSource heapCopyOf(ByteBuffer source) {
 		final int size = checkSourceBuffer(source).remaining();
 		final byte[] bytes = new byte[size];
@@ -60,7 +63,8 @@ public abstract class MemoryByteSource extends ByteSource {
 	}
 
 	/**
-	 * Creates a direct memory byte source backed by a copy of the provided buffer, which is consumed.
+	 * Creates a merged direct memory byte source backed by a copy of the provided buffer, which is
+	 * consumed.
 	 */
 	public static MemoryByteSource directCopyOf(ByteBuffer source) {
 		final int size = checkSourceBuffer(source).remaining();
@@ -68,6 +72,18 @@ public abstract class MemoryByteSource extends ByteSource {
 		buffer.put(source);
 		buffer.flip();
 		return new ByteBufferByteSource(buffer);
+	}
+
+	/** Creates a merged memory byte source backed by a copy of the provided array. */
+	public static MemoryByteSource copyOf(boolean direct, byte[] source) {
+		return direct ? directCopyOf(source) : heapCopyOf(source);
+	}
+
+	/**
+	 * Creates a merged memory byte source backed by a copy of the provided buffer, which is consumed.
+	 */
+	public static MemoryByteSource copyOf(boolean direct, ByteBuffer source) {
+		return direct ? directCopyOf(source) : heapCopyOf(source);
 	}
 
 	/** Constructor. */

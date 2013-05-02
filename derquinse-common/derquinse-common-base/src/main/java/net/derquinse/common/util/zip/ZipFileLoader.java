@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import net.derquinse.common.io.MaximumSizeExceededException;
 import net.derquinse.common.io.MemoryByteSource;
 import net.derquinse.common.io.MemoryByteSourceLoader;
 
@@ -84,7 +85,8 @@ public final class ZipFileLoader {
 	 * Loads a zip file into memory.
 	 * @param input Input data. The stream is not closed.
 	 * @return The loaded zip file.
-	 * @throws IOException if an I/O error occurs
+	 * @throws IOException if an I/O error occurs.
+	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
 	 */
 	public LoadedZipFile load(InputStream input) throws IOException {
 		checkInput(input);
@@ -116,6 +118,7 @@ public final class ZipFileLoader {
 	 * @param input Input data.
 	 * @return The loaded zip file.
 	 * @throws IOException if an I/O error occurs
+	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
 	 */
 	public LoadedZipFile load(InputSupplier<? extends InputStream> input) throws IOException {
 		checkInput(input);
@@ -132,6 +135,7 @@ public final class ZipFileLoader {
 	 * @param input Input data.
 	 * @return The loaded zip file.
 	 * @throws IOException if an I/O error occurs
+	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
 	 */
 	public LoadedZipFile load(ByteSource input) throws IOException {
 		checkInput(input);
@@ -148,6 +152,7 @@ public final class ZipFileLoader {
 	 * @param file Input file.
 	 * @return A map from zip entry nada to entry data.
 	 * @throws IOException if an I/O error occurs
+	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
 	 */
 	public LoadedZipFile load(File file) throws IOException {
 		checkInput(file);

@@ -156,6 +156,14 @@ public final class MemoryByteSourceLoader {
 		return source;
 	}
 
+	/** Opens a new memory output stream. */
+	public MemoryOutputStream openStream() {
+		if (direct) {
+			return DirectByteSource.openStream(this);
+		}
+		return HeapByteSource.openStream(this);
+	}
+
 	/**
 	 * Loads the contents of the input stream into a memory byte source.
 	 * @param is Input stream. It is not closed.
@@ -163,18 +171,12 @@ public final class MemoryByteSourceLoader {
 	 */
 	public MemoryByteSource load(InputStream is) throws IOException {
 		checkNotNull(is, "The input stream to load must be provided");
+		final MemoryOutputStream os = openStream();
 		if (transformer != null) {
-			MemoryByteSink sink = newSink();
-			transformer.transform(is, sink);
-			return sink.queue().remove();
-		}
-		final MemoryOutputStream os;
-		if (direct) {
-			os = DirectByteSource.openStream(this);
+			transformer.transform(is, os);
 		} else {
-			os = HeapByteSource.openStream(this);
+			ByteStreams.copy(is, os);
 		}
-		ByteStreams.copy(is, os);
 		return os.toByteSource();
 	}
 

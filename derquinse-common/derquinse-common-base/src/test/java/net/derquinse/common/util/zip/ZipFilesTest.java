@@ -22,6 +22,7 @@ import static org.testng.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Map;
 
+import net.derquinse.common.io.MaximumSizeExceededException;
 import net.derquinse.common.io.MemoryByteSource;
 import net.derquinse.common.io.MemoryByteSourceLoader;
 
@@ -64,12 +65,12 @@ public class ZipFilesTest {
 		}
 	}
 
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void overExpanded() throws IOException {
 		ZipFileLoader.get().maxSize(1600).load(getClass().getResourceAsStream("loren.zip"));
 	}
 
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = MaximumSizeExceededException.class)
 	public void overItem() throws IOException {
 		ZipFileLoader.get().loader(MemoryByteSourceLoader.get().maxSize(128))
 				.load(getClass().getResourceAsStream("loren.zip"));

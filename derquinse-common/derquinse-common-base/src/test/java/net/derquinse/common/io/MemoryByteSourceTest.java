@@ -94,10 +94,14 @@ public class MemoryByteSourceTest {
 		byte[] original = data(length);
 		MemoryByteSource source = loader.load(new ByteArrayInputStream(original));
 		test(test, original, source, direct, chunks);
+		MemoryOutputStream os = loader.openStream();
+		os.write(original);
+		MemoryByteSource source2 = os.toByteSource();
+		test(test + " OS ", original, source2, direct, chunks);
 		MemoryByteSink sink = loader.newSink();
 		sink.write(original);
-		MemoryByteSource source2 = sink.queue().remove();
-		test(test + " Sink ", original, source2, direct, chunks);
+		MemoryByteSource source3 = sink.queue().remove();
+		test(test + " Sink ", original, source3, direct, chunks);
 	}
 
 	/** Exerciser. */
