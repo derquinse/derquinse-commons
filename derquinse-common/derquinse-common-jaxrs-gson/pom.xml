@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.34</version>
+		<version>1.0.35-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>derquinse-common-jaxrs-gson</artifactId>
@@ -13,17 +13,17 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-jaxrs</artifactId>
-			<version>1.0.34</version>
+			<version>1.0.35-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-gson</artifactId>
-			<version>1.0.34</version>
+			<version>1.0.35-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.34</version>
+			<version>1.0.35-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
