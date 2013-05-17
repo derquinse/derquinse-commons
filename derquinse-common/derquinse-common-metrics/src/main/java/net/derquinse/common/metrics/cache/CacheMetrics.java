@@ -15,12 +15,12 @@
  */
 package net.derquinse.common.metrics.cache;
 
+import static com.codahale.metrics.MetricRegistry.name;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.yammer.metrics.MetricRegistry.name;
 
+import com.codahale.metrics.Gauge;
+import com.codahale.metrics.MetricRegistry;
 import com.google.common.cache.Cache;
-import com.yammer.metrics.Gauge;
-import com.yammer.metrics.MetricRegistry;
 
 /**
  * Metrics for a Guava {@link Cache}. The cache must record stats for the metrics to be useful.

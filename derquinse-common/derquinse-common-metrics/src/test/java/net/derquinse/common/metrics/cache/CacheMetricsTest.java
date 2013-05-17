@@ -19,11 +19,11 @@ import java.util.Map.Entry;
 
 import org.testng.annotations.Test;
 
+import com.codahale.metrics.Gauge;
+import com.codahale.metrics.MetricRegistry;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.yammer.metrics.Gauge;
-import com.yammer.metrics.MetricRegistry;
 
 /**
  * Tests for CacheMetrics.
@@ -47,7 +47,7 @@ public class CacheMetricsTest {
 		for (int i = 50; i < 150; i++) {
 			cache.getUnchecked(i);
 		}
-		MetricRegistry metrics = new MetricRegistry("test");
+		MetricRegistry metrics = new MetricRegistry();
 		CacheMetrics.of(cache).register(metrics, "cache");
 		for (Entry<String, Gauge> entry : metrics.getGauges().entrySet()) {
 			System.out.printf("%s - %s\n", entry.getKey(), entry.getValue().getValue());
