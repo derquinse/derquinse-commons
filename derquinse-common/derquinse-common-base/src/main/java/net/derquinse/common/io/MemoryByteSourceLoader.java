@@ -20,6 +20,7 @@ import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
 import static net.derquinse.common.io.InternalPreconditions.checkMaxSize;
 import static net.derquinse.common.io.InternalPreconditions.checkSize;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,6 +30,7 @@ import com.google.common.base.Objects;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closer;
+import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 import com.google.common.primitives.Ints;
 
@@ -209,18 +211,15 @@ public final class MemoryByteSourceLoader {
 	 */
 	public MemoryByteSource load(ByteSource source) throws IOException {
 		checkNotNull(source, "The byte source to load must be provided");
-		if (transformer != null) {
-			MemoryByteSink sink = newSink();
-			transformer.transform(source, sink);
-			return sink.queue().remove();
-		}
-		if (source instanceof MemoryByteSource) {
+		if (transformer == null && source instanceof MemoryByteSource) {
 			return transform((MemoryByteSource) source);
 		}
 		Closer closer = Closer.create();
 		try {
 			InputStream is = closer.register(source.openStream());
 			return load(is);
+		} catch (Throwable t) {
+			throw closer.rethrow(t);
 		} finally {
 			closer.close();
 		}
@@ -232,11 +231,6 @@ public final class MemoryByteSourceLoader {
 	 */
 	public MemoryByteSource load(InputSupplier<? extends InputStream> supplier) throws IOException {
 		checkNotNull(supplier, "The input supplier to load must be provided");
-		if (transformer != null) {
-			MemoryByteSink sink = newSink();
-			transformer.transform(supplier, sink);
-			return sink.queue().remove();
-		}
 		/*
 		 * if (supplier instanceof MemoryByteSource) { return transform((MemoryByteSource) supplier); //
 		 * for guava 15 }
@@ -245,9 +239,20 @@ public final class MemoryByteSourceLoader {
 		try {
 			InputStream is = closer.register(supplier.getInput());
 			return load(is);
+		} catch (Throwable t) {
+			throw closer.rethrow(t);
 		} finally {
 			closer.close();
 		}
+	}
+
+	/**
+	 * Loads the contents of an existing file into a memory byte source.
+	 * @return The loaded data in a byte source.
+	 */
+	public MemoryByteSource load(File file) throws IOException {
+		checkNotNull(file, "The file to load must be provided");
+		return load(Files.asByteSource(file));
 	}
 
 	@Override
