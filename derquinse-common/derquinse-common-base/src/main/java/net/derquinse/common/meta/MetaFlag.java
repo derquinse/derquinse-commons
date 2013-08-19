@@ -153,10 +153,7 @@ public abstract class MetaFlag<C> extends MetaField<C, Boolean> implements Predi
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj instanceof MetaFlag.FlagProperty) {
-				return get() == getClass().cast(obj).get();
-			}
-			return false;
+			return this == obj;
 		}
 	}
 
