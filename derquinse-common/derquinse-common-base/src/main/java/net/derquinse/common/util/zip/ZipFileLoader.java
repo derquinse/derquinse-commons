@@ -34,7 +34,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 import com.google.common.primitives.Ints;
 
 /**
@@ -120,23 +119,6 @@ public final class ZipFileLoader {
 	 * @throws IOException if an I/O error occurs
 	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
 	 */
-	public LoadedZipFile load(InputSupplier<? extends InputStream> input) throws IOException {
-		checkInput(input);
-		Closer closer = Closer.create();
-		try {
-			return load(closer.register(input.getInput()));
-		} finally {
-			closer.close();
-		}
-	}
-
-	/**
-	 * Loads a zip file into memory.
-	 * @param input Input data.
-	 * @return The loaded zip file.
-	 * @throws IOException if an I/O error occurs
-	 * @throws MaximumSizeExceededException if any of the entries exceeds the maximum size.
-	 */
 	public LoadedZipFile load(ByteSource input) throws IOException {
 		checkInput(input);
 		Closer closer = Closer.create();
@@ -156,7 +138,7 @@ public final class ZipFileLoader {
 	 */
 	public LoadedZipFile load(File file) throws IOException {
 		checkInput(file);
-		return load(Files.newInputStreamSupplier(file));
+		return load(Files.asByteSource(file));
 	}
 
 	/*

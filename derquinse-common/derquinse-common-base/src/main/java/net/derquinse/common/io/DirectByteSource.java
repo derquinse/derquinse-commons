@@ -28,14 +28,14 @@ import com.google.common.collect.Lists;
  */
 abstract class DirectByteSource extends MemoryByteSource {
 
-	private static MemoryByteSource build(List<ByteBufferByteSource> chunks) {
+	private static MemoryByteSource build(List<SingleDirectByteSource> chunks) {
 		final int n = chunks.size();
 		if (n == 0) {
 			return EmptyByteSource.DIRECT;
 		} else if (n == 1) {
 			return chunks.get(0);
 		} else {
-			return new ChunkedDirectByteSource(new Chunks<ByteBufferByteSource>(chunks));
+			return new ChunkedDirectByteSource(new Chunks<SingleDirectByteSource>(chunks));
 		}
 	}
 
@@ -70,7 +70,7 @@ abstract class DirectByteSource extends MemoryByteSource {
 	/** Direct buffer-based sink output stream. */
 	private static final class Output extends MemoryOutputStream {
 		/** Chunks. */
-		private final List<ByteBufferByteSource> chunks = Lists.newLinkedList();
+		private final List<SingleDirectByteSource> chunks = Lists.newLinkedList();
 		/** Buffer. */
 		private ByteBuffer buffer = null;
 
@@ -86,7 +86,7 @@ abstract class DirectByteSource extends MemoryByteSource {
 				buffer = ByteBuffer.allocateDirect(chunkSize);
 			} else if (buffer.remaining() <= 0) {
 				buffer.flip();
-				chunks.add(new ByteBufferByteSource(buffer));
+				chunks.add(new SingleDirectByteSource(buffer));
 				buffer = ByteBuffer.allocateDirect(chunkSize);
 			}
 			buffer.put(b);
@@ -107,7 +107,7 @@ abstract class DirectByteSource extends MemoryByteSource {
 			} else {
 				bytes = buffer;
 			}
-			chunks.add(new ByteBufferByteSource(bytes));
+			chunks.add(new SingleDirectByteSource(bytes));
 			return DirectByteSource.build(chunks);
 		}
 	}

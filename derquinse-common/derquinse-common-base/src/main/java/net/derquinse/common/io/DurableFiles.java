@@ -15,6 +15,8 @@
  */
 package net.derquinse.common.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,11 +28,10 @@ import java.nio.charset.Charset;
 import net.derquinse.common.base.NotInstantiable;
 
 import com.google.common.annotations.Beta;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.CharStreams;
+import com.google.common.io.ByteSource;
+import com.google.common.io.CharSource;
 import com.google.common.io.Closeables;
 import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 
 /**
  * Provides utility methods for working with durable files. All method parameters must be non-null
@@ -50,21 +51,16 @@ public final class DurableFiles extends NotInstantiable {
 	 * @param to the destination file
 	 * @throws IOException if an I/O error occurs
 	 */
-	public static void copy(InputSupplier<? extends InputStream> from, File to) throws IOException {
+	public static void copy(ByteSource from, File to) throws IOException {
 		boolean threw = true;
-		InputStream in = from.getInput();
+		FileOutputStream os = new FileOutputStream(to);
 		try {
-			FileOutputStream os = new FileOutputStream(to);
-			try {
-				ByteStreams.copy(in, os);
-				os.flush();
-				os.getFD().sync();
-				threw = false;
-			} finally {
-				Closeables.close(os, threw);
-			}
+			from.copyTo(os);
+			os.flush();
+			os.getFD().sync();
+			threw = false;
 		} finally {
-			Closeables.close(in, threw);
+			Closeables.close(os, threw);
 		}
 	}
 
@@ -75,7 +71,7 @@ public final class DurableFiles extends NotInstantiable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public static void write(byte[] from, File to) throws IOException {
-		copy(ByteStreams.newInputStreamSupplier(from), to);
+		copy(ByteSource.wrap(from), to);
 	}
 
 	/**
@@ -85,25 +81,28 @@ public final class DurableFiles extends NotInstantiable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public static void copy(File from, File to) throws IOException {
-		copy(Files.newInputStreamSupplier(from), to);
+		copy(Files.asByteSource(from), to);
 	}
 
 	/**
-	 * Copies to a file all characters from a {@link Readable} and {@link Closeable} object supplied
+	 * Copies to a file all characters from a {@link CharSource} and {@link Closeable} object supplied
 	 * by a factory, using the given character set. The file is sync'd before being closed.
-	 * @param from the readable supplier
+	 * @param from source data
 	 * @param to the destination file
 	 * @param charset the character set used when writing the file
 	 * @throws IOException if an I/O error occurs
 	 */
-	public static <R extends Readable & Closeable> void copy(InputSupplier<R> from, File to, Charset charset)
+	public static <R extends Readable & Closeable> void copy(CharSource from, File to, Charset charset)
 			throws IOException {
+		checkNotNull(from);
+		checkNotNull(to);
+		checkNotNull(charset);
 		boolean threw = true;
 		FileOutputStream os = new FileOutputStream(to);
 		try {
 			OutputStreamWriter w = new OutputStreamWriter(os, charset);
 			try {
-				CharStreams.copy(from, w);
+				from.copyTo(w);
 				w.flush();
 				os.flush();
 				os.getFD().sync();

@@ -31,7 +31,6 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 import com.google.common.primitives.Ints;
 
 /**
@@ -217,27 +216,6 @@ public final class MemoryByteSourceLoader {
 		Closer closer = Closer.create();
 		try {
 			InputStream is = closer.register(source.openStream());
-			return load(is);
-		} catch (Throwable t) {
-			throw closer.rethrow(t);
-		} finally {
-			closer.close();
-		}
-	}
-
-	/**
-	 * Loads the contents of an existing input supplier into a memory byte source.
-	 * @return The loaded data in a byte source.
-	 */
-	public MemoryByteSource load(InputSupplier<? extends InputStream> supplier) throws IOException {
-		checkNotNull(supplier, "The input supplier to load must be provided");
-		/*
-		 * if (supplier instanceof MemoryByteSource) { return transform((MemoryByteSource) supplier); //
-		 * for guava 15 }
-		 */
-		Closer closer = Closer.create();
-		try {
-			InputStream is = closer.register(supplier.getInput());
 			return load(is);
 		} catch (Throwable t) {
 			throw closer.rethrow(t);

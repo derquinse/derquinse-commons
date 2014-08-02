@@ -36,7 +36,6 @@ import java.util.List;
 import com.google.common.annotations.Beta;
 import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
-import com.google.common.hash.HashCodes;
 
 /**
  * Immutable array of bytes. Based on Google's code in Protocol Buffers. A version of this class is
@@ -290,7 +289,7 @@ public final class ByteString implements Serializable {
 	 */
 	public HashCode toHashCode() {
 		checkState(bytes.length > 0, "The byte string must not be empty");
-		return HashCodes.fromBytes(bytes);
+		return HashCode.fromBytes(bytes);
 	}
 
 	/**

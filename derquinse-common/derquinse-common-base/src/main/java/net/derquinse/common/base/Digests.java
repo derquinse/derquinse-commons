@@ -18,13 +18,11 @@ package net.derquinse.common.base;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.common.io.ByteProcessor;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 
 /**
  * Utility class for dealing with message digests.
@@ -78,9 +76,10 @@ public final class Digests extends NotInstantiable {
 	/**
 	 * Computes and returns as a byte string the digest of the provided data.
 	 */
-	public static ByteString getDigest(InputSupplier<? extends InputStream> supplier, final MessageDigest md)
-			throws IOException {
-		final byte[] digest = ByteStreams.readBytes(supplier, new ByteProcessor<byte[]>() {
+	public static ByteString getDigest(ByteSource source, final MessageDigest md) throws IOException {
+		checkNotNull(source);
+		checkNotNull(md);
+		final byte[] digest = source.read(new ByteProcessor<byte[]>() {
 			@Override
 			public boolean processBytes(byte[] buf, int off, int len) {
 				md.update(buf, off, len);
@@ -108,8 +107,8 @@ public final class Digests extends NotInstantiable {
 	}
 
 	/** Computes and returns as a byte string the MD5 digest of the provided data. */
-	public static ByteString md5(InputSupplier<? extends InputStream> supplier) throws IOException {
-		return getDigest(supplier, md5());
+	public static ByteString md5(ByteSource source) throws IOException {
+		return getDigest(source, md5());
 	}
 
 	/**
@@ -125,8 +124,8 @@ public final class Digests extends NotInstantiable {
 	}
 
 	/** Computes and returns as a byte string the SHA-1 digest of the provided data. */
-	public static ByteString sha1(InputSupplier<? extends InputStream> supplier) throws IOException {
-		return getDigest(supplier, sha1());
+	public static ByteString sha1(ByteSource source) throws IOException {
+		return getDigest(source, sha1());
 	}
 
 	/**
@@ -142,8 +141,8 @@ public final class Digests extends NotInstantiable {
 	}
 
 	/** Computes and returns as a byte string the SHA-256 digest of the provided data. */
-	public static ByteString sha256(InputSupplier<? extends InputStream> supplier) throws IOException {
-		return getDigest(supplier, sha256());
+	public static ByteString sha256(ByteSource source) throws IOException {
+		return getDigest(source, sha256());
 	}
 
 	/**
@@ -159,8 +158,8 @@ public final class Digests extends NotInstantiable {
 	}
 
 	/** Computes and returns as a byte string the SHA-512 digest of the provided data. */
-	public static ByteString sha512(InputSupplier<? extends InputStream> supplier) throws IOException {
-		return getDigest(supplier, sha512());
+	public static ByteString sha512(ByteSource source) throws IOException {
+		return getDigest(source, sha512());
 	}
 
 }

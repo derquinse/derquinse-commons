@@ -31,13 +31,13 @@ import com.google.common.collect.Lists;
  */
 final class ChunkedDirectByteSource extends DirectByteSource {
 	/** Backing chunks. */
-	private final Chunks<ByteBufferByteSource> chunks;
+	private final Chunks<SingleDirectByteSource> chunks;
 
 	/**
 	 * Constructor. The caller must guarantee that the chunks are of the correct type.
 	 * @param chunks Backing chunks.
 	 */
-	ChunkedDirectByteSource(Chunks<ByteBufferByteSource> chunks) {
+	ChunkedDirectByteSource(Chunks<SingleDirectByteSource> chunks) {
 		this.chunks = checkNotNull(chunks);
 	}
 
@@ -56,7 +56,7 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 		final ByteBuffer buffer = ByteBuffer.allocateDirect(chunks.getTotalSize());
 		writeTo(buffer);
 		buffer.flip();
-		return new ByteBufferByteSource(buffer);
+		return new SingleDirectByteSource(buffer);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ final class ChunkedDirectByteSource extends DirectByteSource {
 			return new ByteArrayByteSource(buffer);
 		} else {
 			List<ByteArrayByteSource> list = Lists.newArrayListWithCapacity(chunks.size());
-			for (ByteBufferByteSource s : chunks) {
+			for (SingleDirectByteSource s : chunks) {
 				list.add(s.toHeap(true));
 			}
 			return new ChunkedHeapByteSource(new Chunks<ByteArrayByteSource>(list));

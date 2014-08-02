@@ -15,63 +15,47 @@
  */
 package net.derquinse.common.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static net.derquinse.common.io.InternalPreconditions.checkChunkSize;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.WritableByteChannel;
 
 /**
  * Heap for byte source backed by a single byte buffer.
  * @author Andres Rodriguez
  */
-final class ByteBufferByteSource extends DirectByteSource {
-	/** Backing buffer. */
-	private final ByteBuffer bytes;
+final class SingleDirectByteSource extends DirectByteSource {
+	/** Backing source. */
+	private final BufferByteSource bytes;
 
 	/**
 	 * Constructor. The buffer parameters are not modified and its contents should not be modified.
 	 * @param bytes Backing buffer.
 	 */
-	ByteBufferByteSource(ByteBuffer bytes) {
-		this.bytes = checkNotNull(bytes);
-	}
-
-	/** Returns a read-only view of the buffer. */
-	ByteBuffer view() {
-		return bytes.asReadOnlyBuffer();
+	SingleDirectByteSource(ByteBuffer bytes) {
+		this.bytes = new BufferByteSource(bytes);
 	}
 
 	@Override
 	public InputStream openStream() throws IOException {
-		return new ByteBufferInputStream(view());
+		return bytes.openStream();
 	}
 
 	@Override
 	public long size() {
-		return bytes.remaining();
+		return bytes.size();
 	}
 
 	@Override
 	public byte[] read() {
-		ByteBuffer b = view();
-		byte[] data = new byte[b.remaining()];
-		b.get(data);
-		return data;
+		return bytes.read();
 	}
 
 	@Override
 	public long copyTo(OutputStream output) throws IOException {
-		final WritableByteChannel channel = Channels.newChannel(output);
-		final ByteBuffer b = view();
-		while (b.remaining() > 0) {
-			channel.write(b);
-		}
-		return size();
+		return bytes.copyTo(output);
 	}
 
 	@Override
@@ -98,7 +82,7 @@ final class ByteBufferByteSource extends DirectByteSource {
 
 	@Override
 	int writeTo(byte[] buffer, int offset) {
-		final ByteBuffer b = view();
+		final ByteBuffer b = bytes.view();
 		final int sourceLength = b.remaining();
 		final int targetLength = buffer.length - offset;
 		if (sourceLength <= targetLength) {
@@ -113,7 +97,7 @@ final class ByteBufferByteSource extends DirectByteSource {
 
 	@Override
 	int writeTo(ByteBuffer buffer) {
-		ByteBuffer source = view();
+		ByteBuffer source = bytes.view();
 		final int sourceLength = source.remaining();
 		final int targetLength = buffer.remaining();
 		if (sourceLength <= targetLength) {

@@ -28,7 +28,6 @@ import org.hibernate.usertype.UserType;
 
 import com.google.common.base.Objects;
 import com.google.common.hash.HashCode;
-import com.google.common.hash.HashCodes;
 
 /**
  * An hibernate user type representing a {@link HashCode} as a byte array.
@@ -75,7 +74,7 @@ public class HashCodeUserType implements UserType {
 	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		final byte[] bytes = rs.getBytes(names[0]);
-		return (bytes == null || bytes.length == 0) ? null : HashCodes.fromBytes(bytes);
+		return (bytes == null || bytes.length == 0) ? null : HashCode.fromBytes(bytes);
 	}
 
 	/*

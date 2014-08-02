@@ -20,7 +20,7 @@ import java.nio.ByteBuffer;
 
 import net.derquinse.common.base.NotInstantiable;
 
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 
 /**
  * Provides utility methods for working with byte arrays, byte buffers and I/O streams backed by
@@ -35,13 +35,13 @@ public final class MemoryByteStreams extends NotInstantiable {
 	}
 
 	/**
-	 * Returns a factory that will supply instances of {@link InputStream} that read from an sliced
+	 * Returns a factory that will supply instances of {@link ByteSource} that read from an sliced
 	 * view of the given byte buffer.
 	 * @param b The input buffer.
 	 * @return The requested factory.
 	 */
-	public static InputSupplier<InputStream> newInputStreamSupplier(ByteBuffer b) {
-		return new ByteBufferInputStreamSupplier(b);
+	public static ByteSource newInputStreamSupplier(ByteBuffer b) {
+		return new BufferByteSource(b);
 	}
 
 	/** Returns an input stream that reads the remaining bytes of the bprovided buffer. */

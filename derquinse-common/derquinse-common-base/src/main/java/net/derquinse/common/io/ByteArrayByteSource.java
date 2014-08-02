@@ -84,11 +84,11 @@ final class ByteArrayByteSource extends HeapByteSource {
 	}
 
 	@Override
-	public ByteBufferByteSource toDirect(boolean merge) {
+	public SingleDirectByteSource toDirect(boolean merge) {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(bytes.length);
 		writeTo(buffer);
 		buffer.flip();
-		return new ByteBufferByteSource(buffer);
+		return new SingleDirectByteSource(buffer);
 	}
 
 	@Override

@@ -69,13 +69,13 @@ final class ChunkedHeapByteSource extends HeapByteSource {
 			ByteBuffer buffer = ByteBuffer.allocateDirect(chunks.getTotalSize());
 			writeTo(buffer);
 			buffer.flip();
-			return new ByteBufferByteSource(buffer);
+			return new SingleDirectByteSource(buffer);
 		} else {
-			List<ByteBufferByteSource> list = Lists.newArrayListWithCapacity(chunks.size());
+			List<SingleDirectByteSource> list = Lists.newArrayListWithCapacity(chunks.size());
 			for (ByteArrayByteSource s : chunks) {
 				list.add(s.toDirect(true));
 			}
-			return new ChunkedDirectByteSource(new Chunks<ByteBufferByteSource>(list));
+			return new ChunkedDirectByteSource(new Chunks<SingleDirectByteSource>(list));
 		}
 	}
 

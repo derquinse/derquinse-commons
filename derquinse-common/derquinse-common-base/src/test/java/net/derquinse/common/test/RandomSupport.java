@@ -15,11 +15,9 @@
  */
 package net.derquinse.common.test;
 
-import java.io.ByteArrayInputStream;
 import java.security.SecureRandom;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 
 /**
  * Randomness support class for tests.
@@ -66,9 +64,9 @@ public final class RandomSupport {
 	}
 
 	/**
-	 * Generates a user-specified number of random bytes, returning them as an input supplier.
+	 * Generates a user-specified number of random bytes, returning them as a byte source.
 	 */
-	public static InputSupplier<ByteArrayInputStream> getSupplier(int amount) {
-		return ByteStreams.newInputStreamSupplier(getBytes(amount));
+	public static ByteSource getSource(int amount) {
+		return ByteSource.wrap(getBytes(amount));
 	}
 }

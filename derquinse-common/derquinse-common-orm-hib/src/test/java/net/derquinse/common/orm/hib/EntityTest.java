@@ -15,7 +15,6 @@
  */
 package net.derquinse.common.orm.hib;
 
-import java.io.ByteArrayInputStream;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
@@ -32,8 +31,7 @@ import org.testng.annotations.Test;
 
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 
 /**
  * Tests and entity with custom user types.
@@ -45,7 +43,7 @@ public class EntityTest {
 	public void test() throws Exception {
 		byte[] bytes = new byte[1024];
 		new SecureRandom().nextBytes(bytes);
-		InputSupplier<ByteArrayInputStream> is = ByteStreams.newInputStreamSupplier(bytes);
+		ByteSource is = ByteSource.wrap(bytes);
 		ByteString sha1 = Digests.sha1(is);
 		HashCode sha256 = Hashing.sha256().hashBytes(bytes);
 		// DateTime t = DateTime.now().minusMonths(3);

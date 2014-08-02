@@ -27,8 +27,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.io.ByteSink;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Closer;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
 
 /**
  * Transformer for byte streams, suppliers and sources.
@@ -68,49 +66,12 @@ public final class BytesTransformer implements ByteStreamTransformer {
 	}
 
 	/** Transforms a stream of bytes. */
-	public void transform(InputStream input, OutputSupplier<? extends OutputStream> output) throws IOException {
-		checkInput(input);
-		checkOutput(output);
-		final Closer closer = Closer.create();
-		try {
-			transform(input, closer.register(output.getOutput()));
-		} finally {
-			closer.close();
-		}
-	}
-
-	/** Transforms a stream of bytes. */
 	public void transform(InputStream input, ByteSink output) throws IOException {
 		checkInput(input);
 		checkOutput(output);
 		final Closer closer = Closer.create();
 		try {
 			transform(input, closer.register(output.openStream()));
-		} finally {
-			closer.close();
-		}
-	}
-
-	/** Transforms a stream of bytes. */
-	public void transform(InputSupplier<? extends InputStream> input, OutputSupplier<? extends OutputStream> output)
-			throws IOException {
-		checkInput(input);
-		checkOutput(output);
-		final Closer closer = Closer.create();
-		try {
-			transform(closer.register(input.getInput()), closer.register(output.getOutput()));
-		} finally {
-			closer.close();
-		}
-	}
-
-	/** Transforms a stream of bytes. */
-	public void transform(InputSupplier<? extends InputStream> input, ByteSink output) throws IOException {
-		checkInput(input);
-		checkOutput(output);
-		final Closer closer = Closer.create();
-		try {
-			transform(closer.register(input.getInput()), closer.register(output.openStream()));
 		} finally {
 			closer.close();
 		}
@@ -123,6 +84,18 @@ public final class BytesTransformer implements ByteStreamTransformer {
 		final Closer closer = Closer.create();
 		try {
 			transform(closer.register(input.openStream()), closer.register(output.openStream()));
+		} finally {
+			closer.close();
+		}
+	}
+
+	/** Transforms a byte source. */
+	public void transform(ByteSource input, OutputStream output) throws IOException {
+		checkInput(input);
+		checkOutput(output);
+		final Closer closer = Closer.create();
+		try {
+			transform(closer.register(input.openStream()), output);
 		} finally {
 			closer.close();
 		}

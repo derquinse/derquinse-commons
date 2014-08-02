@@ -21,7 +21,7 @@ import net.derquinse.common.test.EqualityTests;
 
 import org.testng.annotations.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Tests for EqualityTests
@@ -43,7 +43,7 @@ public class EqualityTestsTest {
 	public void badOne() {
 		EqualityTests.one(new Object() {
 			@Override
-			@SuppressWarnings(value = "EQ_ALWAYS_TRUE", justification = "Intended for test purposes")
+			@SuppressFBWarnings(value = "EQ_ALWAYS_TRUE", justification = "Intended for test purposes")
 			public boolean equals(Object obj) {
 				return true;
 			}

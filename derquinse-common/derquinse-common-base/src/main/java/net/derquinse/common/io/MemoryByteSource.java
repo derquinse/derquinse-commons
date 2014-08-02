@@ -43,7 +43,7 @@ public abstract class MemoryByteSource extends ByteSource {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(size);
 		buffer.put(source);
 		buffer.flip();
-		return new ByteBufferByteSource(buffer);
+		return new SingleDirectByteSource(buffer);
 	}
 
 	/** Creates a heap memory byte source that is backed by a the provided array. */
@@ -71,7 +71,7 @@ public abstract class MemoryByteSource extends ByteSource {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(size);
 		buffer.put(source);
 		buffer.flip();
-		return new ByteBufferByteSource(buffer);
+		return new SingleDirectByteSource(buffer);
 	}
 
 	/** Creates a merged memory byte source backed by a copy of the provided array. */

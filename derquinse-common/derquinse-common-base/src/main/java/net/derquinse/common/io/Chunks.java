@@ -26,9 +26,7 @@ import java.util.List;
 
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 import com.google.common.primitives.Ints;
 
 /**
@@ -39,7 +37,7 @@ final class Chunks<T extends MemoryByteSource> extends ForwardingList<T> {
 	/** Sources. */
 	private final ImmutableList<T> sources;
 	/** Backing supplier. */
-	private final InputSupplier<InputStream> supplier;
+	private final ByteSource supplier;
 	/** Total size. */
 	private final int totalSize;
 	/** Chunk size. */
@@ -52,24 +50,14 @@ final class Chunks<T extends MemoryByteSource> extends ForwardingList<T> {
 	Chunks(List<? extends T> sources) {
 		checkNotNull(sources);
 		checkArgument(sources.size() > 1, "There must be at least two chunks");
-		int total = Ints.saturatedCast(sources.get(0).size());
+		this.sources = ImmutableList.copyOf(sources);
+		int total = Ints.saturatedCast(this.sources.get(0).size());
 		this.chunkSize = total;
-		for (int i = 1; i < sources.size(); i++) {
-			total += Ints.saturatedCast(sources.get(i).size());
+		for (int i = 1; i < this.sources.size(); i++) {
+			total += Ints.saturatedCast(this.sources.get(i).size());
 		}
 		this.totalSize = total;
-		// Change in v15
-		final List<InputSupplier<InputStream>> suppliers = Lists.newArrayListWithCapacity(sources.size());
-		for (final MemoryByteSource source : sources) {
-			suppliers.add(new InputSupplier<InputStream>() {
-				@Override
-				public InputStream getInput() throws IOException {
-					return source.openStream();
-				}
-			});
-		}
-		this.supplier = ByteStreams.join(suppliers);
-		this.sources = ImmutableList.copyOf(sources);
+		this.supplier = ByteSource.concat(this.sources);
 	}
 
 	protected List<T> delegate() {
@@ -83,7 +71,7 @@ final class Chunks<T extends MemoryByteSource> extends ForwardingList<T> {
 
 	/** Opens a stream. */
 	public InputStream openStream() throws IOException {
-		return supplier.getInput();
+		return supplier.openStream();
 	}
 
 	/** Returns the total size. */
