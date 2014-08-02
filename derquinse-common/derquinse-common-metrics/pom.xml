@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>net.derquinse</groupId>
 		<artifactId>derquinse-common</artifactId>
-		<version>1.0.36-SNAPSHOT</version>
+		<version>1.0.36</version>
 	</parent>
 	<artifactId>derquinse-common-metrics</artifactId>
 	<name>Derquinse Commons :: Metrics</name>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 		</dependency>
 		<dependency>
 			<groupId>com.codahale.metrics</groupId>
@@ -21,14 +21,14 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-deps</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 			<type>pom</type>
 		</dependency>
 	</dependencies>

@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>derquinse-common</artifactId>
 		<groupId>net.derquinse</groupId>
-		<version>1.0.36-SNAPSHOT</version>
+		<version>1.0.36</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>derquinse-common-gson</artifactId>
@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -22,14 +22,14 @@
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-base</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.derquinse</groupId>
 			<artifactId>derquinse-common-test-deps</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
+			<version>1.0.36</version>
 			<type>pom</type>
 		</dependency>
 	</dependencies>
