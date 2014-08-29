@@ -29,6 +29,7 @@ import net.derquinse.common.io.MaximumSizeExceededException;
 import net.derquinse.common.io.MemoryByteSource;
 import net.derquinse.common.io.MemoryByteSourceLoader;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteSource;
@@ -169,7 +170,7 @@ public final class ZipFileLoader {
 	 */
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).add("maxSize", maxSize).add("loader", loader).toString();
+		return MoreObjects.toStringHelper(this).add("maxSize", maxSize).add("loader", loader).toString();
 	}
 
 }

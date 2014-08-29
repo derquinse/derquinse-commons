@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import net.derquinse.common.base.IntegerWaterMark;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 /**
  * An atomic IntegerWaterMark. Provide access to the same mutation methods in a thread-safe way.
@@ -168,6 +168,6 @@ public final class AtomicIntegerWaterMark {
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).addValue(ref.get()).toString();
+		return MoreObjects.toStringHelper(this).addValue(ref.get()).toString();
 	}
 }

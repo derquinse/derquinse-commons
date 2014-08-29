@@ -26,6 +26,7 @@ import java.io.InputStream;
 
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
@@ -255,7 +256,7 @@ public final class MemoryByteSourceLoader {
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).omitNullValues().add("direct", direct).add("maxSize", maxSize)
+		return MoreObjects.toStringHelper(this).omitNullValues().add("direct", direct).add("maxSize", maxSize)
 				.add("chunkSize", chunkSize).add("merge", merge).add("transformer", transformer).toString();
 	}
 

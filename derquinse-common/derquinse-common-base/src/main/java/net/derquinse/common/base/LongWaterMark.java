@@ -15,7 +15,7 @@
  */
 package net.derquinse.common.base;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.primitives.Longs;
 
 /**
@@ -144,7 +144,7 @@ public final class LongWaterMark {
 	
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).add("current", current).add("min", min).add("max", max).toString();
+		return MoreObjects.toStringHelper(this).add("current", current).add("min", min).add("max", max).toString();
 	}
 
 }

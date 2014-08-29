@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 
 import net.derquinse.common.base.NotInstantiable;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
@@ -48,7 +49,7 @@ public final class Metas extends NotInstantiable {
 	 * @param <C> Containing type.
 	 */
 	public static final class ToStringHelper<C> {
-		private final Objects.ToStringHelper helper;
+		private final MoreObjects.ToStringHelper helper;
 		private final C object;
 
 		/**
@@ -56,7 +57,7 @@ public final class Metas extends NotInstantiable {
 		 */
 		private ToStringHelper(C object) {
 			this.object = checkNotNull(object);
-			this.helper = Objects.toStringHelper(object);
+			this.helper = MoreObjects.toStringHelper(object);
 		}
 
 		/**

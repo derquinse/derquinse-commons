@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import net.derquinse.common.base.Disposable;
 import net.derquinse.common.base.IntegerWaterMark;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.util.concurrent.Atomics;
 import com.google.common.util.concurrent.MoreExecutors;
 
@@ -129,7 +129,7 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	 */
 	@Override
 	public Future<Long> shutdown() {
-		return shutdown(MoreExecutors.sameThreadExecutor());
+		return shutdown(MoreExecutors.directExecutor());
 	}
 
 	private void runHook() {
@@ -142,7 +142,7 @@ final class DefaultRefCounted<T> implements RefCounted<T> {
 	@Override
 	public String toString() {
 		State s = state.get();
-		return Objects.toStringHelper(this).add("value", value).add("active", !s.closed()).add("count", s.count())
+		return MoreObjects.toStringHelper(this).add("value", value).add("active", !s.closed()).add("count", s.count())
 				.add("max", s.max()).toString();
 	}
 
