@@ -6,7 +6,7 @@
 		<version>46</version>
 	</parent>
 	<artifactId>derquinse-common</artifactId>
-	<version>1.0.36</version>
+	<version>1.0.37</version>
 	<packaging>pom</packaging>
 	<name>Derquinse Commons</name>
 	<description>Derquinse Common Java Libraries</description>
